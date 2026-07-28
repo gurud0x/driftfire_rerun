@@ -1,0 +1,10 @@
+{
+  "python.defaultInterpreterPath": "C:\\Users\\aarav\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+  "python.terminal.activateEnvironment": false,
+  "terminal.integrated.env.windows": {
+    "PATH": "C:\\Users\\aarav\\AppData\\Local\\Programs\\Python\\Python311;C:\\Users\\aarav\\AppData\\Local\\Programs\\Python\\Python311\\Scripts;${env:PATH}"
+  },
+  "terminal.integrated.env.osx": {
+    "PATH": "/opt/homebrew/bin:/usr/local/bin:${env:PATH}"
+  }
+}

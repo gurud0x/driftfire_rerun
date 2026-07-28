@@ -84,3 +84,7 @@ considered done.
 - Cite YouTube/social content in any research note. Videos are hypothesis
   generators; citations come from the papers (McLean & Pontiff 2016; Nagel
   2012; Lou, Polk & Skouras 2019; Moreira & Muir 2017; Grinold & Kahn).
+
+## Known issues
+
+- 01_ingest.py output has 716 duplicate PERMNO-day rows from multi-distribution ex-dates (identical on all price/return fields). Defended against in 03_signal.py via halting PASS-gate before dedup. Fix at source deferred — not blocking.
