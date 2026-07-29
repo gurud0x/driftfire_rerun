@@ -230,9 +230,18 @@ ODT = {'secid': 'int32', 'date': 'str', 'exdate': 'str',
        'open_interest': 'float64', 'optionid': 'int64'}
 keep = []
 scanned = 0
+# Whole-file liquidity accumulators, taken BEFORE any filtering so they
+# describe the full opprcd population and cross-check src/36's validation
+# (expected: 49.78% both-zero, 23.07% zero-bid). Added for the persisted
+# summary artifact; they do not touch any K1 computation.
+wf_zero_liq = 0
+wf_no_bid = 0
 for i, ch in enumerate(pd.read_csv(opp_path, usecols=ONEED, dtype=ODT,
                                    chunksize=OPP_CHUNK), 1):
     scanned += len(ch)
+    wf_zero_liq += int(((ch['volume'].fillna(0) == 0) &
+                        (ch['open_interest'].fillna(0) == 0)).sum())
+    wf_no_bid += int((ch['best_bid'].fillna(-1) == 0).sum())
     ch = ch[ch['secid'].isin(secid_set)]
     if len(ch):
         ch = ch[ch['date'].isin(date_set)]
@@ -416,6 +425,127 @@ print(f"\nDaily series: {len(port):,} days, "
 print(f"  open positions per day: mean {port['n_open_positions'].mean():.1f}, "
       f"max {port['n_open_positions'].max()}")
 print(f"[OK] Saved {out_path}")
+
+# --------------------------------------------------------------------------
+# PART 7: PERSIST the per-trade record and summary.
+#
+# Added after the fact so the paper's central K1 numbers are mechanically
+# verifiable like every other reported figure. NOTHING above this point was
+# changed: no computation, no filter, no threshold. This section only writes
+# out values that the run already produced, so a re-run reproduces the logged
+# gate result byte for byte.
+#
+# The per-trade parquet is the durable fix - with it, any future summary can
+# be regenerated WITHOUT re-scanning 80 GB of opprcd.
+# --------------------------------------------------------------------------
+import json
+from datetime import datetime
+
+trade_cols = ['trade_id', 'PERMNO', 'secid', 'decile', 'entry_date',
+              'exit_date', 'exdate_d', 'strike', 'oid_c', 'oid_p',
+              'bid_c_e', 'off_c_e', 'bid_p_e', 'off_p_e',
+              'bid_c_x', 'off_c_x', 'bid_p_x', 'off_p_x',
+              'entry_mid', 'exit_mid', 'entry_ask', 'exit_bid',
+              'ret_mid', 'ret_bid', 'liq_ok', 'year']
+trades_out = project_root / 'data' / 'processed' / 'k1_trades_real_prices.parquet'
+t[[c for c in trade_cols if c in t.columns]].to_parquet(trades_out,
+                                                        index=False)
+print(f"\n[OK] Saved per-trade record: {trades_out}  ({len(t):,} trades)")
+print("     Future summaries regenerate from this file - no 80 GB re-scan.")
+
+liq = t[t['liq_ok']]
+summary = {
+    'phase': 'K1 REAL PRICES (opprcd)',
+    'generated': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+    'script': 'src/37_k1_signal_construction_real_prices.py',
+    'pre_registration_commit': '3875314',
+    'window': f'DEV {DEV_START} to {DEV_END}',
+    'note': ('Per-trade statistics supplementing the daily-series statistics '
+             'in the K1 REAL PRICES gate_log entry. Prices are real quoted '
+             'bid/ask of the held contracts, identity-verified by optionid.'),
+    'trades': {
+        'locked_trade_list': int(len(trades)),
+        'matched_entry_and_exit': int(len(t)),
+        'match_rate_pct': round(len(t) / len(trades) * 100, 2),
+        'excluded': int(len(trades) - len(t)),
+        'unique_permnos': int(t['PERMNO'].nunique()),
+        'passing_liquidity_filter': int(t['liq_ok'].sum()),
+        'passing_liquidity_filter_pct': round(t['liq_ok'].mean() * 100, 2),
+    },
+    'mean_per_trade_return_pct': {
+        'mid_to_mid': round(float(t['ret_mid'].mean()) * 100, 4),
+        'bid_based_worst_fill': round(float(t['ret_bid'].mean()) * 100, 4),
+        'mid_liquidity_filtered': round(float(liq['ret_mid'].mean()) * 100, 4),
+    },
+    'entry_half_spread_pct_of_mid': {
+        'median': round(float(sp.median()), 4),
+        'mean': round(float(sp.mean()), 4),
+    },
+    'opprcd_whole_file_liquidity_pct': {
+        'zero_volume_and_zero_open_interest': round(
+            wf_zero_liq / scanned * 100, 2),
+        'zero_bid': round(wf_no_bid / scanned * 100, 2),
+        'rows_scanned': int(scanned),
+        'cross_check': ('src/36 validation reported 49.78% and 23.07% over '
+                        'the same file'),
+    },
+}
+json_out = project_root / 'data' / 'processed' / 'k1_trade_summary.json'
+json_out.write_text(json.dumps(summary, indent=2))
+print(f"[OK] Saved summary artifact: {json_out}")
+
+# Append-only block in gate_log.md. Never edits the existing K1 REAL PRICES
+# entry; guarded so repeated runs cannot duplicate it.
+MARKER = '## K1 REAL PRICES (opprcd) — per-trade statistics'
+log_path = project_root / 'results' / 'gate_log.md'
+log_text = log_path.read_text(encoding='utf-8', errors='replace')
+if MARKER in log_text:
+    print(f"[SKIP] gate_log.md already carries the per-trade block; "
+          f"not appending a duplicate.")
+else:
+    m = summary['mean_per_trade_return_pct']
+    s = summary['entry_half_spread_pct_of_mid']
+    tr = summary['trades']
+    wf = summary['opprcd_whole_file_liquidity_pct']
+    block = [
+        f"\n---\n\n{MARKER}",
+        "",
+        "Supplements the daily-series statistics logged in the K1 REAL "
+        "PRICES entry above; that entry is unchanged. Same run, same "
+        "trades, same pre-registration (commit 3875314). Machine-readable "
+        "copy: data/processed/k1_trade_summary.json; per-trade detail: "
+        "data/processed/k1_trades_real_prices.parquet.",
+        "",
+        "```",
+        f"trades (locked list):                  {tr['locked_trade_list']:,}",
+        f"matched to real quotes (entry+exit):   {tr['matched_entry_and_exit']:,}"
+        f"  ({tr['match_rate_pct']:.2f}%)",
+        f"excluded (no contract/quote/market):   {tr['excluded']:,}",
+        f"passing liquidity filter:              "
+        f"{tr['passing_liquidity_filter']:,} "
+        f"({tr['passing_liquidity_filter_pct']:.2f}%)",
+        "",
+        f"mean per-trade return, mid-to-mid:            "
+        f"{m['mid_to_mid']:+.2f}%",
+        f"mean per-trade return, bid-based worst fill:  "
+        f"{m['bid_based_worst_fill']:+.2f}%",
+        f"mean per-trade return, mid, liquidity-filtered: "
+        f"{m['mid_liquidity_filtered']:+.2f}%",
+        "",
+        f"entry-side half-spread, median:  {s['median']:.2f}% of mid",
+        f"entry-side half-spread, mean:    {s['mean']:.2f}% of mid",
+        f"  (a round trip pays this twice - on entry and again on exit)",
+        "",
+        f"opprcd whole-file liquidity ({wf['rows_scanned']:,} contract-days):",
+        f"  zero volume AND zero open interest: "
+        f"{wf['zero_volume_and_zero_open_interest']:.2f}%",
+        f"  zero bid:                           {wf['zero_bid']:.2f}%",
+        "```",
+    ]
+    with open(log_path, 'a', encoding='utf-8') as fh:
+        fh.write("\n".join(block) + "\n")
+    print(f"[OK] Appended per-trade block to {log_path} "
+          f"(existing entries untouched)")
 
 print("\n" + "=" * 78)
 print("K1 REAL-PRICE CONSTRUCTION COMPLETE - no gate decision made here.")

@@ -391,28 +391,3 @@ Full dev, MID, liquidity-filtered (diagnostic):
   mean daily net excess return: -85.49 bps (-215.43%/yr)
   Newey-West t-stat (maxlags=10): -5.004
 ```
-
----
-
-## K1 REAL PRICES (opprcd) — per-trade statistics
-
-Supplements the daily-series statistics logged in the K1 REAL PRICES entry above; that entry is unchanged. Same run, same trades, same pre-registration (commit 3875314). Machine-readable copy: data/processed/k1_trade_summary.json; per-trade detail: data/processed/k1_trades_real_prices.parquet.
-
-```
-trades (locked list):                  5,416
-matched to real quotes (entry+exit):   5,356  (98.89%)
-excluded (no contract/quote/market):   60
-passing liquidity filter:              3,523 (65.78%)
-
-mean per-trade return, mid-to-mid:            +3.85%
-mean per-trade return, bid-based worst fill:  -41.25%
-mean per-trade return, mid, liquidity-filtered: +2.22%
-
-entry-side half-spread, median:  18.75% of mid
-entry-side half-spread, mean:    29.80% of mid
-  (a round trip pays this twice - on entry and again on exit)
-
-opprcd whole-file liquidity (886,525,545 contract-days):
-  zero volume AND zero open interest: 49.78%
-  zero bid:                           23.07%
-```
