@@ -1,0 +1,2461 @@
+{
+  "meta": {
+    "generated_by": "src/55_v4_design_reconciliation.py",
+    "scope": "RETURN-BLIND. No return, P&L, forward realized variance, outcome-based score, or test statistic computed. Forward-looking measurements are QUOTE EXISTENCE and calendar/DTE arithmetic only.",
+    "exit_convention": "FIXED 30-calendar-day exit: exit session is the last trading session on or before entry + 30 calendar days (V3's n_t convention). NOT hold-to-expiry.",
+    "bands_tested": [
+      {
+        "tag": "B25_38",
+        "lo": 25,
+        "hi": 38,
+        "tie_break_target": 30
+      },
+      {
+        "tag": "B40_60",
+        "lo": 40,
+        "hi": 60,
+        "tie_break_target": 50
+      },
+      {
+        "tag": "B45_60",
+        "lo": 45,
+        "hi": 60,
+        "tie_break_target": 52
+      }
+    ],
+    "nav_levels": [
+      100000,
+      250000,
+      500000,
+      1000000,
+      2000000
+    ],
+    "spread_ceilings": {
+      "loose": 0.15,
+      "tight": 0.1
+    },
+    "pre_entry_rule": {
+      "sessions": 20,
+      "min_valid_frac": 0.9,
+      "max_consecutive_missing": 1
+    },
+    "dynamic_cap_rule": {
+      "vol_frac_of_trailing20_avg": 0.05,
+      "oi_frac": 0.01
+    },
+    "fixed_cap_rule": {
+      "oi_frac": 0.1,
+      "vol5sum_frac": 0.2
+    },
+    "passA_rows_scanned": 886525545,
+    "passB_rows_scanned": 886525545,
+    "screen_counts": {
+      "dte_universe_eligible": 57389825,
+      "c1_valid_quote": 41020253,
+      "c2_no_arb": 35721356,
+      "c3_iv_sane": 45163286,
+      "c4_min_price": 35599414,
+      "c5_spread15": 13830915,
+      "c5_spread10": 8177736,
+      "c6_oi": 5971216,
+      "c7_sameday_vol": 2964552,
+      "delta_band": 4550441,
+      "all_screens_15": 241246,
+      "all_screens_10": 156263
+    }
+  },
+  "item1_dte_bands_and_item5_quote_survival": {
+    "B25_38": {
+      "band": [
+        25,
+        38
+      ],
+      "tie_break_target_dte": 30,
+      "n_selected": 60004,
+      "calls": {
+        "n": 35178,
+        "unique_underlyings": 1401,
+        "pct_expiring_before_exit": 9.284211723236114,
+        "remaining_dte_at_exit": {
+          "n": 35178,
+          "min": -5.0,
+          "p5": -5.0,
+          "q1": 0.0,
+          "median": 1.0,
+          "q3": 7.0,
+          "p95": 8.0,
+          "max": 9.0,
+          "mean": 2.653817726988459
+        },
+        "pct_hold_path_fully_quoted": 55.94689862982546,
+        "hold_valid_quote_frac": {
+          "n": 35178,
+          "min": 0.0,
+          "p5": 0.5238095238095238,
+          "q1": 0.8571428571428571,
+          "median": 1.0,
+          "q3": 1.0,
+          "p95": 1.0,
+          "max": 1.0,
+          "mean": 0.899889142322366
+        },
+        "hold_worst_consecutive_gap": {
+          "n": 35178,
+          "min": 0.0,
+          "p5": 0.0,
+          "q1": 0.0,
+          "median": 0.0,
+          "q3": 3.0,
+          "p95": 9.0,
+          "max": 22.0,
+          "mean": 1.9479504235601797
+        },
+        "pct_bid_present_at_exit_session": 58.186935016203314,
+        "pre_entry_valid_frac": {
+          "n": 35178,
+          "min": 0.05,
+          "p5": 0.5,
+          "q1": 0.85,
+          "median": 1.0,
+          "q3": 1.0,
+          "p95": 1.0,
+          "max": 1.0,
+          "mean": 0.8978893058161351
+        },
+        "pct_pre_entry_ge_90pct": 73.47489908465519,
+        "pct_pre_entry_maxgap_le_1": 69.04315196998124,
+        "pct_passing_full_pre_entry_rule": 68.95502871112627,
+        "by_year": {
+          "2015": 2512,
+          "2016": 2768,
+          "2017": 3319,
+          "2018": 4567,
+          "2019": 4535,
+          "2020": 6976,
+          "2021": 10501
+        }
+      },
+      "puts": {
+        "n": 24826,
+        "unique_underlyings": 1230,
+        "pct_expiring_before_exit": 9.449770401997904,
+        "remaining_dte_at_exit": {
+          "n": 24826,
+          "min": -5.0,
+          "p5": -5.0,
+          "q1": 0.0,
+          "median": 1.0,
+          "q3": 7.0,
+          "p95": 8.0,
+          "max": 8.0,
+          "mean": 2.573833883831467
+        },
+        "pct_hold_path_fully_quoted": 60.83138644968984,
+        "hold_valid_quote_frac": {
+          "n": 24826,
+          "min": 0.0,
+          "p5": 0.5714285714285714,
+          "q1": 0.8636363636363636,
+          "median": 1.0,
+          "q3": 1.0,
+          "p95": 1.0,
+          "max": 1.0,
+          "mean": 0.9161735228609779
+        },
+        "hold_worst_consecutive_gap": {
+          "n": 24826,
+          "min": 0.0,
+          "p5": 0.0,
+          "q1": 0.0,
+          "median": 0.0,
+          "q3": 3.0,
+          "p95": 8.0,
+          "max": 22.0,
+          "mean": 1.6477080480141786
+        },
+        "pct_bid_present_at_exit_session": 62.527189237090155,
+        "pre_entry_valid_frac": {
+          "n": 24826,
+          "min": 0.05,
+          "p5": 0.55,
+          "q1": 0.9,
+          "median": 1.0,
+          "q3": 1.0,
+          "p95": 1.0,
+          "max": 1.0,
+          "mean": 0.921829936357045
+        },
+        "pct_pre_entry_ge_90pct": 78.96962861516153,
+        "pct_pre_entry_maxgap_le_1": 74.732135664223,
+        "pct_passing_full_pre_entry_rule": 74.68379924272939,
+        "by_year": {
+          "2015": 1991,
+          "2016": 2188,
+          "2017": 2831,
+          "2018": 3514,
+          "2019": 3247,
+          "2020": 4011,
+          "2021": 7044
+        }
+      }
+    },
+    "B40_60": {
+      "band": [
+        40,
+        60
+      ],
+      "tie_break_target_dte": 50,
+      "n_selected": 59622,
+      "calls": {
+        "n": 37410,
+        "unique_underlyings": 1416,
+        "pct_expiring_before_exit": 0.0,
+        "remaining_dte_at_exit": {
+          "n": 37410,
+          "min": 13.0,
+          "p5": 14.0,
+          "q1": 15.0,
+          "median": 21.0,
+          "q3": 28.0,
+          "p95": 29.0,
+          "max": 30.0,
+          "mean": 20.50855386260358
+        },
+        "pct_hold_path_fully_quoted": 89.66319165998397,
+        "hold_valid_quote_frac": {
+          "n": 37410,
+          "min": 0.0,
+          "p5": 0.7894736842105263,
+          "q1": 1.0,
+          "median": 1.0,
+          "q3": 1.0,
+          "p95": 1.0,
+          "max": 1.0,
+          "mean": 0.9702824040043893
+        },
+        "hold_worst_consecutive_gap": {
+          "n": 37410,
+          "min": 0.0,
+          "p5": 0.0,
+          "q1": 0.0,
+          "median": 0.0,
+          "q3": 0.0,
+          "p95": 4.0,
+          "max": 22.0,
+          "mean": 0.5688585939588345
+        },
+        "pct_bid_present_at_exit_session": 91.74819566960706,
+        "pre_entry_valid_frac": {
+          "n": 37410,
+          "min": 0.0,
+          "p5": 0.2,
+          "q1": 0.5,
+          "median": 1.0,
+          "q3": 1.0,
+          "p95": 1.0,
+          "max": 1.0,
+          "mean": 0.7831769580326117
+        },
+        "pct_pre_entry_ge_90pct": 62.0449077786688,
+        "pct_pre_entry_maxgap_le_1": 61.6439454691259,
+        "pct_passing_full_pre_entry_rule": 61.61721464848971,
+        "by_year": {
+          "2015": 2369,
+          "2016": 3099,
+          "2017": 4061,
+          "2018": 4810,
+          "2019": 4514,
+          "2020": 7417,
+          "2021": 11140
+        }
+      },
+      "puts": {
+        "n": 22212,
+        "unique_underlyings": 1207,
+        "pct_expiring_before_exit": 0.0,
+        "remaining_dte_at_exit": {
+          "n": 22212,
+          "min": 13.0,
+          "p5": 14.0,
+          "q1": 14.0,
+          "median": 21.0,
+          "q3": 23.0,
+          "p95": 29.0,
+          "max": 30.0,
+          "mean": 20.314154511075095
+        },
+        "pct_hold_path_fully_quoted": 93.47649918962723,
+        "hold_valid_quote_frac": {
+          "n": 22212,
+          "min": 0.0,
+          "p5": 0.9047619047619048,
+          "q1": 1.0,
+          "median": 1.0,
+          "q3": 1.0,
+          "p95": 1.0,
+          "max": 1.0,
+          "mean": 0.9804850373003434
+        },
+        "hold_worst_consecutive_gap": {
+          "n": 22212,
+          "min": 0.0,
+          "p5": 0.0,
+          "q1": 0.0,
+          "median": 0.0,
+          "q3": 0.0,
+          "p95": 1.0,
+          "max": 19.0,
+          "mean": 0.3792994777597695
+        },
+        "pct_bid_present_at_exit_session": 94.46695479920764,
+        "pre_entry_valid_frac": {
+          "n": 22212,
+          "min": 0.0,
+          "p5": 0.25,
+          "q1": 0.6,
+          "median": 1.0,
+          "q3": 1.0,
+          "p95": 1.0,
+          "max": 1.0,
+          "mean": 0.8235030614082478
+        },
+        "pct_pre_entry_ge_90pct": 67.98577345578967,
+        "pct_pre_entry_maxgap_le_1": 67.71114712767873,
+        "pct_passing_full_pre_entry_rule": 67.69764091482082,
+        "by_year": {
+          "2015": 1940,
+          "2016": 2207,
+          "2017": 2966,
+          "2018": 3154,
+          "2019": 2778,
+          "2020": 3239,
+          "2021": 5928
+        }
+      }
+    },
+    "B45_60": {
+      "band": [
+        45,
+        60
+      ],
+      "tie_break_target_dte": 52,
+      "n_selected": 43786,
+      "calls": {
+        "n": 27594,
+        "unique_underlyings": 1346,
+        "pct_expiring_before_exit": 0.0,
+        "remaining_dte_at_exit": {
+          "n": 27594,
+          "min": 15.0,
+          "p5": 15.0,
+          "q1": 21.0,
+          "median": 22.0,
+          "q3": 28.0,
+          "p95": 30.0,
+          "max": 30.0,
+          "mean": 22.802565775168514
+        },
+        "pct_hold_path_fully_quoted": 90.96180329057042,
+        "hold_valid_quote_frac": {
+          "n": 27594,
+          "min": 0.0,
+          "p5": 0.8095238095238095,
+          "q1": 1.0,
+          "median": 1.0,
+          "q3": 1.0,
+          "p95": 1.0,
+          "max": 1.0,
+          "mean": 0.9706855781362826
+        },
+        "hold_worst_consecutive_gap": {
+          "n": 27594,
+          "min": 0.0,
+          "p5": 0.0,
+          "q1": 0.0,
+          "median": 0.0,
+          "q3": 0.0,
+          "p95": 3.0,
+          "max": 22.0,
+          "mean": 0.5689280278321375
+        },
+        "pct_bid_present_at_exit_session": 92.83902297600928,
+        "pre_entry_valid_frac": {
+          "n": 27594,
+          "min": 0.0,
+          "p5": 0.2,
+          "q1": 0.45,
+          "median": 1.0,
+          "q3": 1.0,
+          "p95": 1.0,
+          "max": 1.0,
+          "mean": 0.7822642603464521
+        },
+        "pct_pre_entry_ge_90pct": 65.81503225338842,
+        "pct_pre_entry_maxgap_le_1": 65.43089077335654,
+        "pct_passing_full_pre_entry_rule": 65.40552293976951,
+        "by_year": {
+          "2015": 1798,
+          "2016": 2267,
+          "2017": 3069,
+          "2018": 3528,
+          "2019": 3202,
+          "2020": 5476,
+          "2021": 8254
+        }
+      },
+      "puts": {
+        "n": 16192,
+        "unique_underlyings": 1106,
+        "pct_expiring_before_exit": 0.0,
+        "remaining_dte_at_exit": {
+          "n": 16192,
+          "min": 15.0,
+          "p5": 15.0,
+          "q1": 21.0,
+          "median": 22.0,
+          "q3": 28.0,
+          "p95": 30.0,
+          "max": 30.0,
+          "mean": 22.643280632411066
+        },
+        "pct_hold_path_fully_quoted": 94.5713932806324,
+        "hold_valid_quote_frac": {
+          "n": 16192,
+          "min": 0.0,
+          "p5": 0.9523809523809523,
+          "q1": 1.0,
+          "median": 1.0,
+          "q3": 1.0,
+          "p95": 1.0,
+          "max": 1.0,
+          "mean": 0.9808499088912093
+        },
+        "hold_worst_consecutive_gap": {
+          "n": 16192,
+          "min": 0.0,
+          "p5": 0.0,
+          "q1": 0.0,
+          "median": 0.0,
+          "q3": 0.0,
+          "p95": 1.0,
+          "max": 19.0,
+          "mean": 0.3784584980237154
+        },
+        "pct_bid_present_at_exit_session": 95.4792490118577,
+        "pre_entry_valid_frac": {
+          "n": 16192,
+          "min": 0.0,
+          "p5": 0.2,
+          "q1": 0.55,
+          "median": 1.0,
+          "q3": 1.0,
+          "p95": 1.0,
+          "max": 1.0,
+          "mean": 0.8253798171936758
+        },
+        "pct_pre_entry_ge_90pct": 71.93675889328063,
+        "pct_pre_entry_maxgap_le_1": 71.65266798418972,
+        "pct_passing_full_pre_entry_rule": 71.63414031620553,
+        "by_year": {
+          "2015": 1453,
+          "2016": 1622,
+          "2017": 2163,
+          "2018": 2254,
+          "2019": 1962,
+          "2020": 2381,
+          "2021": 4357
+        }
+      }
+    }
+  },
+  "item4_liquidity_cap": {
+    "B25_38": {
+      "n": 60004,
+      "fixed_rule_pass_pct": 94.40703953069796,
+      "fixed_cap_ge1_pct": 100.0,
+      "dynamic_cap_ge1_pct": 75.75161655889607,
+      "both_ge1_pct": 75.75161655889607,
+      "dynamic_only_ge1_pct": 0.0,
+      "fixed_only_ge1_pct": 24.248383441103925,
+      "fixed_cap_contracts": {
+        "n": 60004,
+        "min": 2.0,
+        "p5": 9.0,
+        "q1": 17.0,
+        "median": 37.0,
+        "q3": 92.0,
+        "p95": 397.0,
+        "max": 6604.0,
+        "mean": 100.69733684421038
+      },
+      "dynamic_cap_contracts": {
+        "n": 60004,
+        "min": 0.0,
+        "p5": 0.0,
+        "q1": 1.0,
+        "median": 2.0,
+        "q3": 5.0,
+        "p95": 22.0,
+        "max": 495.0,
+        "mean": 5.392223851743217
+      },
+      "median_ratio_dyn_over_fixed": 0.04
+    },
+    "B40_60": {
+      "n": 59622,
+      "fixed_rule_pass_pct": 90.80373016671697,
+      "fixed_cap_ge1_pct": 100.0,
+      "dynamic_cap_ge1_pct": 74.39871188487471,
+      "both_ge1_pct": 74.39871188487471,
+      "dynamic_only_ge1_pct": 0.0,
+      "fixed_only_ge1_pct": 25.601288115125286,
+      "fixed_cap_contracts": {
+        "n": 59622,
+        "min": 2.0,
+        "p5": 6.0,
+        "q1": 15.0,
+        "median": 31.0,
+        "q3": 80.0,
+        "p95": 352.0,
+        "max": 5055.0,
+        "mean": 87.28449230149944
+      },
+      "dynamic_cap_contracts": {
+        "n": 59622,
+        "min": 0.0,
+        "p5": 0.0,
+        "q1": 0.0,
+        "median": 1.0,
+        "q3": 4.0,
+        "p95": 20.0,
+        "max": 210.0,
+        "mean": 4.763107577739761
+      },
+      "median_ratio_dyn_over_fixed": 0.043478260869565216
+    },
+    "B45_60": {
+      "n": 43786,
+      "fixed_rule_pass_pct": 90.13383273192345,
+      "fixed_cap_ge1_pct": 100.0,
+      "dynamic_cap_ge1_pct": 73.66281459827341,
+      "both_ge1_pct": 73.66281459827341,
+      "dynamic_only_ge1_pct": 0.0,
+      "fixed_only_ge1_pct": 26.337185401726583,
+      "fixed_cap_contracts": {
+        "n": 43786,
+        "min": 2.0,
+        "p5": 6.0,
+        "q1": 15.0,
+        "median": 30.0,
+        "q3": 78.0,
+        "p95": 348.0,
+        "max": 5055.0,
+        "mean": 85.94539350477322
+      },
+      "dynamic_cap_contracts": {
+        "n": 43786,
+        "min": 0.0,
+        "p5": 0.0,
+        "q1": 0.0,
+        "median": 1.0,
+        "q3": 4.0,
+        "p95": 20.0,
+        "max": 201.0,
+        "mean": 4.6534508747088115
+      },
+      "median_ratio_dyn_over_fixed": 0.04316546762589928
+    }
+  },
+  "item2_3_capacity": {
+    "B25_38|sp15|calls|100000": {
+      "n_days_with_candidates": 1386,
+      "median_filled": 10.0,
+      "median_eff_hhi": 9.295551746599578,
+      "n_invested_days": 892,
+      "pct_invested_days": 64.35786435786436,
+      "median_invested_day_utilization_pct": 23.524,
+      "median_utilization_all_days_pct": 14.946500000000002,
+      "max_utilization_pct": 46.79,
+      "median_contracts_per_position": 9.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 2.0012507817385865,
+        "oi": 2.8767979987492183,
+        "sector": 13.670475865597817,
+        "vega": 2.916595599522429,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 35178
+    },
+    "B25_38|sp15|calls|250000": {
+      "n_days_with_candidates": 1386,
+      "median_filled": 10.0,
+      "median_eff_hhi": 8.708480535460511,
+      "n_invested_days": 892,
+      "pct_invested_days": 64.35786435786436,
+      "median_invested_day_utilization_pct": 21.4948,
+      "median_utilization_all_days_pct": 11.9726,
+      "max_utilization_pct": 46.802,
+      "median_contracts_per_position": 17.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 8.104497128887372,
+        "oi": 11.498663937688328,
+        "sector": 11.424754107680938,
+        "vega": 0.08812325885496618,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 35178
+    },
+    "B25_38|sp15|calls|500000": {
+      "n_days_with_candidates": 1386,
+      "median_filled": 10.0,
+      "median_eff_hhi": 7.762589655922628,
+      "n_invested_days": 892,
+      "pct_invested_days": 64.35786435786436,
+      "median_invested_day_utilization_pct": 18.108,
+      "median_utilization_all_days_pct": 8.8474,
+      "max_utilization_pct": 43.414,
+      "median_contracts_per_position": 26.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 17.502416282904086,
+        "oi": 22.46858832224686,
+        "sector": 11.350844277673545,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 35178
+    },
+    "B25_38|sp15|calls|1000000": {
+      "n_days_with_candidates": 1386,
+      "median_filled": 10.0,
+      "median_eff_hhi": 6.728465559355729,
+      "n_invested_days": 892,
+      "pct_invested_days": 64.35786435786436,
+      "median_invested_day_utilization_pct": 13.762649999999999,
+      "median_utilization_all_days_pct": 6.1789,
+      "max_utilization_pct": 38.536500000000004,
+      "median_contracts_per_position": 34.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 28.489396782079705,
+        "oi": 34.09233043379385,
+        "sector": 11.350844277673545,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 35178
+    },
+    "B25_38|sp15|calls|2000000": {
+      "n_days_with_candidates": 1386,
+      "median_filled": 10.0,
+      "median_eff_hhi": 5.773937749779918,
+      "n_invested_days": 892,
+      "pct_invested_days": 64.35786435786436,
+      "median_invested_day_utilization_pct": 9.336549999999999,
+      "median_utilization_all_days_pct": 3.9698499999999997,
+      "max_utilization_pct": 26.49525,
+      "median_contracts_per_position": 38.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 39.19495139007334,
+        "oi": 43.75177667860595,
+        "sector": 11.350844277673545,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 35178
+    },
+    "B25_38|sp15|calls|100000|DYNCAP": {
+      "n_days_with_candidates": 1386,
+      "median_filled": 9.0,
+      "median_eff_hhi": 5.1571042817983,
+      "n_invested_days": 862,
+      "pct_invested_days": 62.19336219336219,
+      "median_invested_day_utilization_pct": 10.6795,
+      "median_utilization_all_days_pct": 4.475,
+      "max_utilization_pct": 30.845,
+      "median_contracts_per_position": 3.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 51.006310762408326,
+        "oi": 38.82540224003639,
+        "sector": 9.591221786343738,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 35178
+    },
+    "B25_38|sp15|calls|250000|DYNCAP": {
+      "n_days_with_candidates": 1386,
+      "median_filled": 9.0,
+      "median_eff_hhi": 4.461850079417275,
+      "n_invested_days": 862,
+      "pct_invested_days": 62.19336219336219,
+      "median_invested_day_utilization_pct": 5.2468,
+      "median_utilization_all_days_pct": 2.1832,
+      "max_utilization_pct": 21.471999999999998,
+      "median_contracts_per_position": 3.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 59.01131388936267,
+        "oi": 52.54136107794645,
+        "sector": 9.591221786343738,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 35178
+    },
+    "B25_38|sp15|calls|500000|DYNCAP": {
+      "n_days_with_candidates": 1386,
+      "median_filled": 9.0,
+      "median_eff_hhi": 4.043615325275882,
+      "n_invested_days": 862,
+      "pct_invested_days": 62.19336219336219,
+      "median_invested_day_utilization_pct": 2.761,
+      "median_utilization_all_days_pct": 1.1587,
+      "max_utilization_pct": 13.6696,
+      "median_contracts_per_position": 3.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 61.38495650690773,
+        "oi": 58.55079879470123,
+        "sector": 9.591221786343738,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 35178
+    },
+    "B25_38|sp15|calls|1000000|DYNCAP": {
+      "n_days_with_candidates": 1386,
+      "median_filled": 9.0,
+      "median_eff_hhi": 3.8931326898927816,
+      "n_invested_days": 862,
+      "pct_invested_days": 62.19336219336219,
+      "median_invested_day_utilization_pct": 1.4176000000000002,
+      "median_utilization_all_days_pct": 0.57935,
+      "max_utilization_pct": 7.5113,
+      "median_contracts_per_position": 3.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 62.14395360736824,
+        "oi": 61.231451475353914,
+        "sector": 9.591221786343738,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 35178
+    },
+    "B25_38|sp15|calls|2000000|DYNCAP": {
+      "n_days_with_candidates": 1386,
+      "median_filled": 9.0,
+      "median_eff_hhi": 3.8778808940345164,
+      "n_invested_days": 862,
+      "pct_invested_days": 62.19336219336219,
+      "median_invested_day_utilization_pct": 0.7088000000000001,
+      "median_utilization_all_days_pct": 0.289675,
+      "max_utilization_pct": 3.75565,
+      "median_contracts_per_position": 3.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 62.20649269429758,
+        "oi": 62.10131332082551,
+        "sector": 9.591221786343738,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 35178
+    },
+    "B25_38|sp15|puts|100000": {
+      "n_days_with_candidates": 1269,
+      "median_filled": 10.0,
+      "median_eff_hhi": 8.389638060622204,
+      "n_invested_days": 816,
+      "pct_invested_days": 64.30260047281324,
+      "median_invested_day_utilization_pct": 27.985000000000003,
+      "median_utilization_all_days_pct": 16.985,
+      "max_utilization_pct": 93.96799999999999,
+      "median_contracts_per_position": 10.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.012084105373398856,
+        "rounding_up_forced": 0.0,
+        "volume": 5.872875211471844,
+        "oi": 4.426810601788447,
+        "sector": 12.869572222669781,
+        "vega": 1.0150648513655038,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 24826
+    },
+    "B25_38|sp15|puts|250000": {
+      "n_days_with_candidates": 1269,
+      "median_filled": 10.0,
+      "median_eff_hhi": 7.825040525869729,
+      "n_invested_days": 816,
+      "pct_invested_days": 64.30260047281324,
+      "median_invested_day_utilization_pct": 23.963,
+      "median_utilization_all_days_pct": 13.597600000000002,
+      "max_utilization_pct": 82.3596,
+      "median_contracts_per_position": 17.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.012084105373398856,
+        "rounding_up_forced": 0.0,
+        "volume": 18.569241923789576,
+        "oi": 18.641746556029968,
+        "sector": 12.088133408523321,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 24826
+    },
+    "B25_38|sp15|puts|500000": {
+      "n_days_with_candidates": 1269,
+      "median_filled": 10.0,
+      "median_eff_hhi": 7.006166703867734,
+      "n_invested_days": 816,
+      "pct_invested_days": 64.30260047281324,
+      "median_invested_day_utilization_pct": 18.7265,
+      "median_utilization_all_days_pct": 10.3768,
+      "max_utilization_pct": 67.2474,
+      "median_contracts_per_position": 23.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.008056070248932571,
+        "rounding_up_forced": 0.0,
+        "volume": 33.02988802062354,
+        "oi": 33.839523080641264,
+        "sector": 12.088133408523321,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 24826
+    },
+    "B25_38|sp15|puts|1000000": {
+      "n_days_with_candidates": 1269,
+      "median_filled": 10.0,
+      "median_eff_hhi": 5.707356257279607,
+      "n_invested_days": 816,
+      "pct_invested_days": 64.30260047281324,
+      "median_invested_day_utilization_pct": 12.8909,
+      "median_utilization_all_days_pct": 7.2934,
+      "max_utilization_pct": 45.3508,
+      "median_contracts_per_position": 28.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 47.02731007814388,
+        "oi": 47.824861032788206,
+        "sector": 12.088133408523321,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 24826
+    },
+    "B25_38|sp15|puts|2000000": {
+      "n_days_with_candidates": 1269,
+      "median_filled": 10.0,
+      "median_eff_hhi": 4.832094163800294,
+      "n_invested_days": 816,
+      "pct_invested_days": 64.30260047281324,
+      "median_invested_day_utilization_pct": 8.139574999999999,
+      "median_utilization_all_days_pct": 4.41925,
+      "max_utilization_pct": 32.42115,
+      "median_contracts_per_position": 28.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 56.77515507935229,
+        "oi": 57.467977120760494,
+        "sector": 12.088133408523321,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 24826
+    },
+    "B25_38|sp15|puts|100000|DYNCAP": {
+      "n_days_with_candidates": 1269,
+      "median_filled": 8.0,
+      "median_eff_hhi": 3.9963165695407192,
+      "n_invested_days": 751,
+      "pct_invested_days": 59.18045705279747,
+      "median_invested_day_utilization_pct": 9.693999999999999,
+      "median_utilization_all_days_pct": 4.401999999999999,
+      "max_utilization_pct": 39.68,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 73.46733263514058,
+        "oi": 57.713687263352945,
+        "sector": 8.064126319181502,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 24826
+    },
+    "B25_38|sp15|puts|250000|DYNCAP": {
+      "n_days_with_candidates": 1269,
+      "median_filled": 8.0,
+      "median_eff_hhi": 3.4873895583215044,
+      "n_invested_days": 751,
+      "pct_invested_days": 59.18045705279747,
+      "median_invested_day_utilization_pct": 4.6796,
+      "median_utilization_all_days_pct": 2.0004,
+      "max_utilization_pct": 22.195999999999998,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 79.43285265447516,
+        "oi": 72.09780069282205,
+        "sector": 8.064126319181502,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 24826
+    },
+    "B25_38|sp15|puts|500000|DYNCAP": {
+      "n_days_with_candidates": 1269,
+      "median_filled": 8.0,
+      "median_eff_hhi": 3.31085689435124,
+      "n_invested_days": 751,
+      "pct_invested_days": 59.18045705279747,
+      "median_invested_day_utilization_pct": 2.4518,
+      "median_utilization_all_days_pct": 1.0038,
+      "max_utilization_pct": 11.2394,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 80.6694594376863,
+        "oi": 77.70482558607911,
+        "sector": 8.064126319181502,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 24826
+    },
+    "B25_38|sp15|puts|1000000|DYNCAP": {
+      "n_days_with_candidates": 1269,
+      "median_filled": 8.0,
+      "median_eff_hhi": 3.302984126984127,
+      "n_invested_days": 751,
+      "pct_invested_days": 59.18045705279747,
+      "median_invested_day_utilization_pct": 1.2259,
+      "median_utilization_all_days_pct": 0.5019,
+      "max_utilization_pct": 5.6197,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 81.0279545637638,
+        "oi": 80.3230484169822,
+        "sector": 8.064126319181502,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 24826
+    },
+    "B25_38|sp15|puts|2000000|DYNCAP": {
+      "n_days_with_candidates": 1269,
+      "median_filled": 8.0,
+      "median_eff_hhi": 3.302984126984127,
+      "n_invested_days": 751,
+      "pct_invested_days": 59.18045705279747,
+      "median_invested_day_utilization_pct": 0.61295,
+      "median_utilization_all_days_pct": 0.25095,
+      "max_utilization_pct": 2.80985,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 81.07226295013292,
+        "oi": 80.83058084266494,
+        "sector": 8.064126319181502,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 24826
+    },
+    "B25_38|sp10|calls|100000": {
+      "n_days_with_candidates": 1263,
+      "median_filled": 9.0,
+      "median_eff_hhi": 7.666797488392094,
+      "n_invested_days": 811,
+      "pct_invested_days": 64.21219319081551,
+      "median_invested_day_utilization_pct": 19.552,
+      "median_utilization_all_days_pct": 12.206,
+      "max_utilization_pct": 48.186,
+      "median_contracts_per_position": 9.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 1.6856319939562774,
+        "oi": 3.2437792152603993,
+        "sector": 15.378440908447047,
+        "vega": 3.512913735303839,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 21179
+    },
+    "B25_38|sp10|calls|250000": {
+      "n_days_with_candidates": 1263,
+      "median_filled": 9.0,
+      "median_eff_hhi": 7.303612593892583,
+      "n_invested_days": 811,
+      "pct_invested_days": 64.21219319081551,
+      "median_invested_day_utilization_pct": 17.9572,
+      "median_utilization_all_days_pct": 10.2936,
+      "max_utilization_pct": 48.54,
+      "median_contracts_per_position": 19.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 8.02209736059304,
+        "oi": 13.428396052693707,
+        "sector": 12.937343595070589,
+        "vega": 0.4580008498984844,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 21179
+    },
+    "B25_38|sp10|calls|500000": {
+      "n_days_with_candidates": 1263,
+      "median_filled": 9.0,
+      "median_eff_hhi": 6.688778627399298,
+      "n_invested_days": 811,
+      "pct_invested_days": 64.21219319081551,
+      "median_invested_day_utilization_pct": 15.101400000000002,
+      "median_utilization_all_days_pct": 8.025,
+      "max_utilization_pct": 46.6012,
+      "median_contracts_per_position": 28.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 18.891354643750883,
+        "oi": 26.587657585343972,
+        "sector": 12.484064403418481,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 21179
+    },
+    "B25_38|sp10|calls|1000000": {
+      "n_days_with_candidates": 1263,
+      "median_filled": 9.0,
+      "median_eff_hhi": 5.823555320213765,
+      "n_invested_days": 811,
+      "pct_invested_days": 64.21219319081551,
+      "median_invested_day_utilization_pct": 11.745899999999999,
+      "median_utilization_all_days_pct": 5.7111,
+      "max_utilization_pct": 42.494,
+      "median_contracts_per_position": 39.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 32.50861702629963,
+        "oi": 41.399499504225886,
+        "sector": 12.484064403418481,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 21179
+    },
+    "B25_38|sp10|calls|2000000": {
+      "n_days_with_candidates": 1263,
+      "median_filled": 9.0,
+      "median_eff_hhi": 4.952146641811081,
+      "n_invested_days": 811,
+      "pct_invested_days": 64.21219319081551,
+      "median_invested_day_utilization_pct": 8.13915,
+      "median_utilization_all_days_pct": 3.72075,
+      "max_utilization_pct": 34.9714,
+      "median_contracts_per_position": 45.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 46.654705132442515,
+        "oi": 54.81845224042684,
+        "sector": 12.484064403418481,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 21179
+    },
+    "B25_38|sp10|puts|100000": {
+      "n_days_with_candidates": 1179,
+      "median_filled": 8.0,
+      "median_eff_hhi": 6.767465949956038,
+      "n_invested_days": 748,
+      "pct_invested_days": 63.44359626802375,
+      "median_invested_day_utilization_pct": 22.2585,
+      "median_utilization_all_days_pct": 13.593,
+      "max_utilization_pct": 91.5,
+      "median_contracts_per_position": 10.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.01255098839033574,
+        "rounding_up_forced": 0.0,
+        "volume": 5.396925007844368,
+        "oi": 4.794477565108252,
+        "sector": 13.799811735174144,
+        "vega": 0.6652023846877941,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 15935
+    },
+    "B25_38|sp10|puts|250000": {
+      "n_days_with_candidates": 1179,
+      "median_filled": 8.0,
+      "median_eff_hhi": 6.346797751611066,
+      "n_invested_days": 748,
+      "pct_invested_days": 63.44359626802375,
+      "median_invested_day_utilization_pct": 19.48,
+      "median_utilization_all_days_pct": 11.7308,
+      "max_utilization_pct": 87.114,
+      "median_contracts_per_position": 18.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.01255098839033574,
+        "rounding_up_forced": 0.0,
+        "volume": 19.472858487605897,
+        "oi": 20.690304361468463,
+        "sector": 13.172262315657356,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 15935
+    },
+    "B25_38|sp10|puts|500000": {
+      "n_days_with_candidates": 1179,
+      "median_filled": 8.0,
+      "median_eff_hhi": 5.80356593427593,
+      "n_invested_days": 748,
+      "pct_invested_days": 63.44359626802375,
+      "median_invested_day_utilization_pct": 15.7857,
+      "median_utilization_all_days_pct": 9.113,
+      "max_utilization_pct": 67.776,
+      "median_contracts_per_position": 25.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.01255098839033574,
+        "rounding_up_forced": 0.0,
+        "volume": 36.59868214621901,
+        "oi": 38.876686539064956,
+        "sector": 13.172262315657356,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 15935
+    },
+    "B25_38|sp10|puts|1000000": {
+      "n_days_with_candidates": 1179,
+      "median_filled": 8.0,
+      "median_eff_hhi": 4.954927280449395,
+      "n_invested_days": 748,
+      "pct_invested_days": 63.44359626802375,
+      "median_invested_day_utilization_pct": 11.183,
+      "median_utilization_all_days_pct": 6.2518,
+      "max_utilization_pct": 47.4623,
+      "median_contracts_per_position": 30.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 55.017257609036704,
+        "oi": 56.53592720426733,
+        "sector": 13.172262315657356,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 15935
+    },
+    "B25_38|sp10|puts|2000000": {
+      "n_days_with_candidates": 1179,
+      "median_filled": 8.0,
+      "median_eff_hhi": 4.113612216067927,
+      "n_invested_days": 748,
+      "pct_invested_days": 63.44359626802375,
+      "median_invested_day_utilization_pct": 7.2124500000000005,
+      "median_utilization_all_days_pct": 4.0203999999999995,
+      "max_utilization_pct": 32.106649999999995,
+      "median_contracts_per_position": 31.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 67.80043928459366,
+        "oi": 69.10574207718858,
+        "sector": 13.172262315657356,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 15935
+    },
+    "B40_60|sp15|calls|100000": {
+      "n_days_with_candidates": 1385,
+      "median_filled": 17.0,
+      "median_eff_hhi": 14.557675519484949,
+      "n_invested_days": 1153,
+      "pct_invested_days": 83.24909747292418,
+      "median_invested_day_utilization_pct": 22.758,
+      "median_utilization_all_days_pct": 20.707,
+      "max_utilization_pct": 50.991,
+      "median_contracts_per_position": 8.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 2.56081261694734,
+        "oi": 2.0181769580326114,
+        "sector": 14.25020048115477,
+        "vega": 3.3440256615878106,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 37410
+    },
+    "B40_60|sp15|calls|250000": {
+      "n_days_with_candidates": 1385,
+      "median_filled": 17.0,
+      "median_eff_hhi": 13.921761173632051,
+      "n_invested_days": 1153,
+      "pct_invested_days": 83.24909747292418,
+      "median_invested_day_utilization_pct": 20.5124,
+      "median_utilization_all_days_pct": 18.2332,
+      "max_utilization_pct": 49.4716,
+      "median_contracts_per_position": 16.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 9.901095963646084,
+        "oi": 11.015771184175355,
+        "sector": 11.919272921678695,
+        "vega": 0.01603849238171612,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 37410
+    },
+    "B40_60|sp15|calls|500000": {
+      "n_days_with_candidates": 1385,
+      "median_filled": 17.0,
+      "median_eff_hhi": 12.375472408786347,
+      "n_invested_days": 1153,
+      "pct_invested_days": 83.24909747292418,
+      "median_invested_day_utilization_pct": 16.8206,
+      "median_utilization_all_days_pct": 14.9952,
+      "max_utilization_pct": 45.5406,
+      "median_contracts_per_position": 23.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 21.27773322641005,
+        "oi": 22.89227479283614,
+        "sector": 11.916599839615076,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 37410
+    },
+    "B40_60|sp15|calls|1000000": {
+      "n_days_with_candidates": 1385,
+      "median_filled": 17.0,
+      "median_eff_hhi": 10.342220649752464,
+      "n_invested_days": 1153,
+      "pct_invested_days": 83.24909747292418,
+      "median_invested_day_utilization_pct": 12.487,
+      "median_utilization_all_days_pct": 10.9237,
+      "max_utilization_pct": 39.3999,
+      "median_contracts_per_position": 30.5,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 35.092221331194864,
+        "oi": 36.7548783747661,
+        "sector": 11.916599839615076,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 37410
+    },
+    "B40_60|sp15|calls|2000000": {
+      "n_days_with_candidates": 1385,
+      "median_filled": 17.0,
+      "median_eff_hhi": 8.247987971720308,
+      "n_invested_days": 1153,
+      "pct_invested_days": 83.24909747292418,
+      "median_invested_day_utilization_pct": 8.12735,
+      "median_utilization_all_days_pct": 7.18165,
+      "max_utilization_pct": 31.6246,
+      "median_contracts_per_position": 33.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 47.44720662924352,
+        "oi": 48.36407377706495,
+        "sector": 11.916599839615076,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 37410
+    },
+    "B40_60|sp15|calls|100000|DYNCAP": {
+      "n_days_with_candidates": 1385,
+      "median_filled": 14.0,
+      "median_eff_hhi": 8.007704803222614,
+      "n_invested_days": 1101,
+      "pct_invested_days": 79.49458483754512,
+      "median_invested_day_utilization_pct": 9.415,
+      "median_utilization_all_days_pct": 7.617999999999999,
+      "max_utilization_pct": 37.383,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 56.85912857524726,
+        "oi": 40.71371291098637,
+        "sector": 9.179363806468858,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 37410
+    },
+    "B40_60|sp15|calls|250000|DYNCAP": {
+      "n_days_with_candidates": 1385,
+      "median_filled": 14.0,
+      "median_eff_hhi": 6.351048604679156,
+      "n_invested_days": 1101,
+      "pct_invested_days": 79.49458483754512,
+      "median_invested_day_utilization_pct": 4.9424,
+      "median_utilization_all_days_pct": 3.888,
+      "max_utilization_pct": 25.792399999999997,
+      "median_contracts_per_position": 3.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 66.30847367014168,
+        "oi": 57.37770649558942,
+        "sector": 9.179363806468858,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 37410
+    },
+    "B40_60|sp15|calls|500000|DYNCAP": {
+      "n_days_with_candidates": 1385,
+      "median_filled": 14.0,
+      "median_eff_hhi": 5.4866901968254576,
+      "n_invested_days": 1101,
+      "pct_invested_days": 79.49458483754512,
+      "median_invested_day_utilization_pct": 2.7,
+      "median_utilization_all_days_pct": 2.0608,
+      "max_utilization_pct": 19.017999999999997,
+      "median_contracts_per_position": 3.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 69.10986367281475,
+        "oi": 64.85966319165999,
+        "sector": 9.179363806468858,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 37410
+    },
+    "B40_60|sp15|calls|1000000|DYNCAP": {
+      "n_days_with_candidates": 1385,
+      "median_filled": 14.0,
+      "median_eff_hhi": 5.2188674866932345,
+      "n_invested_days": 1101,
+      "pct_invested_days": 79.49458483754512,
+      "median_invested_day_utilization_pct": 1.3809,
+      "median_utilization_all_days_pct": 1.0505,
+      "max_utilization_pct": 11.050500000000001,
+      "median_contracts_per_position": 3.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 70.04544239508152,
+        "oi": 68.48703555199145,
+        "sector": 9.179363806468858,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 37410
+    },
+    "B40_60|sp15|calls|2000000|DYNCAP": {
+      "n_days_with_candidates": 1385,
+      "median_filled": 14.0,
+      "median_eff_hhi": 5.214468665811499,
+      "n_invested_days": 1101,
+      "pct_invested_days": 79.49458483754512,
+      "median_invested_day_utilization_pct": 0.6947,
+      "median_utilization_all_days_pct": 0.52525,
+      "max_utilization_pct": 5.525250000000001,
+      "median_contracts_per_position": 3.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 70.25126971398022,
+        "oi": 69.90376904570971,
+        "sector": 9.179363806468858,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 37410
+    },
+    "B40_60|sp15|puts|100000": {
+      "n_days_with_candidates": 1288,
+      "median_filled": 13.0,
+      "median_eff_hhi": 10.531151734295012,
+      "n_invested_days": 1086,
+      "pct_invested_days": 84.3167701863354,
+      "median_invested_day_utilization_pct": 24.384,
+      "median_utilization_all_days_pct": 21.549000000000003,
+      "max_utilization_pct": 85.518,
+      "median_contracts_per_position": 8.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0315144966684675,
+        "rounding_up_forced": 0.0,
+        "volume": 10.062128579146409,
+        "oi": 4.1013866378534125,
+        "sector": 11.601836844948677,
+        "vega": 0.2296056185845489,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 22212
+    },
+    "B40_60|sp15|puts|250000": {
+      "n_days_with_candidates": 1288,
+      "median_filled": 13.0,
+      "median_eff_hhi": 9.710182131411427,
+      "n_invested_days": 1086,
+      "pct_invested_days": 84.3167701863354,
+      "median_invested_day_utilization_pct": 19.874799999999997,
+      "median_utilization_all_days_pct": 17.3958,
+      "max_utilization_pct": 76.89399999999999,
+      "median_contracts_per_position": 15.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.018008283810552854,
+        "rounding_up_forced": 0.0,
+        "volume": 27.68773635872501,
+        "oi": 20.268323428777236,
+        "sector": 11.480280929227444,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 22212
+    },
+    "B40_60|sp15|puts|500000": {
+      "n_days_with_candidates": 1288,
+      "median_filled": 13.0,
+      "median_eff_hhi": 8.248731604535644,
+      "n_invested_days": 1086,
+      "pct_invested_days": 84.3167701863354,
+      "median_invested_day_utilization_pct": 14.8091,
+      "median_utilization_all_days_pct": 12.956999999999999,
+      "max_utilization_pct": 63.8036,
+      "median_contracts_per_position": 20.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.01350621285791464,
+        "rounding_up_forced": 0.0,
+        "volume": 45.52043940212498,
+        "oi": 38.78984332793085,
+        "sector": 11.480280929227444,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 22212
+    },
+    "B40_60|sp15|puts|1000000": {
+      "n_days_with_candidates": 1288,
+      "median_filled": 13.0,
+      "median_eff_hhi": 6.875888584532121,
+      "n_invested_days": 1086,
+      "pct_invested_days": 84.3167701863354,
+      "median_invested_day_utilization_pct": 10.0291,
+      "median_utilization_all_days_pct": 8.71205,
+      "max_utilization_pct": 49.8709,
+      "median_contracts_per_position": 22.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.009004141905276427,
+        "rounding_up_forced": 0.0,
+        "volume": 62.05654601116514,
+        "oi": 55.84819016747704,
+        "sector": 11.480280929227444,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 22212
+    },
+    "B40_60|sp15|puts|2000000": {
+      "n_days_with_candidates": 1288,
+      "median_filled": 13.0,
+      "median_eff_hhi": 5.67235094899111,
+      "n_invested_days": 1086,
+      "pct_invested_days": 84.3167701863354,
+      "median_invested_day_utilization_pct": 6.331375,
+      "median_utilization_all_days_pct": 5.486025,
+      "max_utilization_pct": 33.87715,
+      "median_contracts_per_position": 23.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 72.33027192508554,
+        "oi": 68.97172699441744,
+        "sector": 11.480280929227444,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 22212
+    },
+    "B40_60|sp15|puts|100000|DYNCAP": {
+      "n_days_with_candidates": 1288,
+      "median_filled": 8.0,
+      "median_eff_hhi": 4.559585033694299,
+      "n_invested_days": 947,
+      "pct_invested_days": 73.5248447204969,
+      "median_invested_day_utilization_pct": 7.07,
+      "median_utilization_all_days_pct": 5.336,
+      "max_utilization_pct": 37.29,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 83.22528363047002,
+        "oi": 61.49828921303799,
+        "sector": 5.582567981271385,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 22212
+    },
+    "B40_60|sp15|puts|250000|DYNCAP": {
+      "n_days_with_candidates": 1288,
+      "median_filled": 8.0,
+      "median_eff_hhi": 3.7564331950925425,
+      "n_invested_days": 947,
+      "pct_invested_days": 73.5248447204969,
+      "median_invested_day_utilization_pct": 3.63,
+      "median_utilization_all_days_pct": 2.691,
+      "max_utilization_pct": 23.7452,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 89.32108770034216,
+        "oi": 79.82171799027553,
+        "sector": 5.582567981271385,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 22212
+    },
+    "B40_60|sp15|puts|500000|DYNCAP": {
+      "n_days_with_candidates": 1288,
+      "median_filled": 8.0,
+      "median_eff_hhi": 3.5384311367974703,
+      "n_invested_days": 947,
+      "pct_invested_days": 73.5248447204969,
+      "median_invested_day_utilization_pct": 1.9286,
+      "median_utilization_all_days_pct": 1.3839000000000001,
+      "max_utilization_pct": 18.3176,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 91.14442643616063,
+        "oi": 86.4397622906537,
+        "sector": 5.582567981271385,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 22212
+    },
+    "B40_60|sp15|puts|1000000|DYNCAP": {
+      "n_days_with_candidates": 1288,
+      "median_filled": 8.0,
+      "median_eff_hhi": 3.46639511364456,
+      "n_invested_days": 947,
+      "pct_invested_days": 73.5248447204969,
+      "median_invested_day_utilization_pct": 0.9643,
+      "median_utilization_all_days_pct": 0.6919500000000001,
+      "max_utilization_pct": 12.825800000000001,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 91.7657122276247,
+        "oi": 90.28903295515937,
+        "sector": 5.582567981271385,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 22212
+    },
+    "B40_60|sp15|puts|2000000|DYNCAP": {
+      "n_days_with_candidates": 1288,
+      "median_filled": 8.0,
+      "median_eff_hhi": 3.46639511364456,
+      "n_invested_days": 947,
+      "pct_invested_days": 73.5248447204969,
+      "median_invested_day_utilization_pct": 0.48215,
+      "median_utilization_all_days_pct": 0.34597500000000003,
+      "max_utilization_pct": 6.5875,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 91.95029713668288,
+        "oi": 91.53160453808752,
+        "sector": 5.582567981271385,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 22212
+    },
+    "B40_60|sp10|calls|100000": {
+      "n_days_with_candidates": 1327,
+      "median_filled": 11.0,
+      "median_eff_hhi": 10.155465260832234,
+      "n_invested_days": 1058,
+      "pct_invested_days": 79.72871137905048,
+      "median_invested_day_utilization_pct": 17.440499999999997,
+      "median_utilization_all_days_pct": 14.133000000000001,
+      "max_utilization_pct": 49.829,
+      "median_contracts_per_position": 8.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 2.1290239835834295,
+        "oi": 2.184600914881792,
+        "sector": 15.270830661365483,
+        "vega": 3.0396306271642937,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 23391
+    },
+    "B40_60|sp10|calls|250000": {
+      "n_days_with_candidates": 1327,
+      "median_filled": 11.0,
+      "median_eff_hhi": 9.636648566826311,
+      "n_invested_days": 1058,
+      "pct_invested_days": 79.72871137905048,
+      "median_invested_day_utilization_pct": 15.9022,
+      "median_utilization_all_days_pct": 12.634,
+      "max_utilization_pct": 49.9144,
+      "median_contracts_per_position": 16.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 9.16591851566842,
+        "oi": 11.91056389209525,
+        "sector": 12.953700141079901,
+        "vega": 0.17528109101791287,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 23391
+    },
+    "B40_60|sp10|calls|500000": {
+      "n_days_with_candidates": 1327,
+      "median_filled": 11.0,
+      "median_eff_hhi": 8.809328442825944,
+      "n_invested_days": 1058,
+      "pct_invested_days": 79.72871137905048,
+      "median_invested_day_utilization_pct": 13.1733,
+      "median_utilization_all_days_pct": 10.702,
+      "max_utilization_pct": 45.9926,
+      "median_contracts_per_position": 25.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 21.598050532255996,
+        "oi": 25.732119191141894,
+        "sector": 12.855371724167414,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 23391
+    },
+    "B40_60|sp10|calls|1000000": {
+      "n_days_with_candidates": 1327,
+      "median_filled": 11.0,
+      "median_eff_hhi": 7.529841054474813,
+      "n_invested_days": 1058,
+      "pct_invested_days": 79.72871137905048,
+      "median_invested_day_utilization_pct": 9.87855,
+      "median_utilization_all_days_pct": 7.9841999999999995,
+      "max_utilization_pct": 41.9924,
+      "median_contracts_per_position": 34.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 38.08729853362404,
+        "oi": 42.63605660296695,
+        "sector": 12.855371724167414,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 23391
+    },
+    "B40_60|sp10|calls|2000000": {
+      "n_days_with_candidates": 1327,
+      "median_filled": 11.0,
+      "median_eff_hhi": 6.215906909886469,
+      "n_invested_days": 1058,
+      "pct_invested_days": 79.72871137905048,
+      "median_invested_day_utilization_pct": 6.617900000000001,
+      "median_utilization_all_days_pct": 5.3046999999999995,
+      "max_utilization_pct": 34.1403,
+      "median_contracts_per_position": 40.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 53.98657603351717,
+        "oi": 57.34256765422599,
+        "sector": 12.855371724167414,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 23391
+    },
+    "B40_60|sp10|puts|100000": {
+      "n_days_with_candidates": 1244,
+      "median_filled": 9.0,
+      "median_eff_hhi": 7.654518436818219,
+      "n_invested_days": 985,
+      "pct_invested_days": 79.18006430868168,
+      "median_invested_day_utilization_pct": 18.594,
+      "median_utilization_all_days_pct": 15.7025,
+      "max_utilization_pct": 77.24,
+      "median_contracts_per_position": 8.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.03938041480703597,
+        "rounding_up_forced": 0.0,
+        "volume": 8.558676818062484,
+        "oi": 3.7411394066684167,
+        "sector": 10.508007351010765,
+        "vega": 0.1181412444211079,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 15236
+    },
+    "B40_60|sp10|puts|250000": {
+      "n_days_with_candidates": 1244,
+      "median_filled": 9.0,
+      "median_eff_hhi": 7.113913560341837,
+      "n_invested_days": 985,
+      "pct_invested_days": 79.18006430868168,
+      "median_invested_day_utilization_pct": 15.7,
+      "median_utilization_all_days_pct": 13.0242,
+      "max_utilization_pct": 69.6172,
+      "median_contracts_per_position": 16.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.019690207403517984,
+        "rounding_up_forced": 0.0,
+        "volume": 26.726174849041744,
+        "oi": 20.287477028091363,
+        "sector": 10.396429509057494,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 15236
+    },
+    "B40_60|sp10|puts|500000": {
+      "n_days_with_candidates": 1244,
+      "median_filled": 9.0,
+      "median_eff_hhi": 6.248986980305782,
+      "n_invested_days": 985,
+      "pct_invested_days": 79.18006430868168,
+      "median_invested_day_utilization_pct": 12.1868,
+      "median_utilization_all_days_pct": 10.0525,
+      "max_utilization_pct": 62.382400000000004,
+      "median_contracts_per_position": 21.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.013126804935678657,
+        "rounding_up_forced": 0.0,
+        "volume": 46.61328432659491,
+        "oi": 40.27960094512996,
+        "sector": 10.396429509057494,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 15236
+    },
+    "B40_60|sp10|puts|1000000": {
+      "n_days_with_candidates": 1244,
+      "median_filled": 9.0,
+      "median_eff_hhi": 5.320574407762139,
+      "n_invested_days": 985,
+      "pct_invested_days": 79.18006430868168,
+      "median_invested_day_utilization_pct": 8.405,
+      "median_utilization_all_days_pct": 6.78305,
+      "max_utilization_pct": 49.9227,
+      "median_contracts_per_position": 24.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.013126804935678657,
+        "rounding_up_forced": 0.0,
+        "volume": 65.98188500918877,
+        "oi": 59.72696245733788,
+        "sector": 10.396429509057494,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 15236
+    },
+    "B40_60|sp10|puts|2000000": {
+      "n_days_with_candidates": 1244,
+      "median_filled": 9.0,
+      "median_eff_hhi": 4.537675063900654,
+      "n_invested_days": 985,
+      "pct_invested_days": 79.18006430868168,
+      "median_invested_day_utilization_pct": 5.28555,
+      "median_utilization_all_days_pct": 4.1908,
+      "max_utilization_pct": 33.90305,
+      "median_contracts_per_position": 25.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 78.2554476240483,
+        "oi": 74.77028091362563,
+        "sector": 10.396429509057494,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 15236
+    },
+    "B45_60|sp15|calls|100000": {
+      "n_days_with_candidates": 1006,
+      "median_filled": 17.0,
+      "median_eff_hhi": 14.781059821883808,
+      "n_invested_days": 889,
+      "pct_invested_days": 88.36978131212724,
+      "median_invested_day_utilization_pct": 22.015,
+      "median_utilization_all_days_pct": 20.7865,
+      "max_utilization_pct": 50.991,
+      "median_contracts_per_position": 8.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 2.7795897658911355,
+        "oi": 1.8735957092121476,
+        "sector": 14.035659926070885,
+        "vega": 3.1202435312024352,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 27594
+    },
+    "B45_60|sp15|calls|250000": {
+      "n_days_with_candidates": 1006,
+      "median_filled": 17.0,
+      "median_eff_hhi": 14.010452075877849,
+      "n_invested_days": 889,
+      "pct_invested_days": 88.36978131212724,
+      "median_invested_day_utilization_pct": 19.935200000000002,
+      "median_utilization_all_days_pct": 18.340600000000002,
+      "max_utilization_pct": 49.4716,
+      "median_contracts_per_position": 15.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 10.455171414075522,
+        "oi": 10.687105892585343,
+        "sector": 11.959121548162644,
+        "vega": 0.021743857360295715,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 27594
+    },
+    "B45_60|sp15|calls|500000": {
+      "n_days_with_candidates": 1006,
+      "median_filled": 17.0,
+      "median_eff_hhi": 12.52009732167432,
+      "n_invested_days": 889,
+      "pct_invested_days": 88.36978131212724,
+      "median_invested_day_utilization_pct": 16.278000000000002,
+      "median_utilization_all_days_pct": 15.110499999999998,
+      "max_utilization_pct": 45.5406,
+      "median_contracts_per_position": 23.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 22.25121403203595,
+        "oi": 22.65347539320142,
+        "sector": 11.955497571935927,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 27594
+    },
+    "B45_60|sp15|calls|1000000": {
+      "n_days_with_candidates": 1006,
+      "median_filled": 17.0,
+      "median_eff_hhi": 10.541726975700332,
+      "n_invested_days": 889,
+      "pct_invested_days": 88.36978131212724,
+      "median_invested_day_utilization_pct": 12.1349,
+      "median_utilization_all_days_pct": 11.089699999999999,
+      "max_utilization_pct": 39.3999,
+      "median_contracts_per_position": 30.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 36.3702254113213,
+        "oi": 36.72537508153946,
+        "sector": 11.955497571935927,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 27594
+    },
+    "B45_60|sp15|calls|2000000": {
+      "n_days_with_candidates": 1006,
+      "median_filled": 17.0,
+      "median_eff_hhi": 8.453404872012438,
+      "n_invested_days": 889,
+      "pct_invested_days": 88.36978131212724,
+      "median_invested_day_utilization_pct": 7.917349999999999,
+      "median_utilization_all_days_pct": 7.36945,
+      "max_utilization_pct": 31.6246,
+      "median_contracts_per_position": 33.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 49.007030513879826,
+        "oi": 48.862071464811194,
+        "sector": 11.955497571935927,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 27594
+    },
+    "B45_60|sp15|calls|100000|DYNCAP": {
+      "n_days_with_candidates": 1006,
+      "median_filled": 14.0,
+      "median_eff_hhi": 8.151920998045195,
+      "n_invested_days": 837,
+      "pct_invested_days": 83.20079522862824,
+      "median_invested_day_utilization_pct": 9.178,
+      "median_utilization_all_days_pct": 7.804,
+      "max_utilization_pct": 37.383,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 57.454519098354716,
+        "oi": 40.414582880336305,
+        "sector": 8.951221279988403,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 27594
+    },
+    "B45_60|sp15|calls|250000|DYNCAP": {
+      "n_days_with_candidates": 1006,
+      "median_filled": 14.0,
+      "median_eff_hhi": 6.468672448010457,
+      "n_invested_days": 837,
+      "pct_invested_days": 83.20079522862824,
+      "median_invested_day_utilization_pct": 4.8652,
+      "median_utilization_all_days_pct": 3.9354,
+      "max_utilization_pct": 25.792399999999997,
+      "median_contracts_per_position": 3.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 67.28274262520839,
+        "oi": 57.77705298253244,
+        "sector": 8.951221279988403,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 27594
+    },
+    "B45_60|sp15|calls|500000|DYNCAP": {
+      "n_days_with_candidates": 1006,
+      "median_filled": 14.0,
+      "median_eff_hhi": 5.690821463387746,
+      "n_invested_days": 837,
+      "pct_invested_days": 83.20079522862824,
+      "median_invested_day_utilization_pct": 2.6682,
+      "median_utilization_all_days_pct": 2.1378,
+      "max_utilization_pct": 19.017999999999997,
+      "median_contracts_per_position": 3.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 70.20366746394143,
+        "oi": 65.73892875262737,
+        "sector": 8.951221279988403,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 27594
+    },
+    "B45_60|sp15|calls|1000000|DYNCAP": {
+      "n_days_with_candidates": 1006,
+      "median_filled": 14.0,
+      "median_eff_hhi": 5.418883590137462,
+      "n_invested_days": 837,
+      "pct_invested_days": 83.20079522862824,
+      "median_invested_day_utilization_pct": 1.355,
+      "median_utilization_all_days_pct": 1.0951499999999998,
+      "max_utilization_pct": 11.050500000000001,
+      "median_contracts_per_position": 3.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 71.24374864100892,
+        "oi": 69.59846343407987,
+        "sector": 8.951221279988403,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 27594
+    },
+    "B45_60|sp15|calls|2000000|DYNCAP": {
+      "n_days_with_candidates": 1006,
+      "median_filled": 14.0,
+      "median_eff_hhi": 5.390310478617568,
+      "n_invested_days": 837,
+      "pct_invested_days": 83.20079522862824,
+      "median_invested_day_utilization_pct": 0.68055,
+      "median_utilization_all_days_pct": 0.5475749999999999,
+      "max_utilization_pct": 5.525250000000001,
+      "median_contracts_per_position": 3.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 71.46118721461188,
+        "oi": 71.06617380589984,
+        "sector": 8.951221279988403,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 27594
+    },
+    "B45_60|sp15|puts|100000": {
+      "n_days_with_candidates": 960,
+      "median_filled": 13.0,
+      "median_eff_hhi": 10.298548993085673,
+      "n_invested_days": 849,
+      "pct_invested_days": 88.4375,
+      "median_invested_day_utilization_pct": 23.363,
+      "median_utilization_all_days_pct": 21.1295,
+      "max_utilization_pct": 83.353,
+      "median_contracts_per_position": 8.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.03705533596837944,
+        "rounding_up_forced": 0.0,
+        "volume": 10.826333992094863,
+        "oi": 3.8290513833992095,
+        "sector": 10.869565217391305,
+        "vega": 0.2285079051383399,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 16192
+    },
+    "B45_60|sp15|puts|250000": {
+      "n_days_with_candidates": 960,
+      "median_filled": 13.0,
+      "median_eff_hhi": 9.53278300097934,
+      "n_invested_days": 849,
+      "pct_invested_days": 88.4375,
+      "median_invested_day_utilization_pct": 18.5984,
+      "median_utilization_all_days_pct": 17.0056,
+      "max_utilization_pct": 76.89399999999999,
+      "median_contracts_per_position": 15.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.01852766798418972,
+        "rounding_up_forced": 0.0,
+        "volume": 28.785820158102766,
+        "oi": 19.8925395256917,
+        "sector": 10.764575098814229,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 16192
+    },
+    "B45_60|sp15|puts|500000": {
+      "n_days_with_candidates": 960,
+      "median_filled": 13.0,
+      "median_eff_hhi": 8.15044242340404,
+      "n_invested_days": 849,
+      "pct_invested_days": 88.4375,
+      "median_invested_day_utilization_pct": 13.8656,
+      "median_utilization_all_days_pct": 12.684499999999998,
+      "max_utilization_pct": 63.8036,
+      "median_contracts_per_position": 19.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.012351778656126482,
+        "rounding_up_forced": 0.0,
+        "volume": 47.27643280632411,
+        "oi": 38.90810276679842,
+        "sector": 10.764575098814229,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 16192
+    },
+    "B45_60|sp15|puts|1000000": {
+      "n_days_with_candidates": 960,
+      "median_filled": 13.0,
+      "median_eff_hhi": 6.725529497403686,
+      "n_invested_days": 849,
+      "pct_invested_days": 88.4375,
+      "median_invested_day_utilization_pct": 9.535499999999999,
+      "median_utilization_all_days_pct": 8.64545,
+      "max_utilization_pct": 42.9508,
+      "median_contracts_per_position": 22.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.006175889328063241,
+        "rounding_up_forced": 0.0,
+        "volume": 63.827816205533594,
+        "oi": 56.311758893280626,
+        "sector": 10.764575098814229,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 16192
+    },
+    "B45_60|sp15|puts|2000000": {
+      "n_days_with_candidates": 960,
+      "median_filled": 13.0,
+      "median_eff_hhi": 5.591974193349669,
+      "n_invested_days": 849,
+      "pct_invested_days": 88.4375,
+      "median_invested_day_utilization_pct": 5.99255,
+      "median_utilization_all_days_pct": 5.42,
+      "max_utilization_pct": 28.520899999999997,
+      "median_contracts_per_position": 22.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 73.94392292490119,
+        "oi": 69.81225296442688,
+        "sector": 10.764575098814229,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 16192
+    },
+    "B45_60|sp15|puts|100000|DYNCAP": {
+      "n_days_with_candidates": 960,
+      "median_filled": 8.0,
+      "median_eff_hhi": 4.435634272725149,
+      "n_invested_days": 715,
+      "pct_invested_days": 74.47916666666666,
+      "median_invested_day_utilization_pct": 6.798,
+      "median_utilization_all_days_pct": 5.305499999999999,
+      "max_utilization_pct": 33.11,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 83.34362648221344,
+        "oi": 61.03631422924901,
+        "sector": 4.718379446640316,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 16192
+    },
+    "B45_60|sp15|puts|250000|DYNCAP": {
+      "n_days_with_candidates": 960,
+      "median_filled": 8.0,
+      "median_eff_hhi": 3.6848491248293085,
+      "n_invested_days": 715,
+      "pct_invested_days": 74.47916666666666,
+      "median_invested_day_utilization_pct": 3.5271999999999997,
+      "median_utilization_all_days_pct": 2.6931999999999996,
+      "max_utilization_pct": 23.7452,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 89.3465909090909,
+        "oi": 79.61956521739131,
+        "sector": 4.718379446640316,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 16192
+    },
+    "B45_60|sp15|puts|500000|DYNCAP": {
+      "n_days_with_candidates": 960,
+      "median_filled": 8.0,
+      "median_eff_hhi": 3.458451974716665,
+      "n_invested_days": 715,
+      "pct_invested_days": 74.47916666666666,
+      "median_invested_day_utilization_pct": 1.859,
+      "median_utilization_all_days_pct": 1.3839000000000001,
+      "max_utilization_pct": 18.3176,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 91.23023715415019,
+        "oi": 86.25247035573122,
+        "sector": 4.718379446640316,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 16192
+    },
+    "B45_60|sp15|puts|1000000|DYNCAP": {
+      "n_days_with_candidates": 960,
+      "median_filled": 8.0,
+      "median_eff_hhi": 3.3911492984827087,
+      "n_invested_days": 715,
+      "pct_invested_days": 74.47916666666666,
+      "median_invested_day_utilization_pct": 0.9376000000000001,
+      "median_utilization_all_days_pct": 0.6919500000000001,
+      "max_utilization_pct": 12.825800000000001,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 91.8848814229249,
+        "oi": 90.29150197628458,
+        "sector": 4.718379446640316,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 16192
+    },
+    "B45_60|sp15|puts|2000000|DYNCAP": {
+      "n_days_with_candidates": 960,
+      "median_filled": 8.0,
+      "median_eff_hhi": 3.3911492984827087,
+      "n_invested_days": 715,
+      "pct_invested_days": 74.47916666666666,
+      "median_invested_day_utilization_pct": 0.46880000000000005,
+      "median_utilization_all_days_pct": 0.34597500000000003,
+      "max_utilization_pct": 6.5875,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 92.09486166007905,
+        "oi": 91.63784584980237,
+        "sector": 4.718379446640316,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 16192
+    },
+    "B45_60|sp10|calls|100000": {
+      "n_days_with_candidates": 976,
+      "median_filled": 11.0,
+      "median_eff_hhi": 10.301290819894565,
+      "n_invested_days": 823,
+      "pct_invested_days": 84.32377049180327,
+      "median_invested_day_utilization_pct": 16.438,
+      "median_utilization_all_days_pct": 14.124999999999998,
+      "max_utilization_pct": 49.829,
+      "median_contracts_per_position": 8.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 2.2636332456842347,
+        "oi": 2.046415914027667,
+        "sector": 14.490682519721046,
+        "vega": 3.109637590030868,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 17494
+    },
+    "B45_60|sp10|calls|250000": {
+      "n_days_with_candidates": 976,
+      "median_filled": 11.0,
+      "median_eff_hhi": 9.943872193520262,
+      "n_invested_days": 823,
+      "pct_invested_days": 84.32377049180327,
+      "median_invested_day_utilization_pct": 14.843600000000002,
+      "median_utilization_all_days_pct": 12.664399999999997,
+      "max_utilization_pct": 49.202,
+      "median_contracts_per_position": 16.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 9.39750771693152,
+        "oi": 11.266720018291986,
+        "sector": 12.118440608208529,
+        "vega": 0.02286498227963873,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 17494
+    },
+    "B45_60|sp10|calls|500000": {
+      "n_days_with_candidates": 976,
+      "median_filled": 11.0,
+      "median_eff_hhi": 8.998546480164169,
+      "n_invested_days": 823,
+      "pct_invested_days": 84.32377049180327,
+      "median_invested_day_utilization_pct": 12.373199999999999,
+      "median_utilization_all_days_pct": 10.777000000000001,
+      "max_utilization_pct": 44.9348,
+      "median_contracts_per_position": 25.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 21.944666742883275,
+        "oi": 25.020006859494682,
+        "sector": 12.1012918714988,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 17494
+    },
+    "B45_60|sp10|calls|1000000": {
+      "n_days_with_candidates": 976,
+      "median_filled": 11.0,
+      "median_eff_hhi": 7.686326181864313,
+      "n_invested_days": 823,
+      "pct_invested_days": 84.32377049180327,
+      "median_invested_day_utilization_pct": 9.449200000000001,
+      "median_utilization_all_days_pct": 8.0307,
+      "max_utilization_pct": 40.9462,
+      "median_contracts_per_position": 34.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 38.58465759689037,
+        "oi": 41.71144392363096,
+        "sector": 12.1012918714988,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 17494
+    },
+    "B45_60|sp10|calls|2000000": {
+      "n_days_with_candidates": 976,
+      "median_filled": 11.0,
+      "median_eff_hhi": 6.373442381677457,
+      "n_invested_days": 823,
+      "pct_invested_days": 84.32377049180327,
+      "median_invested_day_utilization_pct": 6.3573,
+      "median_utilization_all_days_pct": 5.3555,
+      "max_utilization_pct": 33.2576,
+      "median_contracts_per_position": 39.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 54.60157768377729,
+        "oi": 56.613696124385505,
+        "sector": 12.1012918714988,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 17494
+    },
+    "B45_60|sp10|puts|100000": {
+      "n_days_with_candidates": 942,
+      "median_filled": 9.0,
+      "median_eff_hhi": 7.566509276018877,
+      "n_invested_days": 753,
+      "pct_invested_days": 79.93630573248409,
+      "median_invested_day_utilization_pct": 17.822,
+      "median_utilization_all_days_pct": 15.221499999999999,
+      "max_utilization_pct": 77.24,
+      "median_contracts_per_position": 8.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.044472115983278486,
+        "rounding_up_forced": 0.0,
+        "volume": 9.107889353375434,
+        "oi": 3.4421417771057548,
+        "sector": 9.348038779685137,
+        "vega": 0.15120519434314686,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 11243
+    },
+    "B45_60|sp10|puts|250000": {
+      "n_days_with_candidates": 942,
+      "median_filled": 9.0,
+      "median_eff_hhi": 6.9876492663611725,
+      "n_invested_days": 753,
+      "pct_invested_days": 79.93630573248409,
+      "median_invested_day_utilization_pct": 14.9468,
+      "median_utilization_all_days_pct": 12.640400000000001,
+      "max_utilization_pct": 67.53280000000001,
+      "median_contracts_per_position": 15.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.017788846393311394,
+        "rounding_up_forced": 0.0,
+        "volume": 27.403717868896205,
+        "oi": 19.363159299119452,
+        "sector": 9.19683358534199,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 11243
+    },
+    "B45_60|sp10|puts|500000": {
+      "n_days_with_candidates": 942,
+      "median_filled": 9.0,
+      "median_eff_hhi": 6.135254003491507,
+      "n_invested_days": 753,
+      "pct_invested_days": 79.93630573248409,
+      "median_invested_day_utilization_pct": 11.602,
+      "median_utilization_all_days_pct": 9.5801,
+      "max_utilization_pct": 54.477,
+      "median_contracts_per_position": 20.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.008894423196655697,
+        "rounding_up_forced": 0.0,
+        "volume": 47.60295294850129,
+        "oi": 39.482344569954634,
+        "sector": 9.19683358534199,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 11243
+    },
+    "B45_60|sp10|puts|1000000": {
+      "n_days_with_candidates": 942,
+      "median_filled": 9.0,
+      "median_eff_hhi": 5.18220953253469,
+      "n_invested_days": 753,
+      "pct_invested_days": 79.93630573248409,
+      "median_invested_day_utilization_pct": 7.8729,
+      "median_utilization_all_days_pct": 6.5625,
+      "max_utilization_pct": 40.9474,
+      "median_contracts_per_position": 24.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.008894423196655697,
+        "rounding_up_forced": 0.0,
+        "volume": 66.61033531975451,
+        "oi": 58.827715022680785,
+        "sector": 9.19683358534199,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 11243
+    },
+    "B45_60|sp10|puts|2000000": {
+      "n_days_with_candidates": 942,
+      "median_filled": 9.0,
+      "median_eff_hhi": 4.379154343092303,
+      "n_invested_days": 753,
+      "pct_invested_days": 79.93630573248409,
+      "median_invested_day_utilization_pct": 5.02715,
+      "median_utilization_all_days_pct": 4.0633,
+      "max_utilization_pct": 26.3372,
+      "median_contracts_per_position": 24.0,
+      "constraints_pct_of_considered": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 78.36876278573335,
+        "oi": 74.0193898425687,
+        "sector": 9.19683358534199,
+        "vega": 0.0,
+        "gamma": 0.0
+      },
+      "total_candidates_considered": 11243
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "generated_by": "src/60_v4_c1c9_funnel.py",
+    "scope": "construction/feasibility only - no hedging simulation, no forward return, no P&L",
+    "input": "opprcd_v4_contracts_dte8_90.parquet",
+    "flagged_interpretations": [
+      "Sec.7.7 earnings window evaluated over (entry, exit] not (entry, expiration] - Sec.7.7's literal text predates the fixed-30-day-exit revision; flagged, not silently patched into the locked document.",
+      "Mid-hold option-quote path completeness computed as a DIAGNOSTIC only, not an attrition step - Sec.7.8 explicitly forbids dropping trades for mid-hold quote gaps (carry-forward/early-exit fallbacks instead); flagged rather than silently either contradicting that rule or omitting the requested measurement."
+    ]
+  },
+  "step1_underlying_join": {
+    "rows_scanned": 255378123,
+    "rows_matched": 254630112,
+    "match_rate_pct": 99.70709668032136,
+    "nonmatch_by_year": {
+      "2015": 87036,
+      "2016": 114395,
+      "2017": 120526,
+      "2018": 94250,
+      "2019": 59845,
+      "2020": 106353,
+      "2021": 165606
+    }
+  },
+  "step2_entry_dte_window_count": 28538043,
+  "final_funnel_survivors": 35348,
+  "selected_after_tiebreak": {
+    "total": 28367,
+    "by_year": {
+      "calls": {
+        "2015": 939,
+        "2016": 1365,
+        "2017": 1560,
+        "2018": 2091,
+        "2019": 2133,
+        "2020": 3712,
+        "2021": 5446
+      },
+      "puts": {
+        "2015": 774,
+        "2016": 1070,
+        "2017": 1312,
+        "2018": 1462,
+        "2019": 1391,
+        "2020": 1757,
+        "2021": 3355
+      }
+    }
+  }
+}

@@ -1,0 +1,517 @@
+{
+  "phase": "E1 - EMA-ribbon residency",
+  "generated": "2026-07-30 03:39:57",
+  "script": "src/46_E1_tests.py",
+  "pre_registration": "results/prereg_E1.md (LOCKED 2026-07-30)",
+  "window": "DEV 2015-01-01 to 2021-12-31 - no holdout path",
+  "holdout_disclosure": "2022-2025 already spent as holdout for R1, R2, V1, V2, K1. E1 makes no holdout claim. A future E1 holdout would be a sixth look at the same calendar period, not a fresh out-of-sample test.",
+  "implementation_decisions": {
+    "D1_entry_convention": "entry at open(t+1); h-session return = close(t+h)/open(t+1)-1",
+    "D2_barrier_ties": "same-session double touch excluded from that race and counted",
+    "D3_fm_standardization": "signal terms z-scored cross-sectionally within date",
+    "D4_date_constant_controls": "market-vol regime absorbed by FM per-date intercept",
+    "D5_min_cross_section": 50,
+    "D6_test1b_estimator": "per-episode y - matched cell rate, date-clustered SE",
+    "D7_breakout_reference": "D uses episode running max; A/B/C use trailing 10-session high; D_ALT diagnostic uses trailing 10",
+    "D8_trigger_window": 20,
+    "D9_compression_criterion": "most-compressed cross-sectional decile (V1 convention)",
+    "D10_winsorization": "none",
+    "D11_forward_vol": "DlyRet std over window, annualized sqrt(252)"
+  },
+  "sample": {
+    "primary_episodes_before_common_start": 69126,
+    "excluded_by_common_start_rule": 1902,
+    "primary_episodes_used": 67224,
+    "unique_permnos": 2909,
+    "date_range": [
+      "2015-03-10",
+      "2021-12-31"
+    ],
+    "drops": {
+      "common_start_rule": 1902,
+      "test1_missing_continuous_residency_depth": 0,
+      "incomplete_window_h5": 319,
+      "incomplete_window_h10": 616,
+      "incomplete_window_h20": 1425,
+      "fm_dates_dropped": 1336,
+      "episodes_without_matched_control_cell": 1616,
+      "bullish_compressed_episodes_without_trigger": 1305
+    },
+    "barrier_counts": {
+      "1atr_same_session_ties": 639,
+      "1atr_neither_touched": 3002,
+      "2atr_same_session_ties": 89,
+      "2atr_neither_touched": 27032
+    }
+  },
+  "test1": {
+    "fama_macbeth_outcome": "max_abs_move_10",
+    "amendment": "AMENDED 2026-07-30 (prereg section 13 item 11): 1a interaction is compression_ratio x continuous_residency_depth, expected sign negative; residency_10 dropped from the model (constant on the primary episode set by construction).",
+    "coefficients": {
+      "compression": {
+        "mean_coef": -0.008183494205137209,
+        "nw_t": -8.976131940610683,
+        "n_dates": 296
+      },
+      "continuous_residency_depth": {
+        "mean_coef": -0.0007321071201063066,
+        "nw_t": -1.0972476760922185,
+        "n_dates": 296
+      },
+      "ribbon_width": {
+        "mean_coef": -0.005097563736585577,
+        "nw_t": -5.789698756089811,
+        "n_dates": 296
+      },
+      "interaction": {
+        "mean_coef": -0.00047975663645908934,
+        "nw_t": -0.555483528432561,
+        "n_dates": 296
+      }
+    },
+    "1a": {
+      "nw_t": -0.555483528432561,
+      "bar": 3.0,
+      "expected_sign": "negative",
+      "met": false
+    },
+    "1b": {
+      "episode_rate_pct": 59.446573805739924,
+      "control_rate_pct": 59.72967761932876,
+      "margin_pp": -0.283103813588829,
+      "z": -1.3443199197358613,
+      "n": 64182,
+      "bar_pp": 3.0,
+      "bar_z": 3.0,
+      "met": false
+    },
+    "verdict": "FAIL"
+  },
+  "test2": {
+    "state_counts": {
+      "neutral": 34337,
+      "bullish": 17736,
+      "bearish": 15151
+    },
+    "state_barrier_rates": {
+      "bullish": {
+        "n": 10924,
+        "p_up_first": 0.5022885389967046,
+        "p_dn_first": 0.49771146100329544
+      },
+      "bearish": {
+        "n": 8557,
+        "p_up_first": 0.522963655486736,
+        "p_dn_first": 0.47703634451326404
+      },
+      "neutral": {
+        "n": 20006,
+        "p_up_first": 0.5170448865340398,
+        "p_dn_first": 0.4829551134659602
+      }
+    },
+    "2a": {
+      "margin_pp": -1.4756347537334986,
+      "z": -1.7072948776880794,
+      "bar_pp": 3.0,
+      "bar_z": 3.0,
+      "met": false
+    },
+    "2b_pooled": {
+      "margin_pp": -0.5918768952696072,
+      "z": -0.5961299213965122,
+      "bar_pp": 3.0,
+      "bar_z": 3.0,
+      "met": false
+    },
+    "2b_flat_load_bearing": {
+      "margin_pp": -2.7083117780053385,
+      "z": -1.6498767644981822,
+      "bar_pp": 1.5,
+      "bar_z": 2.0,
+      "met": false
+    },
+    "2b_combined": false,
+    "regime_detail": {
+      "mkt_up": {
+        "n_episodes": 18078,
+        "bullish_margin_pp": -1.0185623152224021,
+        "bullish_z": -0.781504246814003,
+        "bearish_margin_pp": 2.225344300272255,
+        "bearish_z": 1.525963222278531,
+        "n_bearish": 3470,
+        "n_neutral": 9009
+      },
+      "mkt_flat": {
+        "n_episodes": 13722,
+        "bullish_margin_pp": -1.352630948600243,
+        "bullish_z": -0.991422716235877,
+        "bearish_margin_pp": -2.7083117780053385,
+        "bearish_z": -1.6498767644981822,
+        "n_bearish": 2937,
+        "n_neutral": 7039
+      },
+      "mkt_down": {
+        "n_episodes": 7687,
+        "bullish_margin_pp": -2.833088147524951,
+        "bullish_z": -1.407776997655517,
+        "bearish_margin_pp": -1.7795456949128665,
+        "bearish_z": -0.8131376161676965,
+        "n_bearish": 2150,
+        "n_neutral": 3958
+      }
+    },
+    "verdict": "FAIL"
+  },
+  "test3": {
+    "arms": {
+      "A": {
+        "n_trades": 31916,
+        "n_days": 1724,
+        "mean_daily_ret": 0.009526352270515587,
+        "nw_t": 2.5318984705598053,
+        "mean_trade_ret": 0.009821455839062061,
+        "mean_mfe": 0.10825395229664349,
+        "mean_mae": -0.08415150659857415
+      },
+      "B": {
+        "n_trades": 117,
+        "n_days": 110,
+        "mean_daily_ret": -0.018280875524317782,
+        "nw_t": -1.4108914485670492,
+        "mean_trade_ret": -0.015613170448787328,
+        "mean_mfe": 0.07371610624798816,
+        "mean_mae": -0.09021964514932691
+      },
+      "C": {
+        "n_trades": 745,
+        "n_days": 526,
+        "mean_daily_ret": -0.0078376830805747,
+        "nw_t": -1.7246016090353895,
+        "mean_trade_ret": -0.006784495119631511,
+        "mean_mfe": 0.06720374845321087,
+        "mean_mae": -0.07279316074100871
+      },
+      "D": {
+        "n_trades": 291,
+        "n_days": 241,
+        "mean_daily_ret": 0.007697120425801898,
+        "nw_t": 1.0732519923934216,
+        "mean_trade_ret": 0.002048741899367821,
+        "mean_mfe": 0.07402684086859886,
+        "mean_mae": -0.07471823435840133
+      },
+      "D_ALT": {
+        "n_trades": 299,
+        "n_days": 246,
+        "mean_daily_ret": 0.006915830998107071,
+        "nw_t": 0.9740404242648917,
+        "mean_trade_ret": 0.0012418379228419014,
+        "mean_mfe": 0.07318357683509497,
+        "mean_mae": -0.07571923290882752
+      }
+    },
+    "3a": {
+      "mean_daily_ret": 0.007697120425801898,
+      "nw_t": 1.0732519923934216,
+      "bar": 3.0,
+      "met": false
+    },
+    "3b": {
+      "mean_trade_ret": 0.002048741899367821,
+      "cost_bps": 30.0,
+      "net": -0.0009512581006321792,
+      "met": false,
+      "note": "cost is a PLACEHOLDER per prereg section 7"
+    },
+    "3c": {
+      "margin_bps": -41.04557508620491,
+      "t": -0.5997660629513887,
+      "n_common_days": 241,
+      "bar_bps": 50.0,
+      "bar_t": 2.0,
+      "met": false
+    },
+    "verdict": "FAIL"
+  },
+  "sensitivity_grid_no_authority": {
+    "test1_by_residency_window": {
+      "W5": {
+        "interaction_mean_coef": -0.0004616457673533551,
+        "interaction_nw_t": -0.6414846676132283,
+        "n_dates": 296
+      },
+      "W15": {
+        "interaction_mean_coef": 0.0008764393396952625,
+        "interaction_nw_t": 1.5676441530862972,
+        "n_dates": 296
+      },
+      "W20": {
+        "interaction_mean_coef": 0.0010956980935691082,
+        "interaction_nw_t": 1.6481898516652564,
+        "n_dates": 296
+      },
+      "W25": {
+        "interaction_mean_coef": 0.0016627315540918284,
+        "interaction_nw_t": 2.386028965813349,
+        "n_dates": 296
+      }
+    },
+    "test2_by_threshold": {
+      "thr0": {
+        "n_episodes": 31693,
+        "bullish_margin_pp": -1.6498955715651207,
+        "bullish_z": -1.5495436994862566,
+        "bearish_margin_pp": 0.66375839191706,
+        "bearish_z": 0.6040847087118408
+      },
+      "thr025": {
+        "n_episodes": 39487,
+        "bullish_margin_pp": -1.4756347537334986,
+        "bullish_z": -1.7072948776880794,
+        "bearish_margin_pp": -0.5918768952696072,
+        "bearish_z": -0.5961299213965122
+      },
+      "thr05": {
+        "n_episodes": 22943,
+        "bullish_margin_pp": -0.30928370925650805,
+        "bullish_z": -0.2624739491905447,
+        "bearish_margin_pp": -0.46482217670146697,
+        "bearish_z": -0.36363501945812987
+      }
+    },
+    "test3_by_volume_multiplier": {
+      "1.5x": {
+        "n_trades_D": 457,
+        "n_trades_A": 58006,
+        "D_mean_daily_ret": 0.005955755115835866,
+        "D_nw_t": 1.043550048761001,
+        "D_minus_A_bps": -58.32663068361346,
+        "D_minus_A_t": -1.2512391364614401
+      },
+      "2.0x": {
+        "n_trades_D": 291,
+        "n_trades_A": 31916,
+        "D_mean_daily_ret": 0.007697120425801898,
+        "D_nw_t": 1.0732519923934216,
+        "D_minus_A_bps": -41.04557508620491,
+        "D_minus_A_t": -0.5997660629513887
+      },
+      "3.0x": {
+        "n_trades_D": 143,
+        "n_trades_A": 13716,
+        "D_mean_daily_ret": 0.012606752461169006,
+        "D_nw_t": 1.2546763782109167,
+        "D_minus_A_bps": -111.70145232031791,
+        "D_minus_A_t": -0.7184786024299933
+      }
+    }
+  },
+  "miss_diagnostics": {
+    "by_gsector": [
+      {
+        "gsector": 45,
+        "n": 5415,
+        "bullish_pp": -1.2161462825599798,
+        "bullish_z": -0.6955245774397043,
+        "bearish_pp": -3.6898177363673588,
+        "bearish_z": -1.7276100522148277
+      },
+      {
+        "gsector": 15,
+        "n": 2357,
+        "bullish_pp": -2.232606983460231,
+        "bullish_z": -0.8585088306940506,
+        "bearish_pp": 3.45762495614175,
+        "bearish_z": 1.239178387172136
+      },
+      {
+        "gsector": 10,
+        "n": 2158,
+        "bullish_pp": 2.683696374472191,
+        "bullish_z": 0.936793795287734,
+        "bearish_pp": -2.805508626427085,
+        "bearish_z": -0.9123517772020169
+      },
+      {
+        "gsector": 35,
+        "n": 6975,
+        "bullish_pp": -0.6431692138818002,
+        "bullish_z": -0.42315197151661255,
+        "bearish_pp": -2.168214333318515,
+        "bearish_z": -1.288178577179561
+      },
+      {
+        "gsector": 30,
+        "n": 1316,
+        "bullish_pp": -4.810631229235874,
+        "bullish_z": -1.4870006515962233,
+        "bearish_pp": 1.928566253712971,
+        "bearish_z": 0.567608091193458
+      },
+      {
+        "gsector": 40,
+        "n": 6249,
+        "bullish_pp": -4.018914656159855,
+        "bullish_z": -1.7744726210086084,
+        "bearish_pp": 1.5322996127702548,
+        "bearish_z": 0.6223551736034267
+      },
+      {
+        "gsector": 60,
+        "n": 439,
+        "bullish_pp": -0.5698581416966466,
+        "bullish_z": -0.09582002418540811,
+        "bearish_pp": -1.5054959154869438,
+        "bearish_z": -0.25306732681402117
+      },
+      {
+        "gsector": 20,
+        "n": 6792,
+        "bullish_pp": -0.2588959234706386,
+        "bullish_z": -0.16082214228942582,
+        "bearish_pp": -1.0578027811893482,
+        "bearish_z": -0.5325148570098139
+      },
+      {
+        "gsector": 25,
+        "n": 5125,
+        "bullish_pp": -2.8448131389307827,
+        "bullish_z": -1.6312131594368002,
+        "bearish_pp": 0.29470121381886877,
+        "bearish_z": 0.14903746918400798
+      },
+      {
+        "gsector": 55,
+        "n": 660,
+        "bullish_pp": -2.165596835894433,
+        "bullish_z": -0.4737731211749017,
+        "bearish_pp": 0.2082270950195664,
+        "bearish_z": 0.04083281412342982
+      },
+      {
+        "gsector": 50,
+        "n": 1525,
+        "bullish_pp": -1.5792292796054013,
+        "bullish_z": -0.5422976022593853,
+        "bearish_pp": 0.1913138541045423,
+        "bearish_z": 0.054504263246364086
+      }
+    ],
+    "by_decile": [
+      {
+        "decile": 6,
+        "n": 12046,
+        "bullish_pp": -1.4513450566411943,
+        "bullish_z": -1.1545894154705079,
+        "bearish_pp": -0.9300054298906303,
+        "bearish_z": -0.6382509371770696
+      },
+      {
+        "decile": 7,
+        "n": 12721,
+        "bullish_pp": -2.0214968223241763,
+        "bullish_z": -1.6301956740609034,
+        "bearish_pp": -1.6837613312122672,
+        "bearish_z": -1.2395671513464415
+      },
+      {
+        "decile": 8,
+        "n": 14720,
+        "bullish_pp": -1.009000318328851,
+        "bullish_z": -0.890069428745863,
+        "bearish_pp": 0.6079775463545664,
+        "bearish_z": 0.48822032625347833
+      }
+    ],
+    "by_regime": {
+      "mkt_up": {
+        "n_episodes": 18078,
+        "bullish_margin_pp": -1.0185623152224021,
+        "bullish_z": -0.781504246814003,
+        "bearish_margin_pp": 2.225344300272255,
+        "bearish_z": 1.525963222278531,
+        "n_bearish": 3470,
+        "n_neutral": 9009
+      },
+      "mkt_flat": {
+        "n_episodes": 13722,
+        "bullish_margin_pp": -1.352630948600243,
+        "bullish_z": -0.991422716235877,
+        "bearish_margin_pp": -2.7083117780053385,
+        "bearish_z": -1.6498767644981822,
+        "n_bearish": 2937,
+        "n_neutral": 7039
+      },
+      "mkt_down": {
+        "n_episodes": 7687,
+        "bullish_margin_pp": -2.833088147524951,
+        "bullish_z": -1.407776997655517,
+        "bearish_margin_pp": -1.7795456949128665,
+        "bearish_z": -0.8131376161676965,
+        "n_bearish": 2150,
+        "n_neutral": 3958
+      }
+    },
+    "by_year": [
+      {
+        "year": 2015,
+        "n": 4854,
+        "bullish_pp": 3.8030881572848116,
+        "bullish_z": 1.5767394486045814,
+        "bearish_pp": 1.9206152900553226,
+        "bearish_z": 0.8466041390945835
+      },
+      {
+        "year": 2016,
+        "n": 5582,
+        "bullish_pp": -6.560177455838004,
+        "bullish_z": -2.994267353460479,
+        "bearish_pp": -3.5011305658627068,
+        "bearish_z": -1.3889103792755078
+      },
+      {
+        "year": 2017,
+        "n": 5251,
+        "bullish_pp": -2.028602388692402,
+        "bullish_z": -1.0223635677814704,
+        "bearish_pp": -5.6939588822559335,
+        "bearish_z": -2.541750113417617
+      },
+      {
+        "year": 2018,
+        "n": 5441,
+        "bullish_pp": 2.288369862627291,
+        "bullish_z": 1.150159402410254,
+        "bearish_pp": -4.602042901491156,
+        "bearish_z": -1.8986616801827958
+      },
+      {
+        "year": 2019,
+        "n": 5573,
+        "bullish_pp": -7.6655039343110785,
+        "bullish_z": -3.470503269467463,
+        "bearish_pp": -4.510453541496453,
+        "bearish_z": -1.5474978975210831
+      },
+      {
+        "year": 2020,
+        "n": 5991,
+        "bullish_pp": -0.27697420608594187,
+        "bullish_z": -0.11020836517868547,
+        "bearish_pp": 5.878626438221087,
+        "bearish_z": 1.8948541136658932
+      },
+      {
+        "year": 2021,
+        "n": 6795,
+        "bullish_pp": -1.0982152668181726,
+        "bullish_z": -0.556607785244028,
+        "bearish_pp": 1.761378793532817,
+        "bearish_z": 0.8031633478687545
+      }
+    ]
+  },
+  "verdict": "FAIL",
+  "tests_passing": 0
+}

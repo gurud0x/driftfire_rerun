@@ -1,0 +1,117 @@
+{
+  "phase": "V4 Gate 6a close-out - orthogonalized compression measure",
+  "generated": "2026-08-11 01:20:59",
+  "script": "src/70_v4_gate6a_orthogonalized_compression.py",
+  "cross_reference": "close-out follow-up to the RESOLVED \"V4 Gate 6a - correlation and regression-order check\" gate_log.md entry (src/68/69) and the sensitivity/decomposition entry (src/67)",
+  "orthogonalization": {
+    "method": "resid(compression_decile ~ const + other 9 benchmark features), pooled OLS",
+    "other_9": [
+      "RV1",
+      "Persist20",
+      "RV20",
+      "RV60",
+      "DSV5",
+      "JumpVar",
+      "VoV20",
+      "IVTermStruct_var",
+      "IVSkew_var"
+    ],
+    "n_pooled": 1585103,
+    "r2_compression_on_other9": 0.07772003957966989
+  },
+  "side_by_side": {
+    "raw_compression_decile": {
+      "nw_t": -9.3978,
+      "incremental_R2": 0.003489
+    },
+    "compression_orthogonal": {
+      "nw_t": -9.397826424351583,
+      "incremental_R2": 0.0034885457218251092,
+      "coef": -0.006312308214074001,
+      "n_dates": 1701
+    }
+  },
+  "decomposition_orthogonalized": {
+    "RV1": {
+      "own_coef_in_full_augmented_model": 0.01123187499225062,
+      "compression_orth_t_with_feature_removed": -9.390428256416623,
+      "compression_orth_t_delta_vs_full": 0.007398167934960398,
+      "incremental_R2_minus_feature": 0.0035164352807398047,
+      "attribution_to_feature": 2.7889558914695467e-05,
+      "pct_of_compression_orth_explanatory_power": 0.7994608968491442
+    },
+    "Persist20": {
+      "own_coef_in_full_augmented_model": -0.05369645758391793,
+      "compression_orth_t_with_feature_removed": -9.234314495768285,
+      "compression_orth_t_delta_vs_full": 0.16351192858329888,
+      "incremental_R2_minus_feature": 0.0034476578782464684,
+      "attribution_to_feature": -4.088784357864084e-05,
+      "pct_of_compression_orth_explanatory_power": -1.1720598449616841
+    },
+    "RV20": {
+      "own_coef_in_full_augmented_model": 0.07706868744608625,
+      "compression_orth_t_with_feature_removed": -9.670254847975212,
+      "compression_orth_t_delta_vs_full": -0.2724284236236283,
+      "incremental_R2_minus_feature": 0.0034788973411429835,
+      "attribution_to_feature": -9.648380682125701e-06,
+      "pct_of_compression_orth_explanatory_power": -0.27657314684922457
+    },
+    "RV60": {
+      "own_coef_in_full_augmented_model": 0.07898641889800376,
+      "compression_orth_t_with_feature_removed": -9.354018847040278,
+      "compression_orth_t_delta_vs_full": 0.04380757731130558,
+      "incremental_R2_minus_feature": 0.004737295268487429,
+      "attribution_to_feature": 0.00124874954666232,
+      "pct_of_compression_orth_explanatory_power": 35.79570532356415
+    },
+    "DSV5": {
+      "own_coef_in_full_augmented_model": 0.019683386377165085,
+      "compression_orth_t_with_feature_removed": -9.147038634022472,
+      "compression_orth_t_delta_vs_full": 0.25078779032911136,
+      "incremental_R2_minus_feature": 0.00350763795751885,
+      "attribution_to_feature": 1.9092235693740633e-05,
+      "pct_of_compression_orth_explanatory_power": 0.5472835162886187
+    },
+    "JumpVar": {
+      "own_coef_in_full_augmented_model": -0.257206454989389,
+      "compression_orth_t_with_feature_removed": -8.968655337102067,
+      "compression_orth_t_delta_vs_full": 0.42917108724951625,
+      "incremental_R2_minus_feature": 0.002952655890417488,
+      "attribution_to_feature": -0.000535889831407621,
+      "pct_of_compression_orth_explanatory_power": -15.361410574468792
+    },
+    "VoV20": {
+      "own_coef_in_full_augmented_model": 2.5908124739109013,
+      "compression_orth_t_with_feature_removed": -9.41167414707353,
+      "compression_orth_t_delta_vs_full": -0.013847722721946454,
+      "incremental_R2_minus_feature": 0.0032566017685793924,
+      "attribution_to_feature": -0.00023194395324571682,
+      "pct_of_compression_orth_explanatory_power": -6.648729061930432
+    },
+    "IV_ATM_var": {
+      "own_coef_in_full_augmented_model": 0.5385945754266898,
+      "compression_orth_t_with_feature_removed": -13.43025539957086,
+      "compression_orth_t_delta_vs_full": -4.032428975219277,
+      "incremental_R2_minus_feature": 0.007643741832922046,
+      "attribution_to_feature": 0.004155196111096937,
+      "pct_of_compression_orth_explanatory_power": 119.10969333442061
+    },
+    "IVTermStruct_var": {
+      "own_coef_in_full_augmented_model": -1.3666862388892107,
+      "compression_orth_t_with_feature_removed": -10.246766861358973,
+      "compression_orth_t_delta_vs_full": -0.8489404370073892,
+      "incremental_R2_minus_feature": 0.003978273135432975,
+      "attribution_to_feature": 0.0004897274136078655,
+      "pct_of_compression_orth_explanatory_power": 14.038153794116074
+    },
+    "IVSkew_var": {
+      "own_coef_in_full_augmented_model": 0.09158311792797955,
+      "compression_orth_t_with_feature_removed": -9.447660157453884,
+      "compression_orth_t_delta_vs_full": -0.049833733102300215,
+      "incremental_R2_minus_feature": 0.0035257060249980765,
+      "attribution_to_feature": 3.716030317296726e-05,
+      "pct_of_compression_orth_explanatory_power": 1.0652090050155922
+    }
+  },
+  "residual_pct": -47.896733242044064
+}

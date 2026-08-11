@@ -1,0 +1,12 @@
+{
+  "generated_by": "src/63_v4_feature9_skew_coverage_check.py",
+  "target_delta": -25.0,
+  "rows_scanned": 78796690,
+  "candidates_found": 5272821,
+  "coverage_pct_by_tolerance": {
+    "1.0": 0.0,
+    "2.5": 0.0,
+    "5.0": 0.0
+  },
+  "coverage_pct_any_put_30d": 91.44727621712748
+}

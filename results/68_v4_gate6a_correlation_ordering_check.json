@@ -1,0 +1,32 @@
+{
+  "phase": "V4 Gate 6a - correlation and regression-order check (UNDER REVIEW)",
+  "generated": "2026-08-10 19:43:52",
+  "script": "src/68_v4_gate6a_correlation_ordering_check.py",
+  "cross_reference": "direct follow-up to src/67 (sensitivity check + Hou-Loh-style decomposition), which flagged IV_ATM_var as the single feature materially moving compressions NW t-stat and absorbing >100% of its incremental R2 in the leave-one-out attribution",
+  "status": "UNDER REVIEW - implicates Gate 6a incremental R2 interpretation, not resolved either direction",
+  "pooled_correlation": {
+    "n_pairs": 1585565,
+    "pearson_r": -0.01765467787049007,
+    "pearson_p": 1.6715979964386283e-109,
+    "spearman_rho": -0.05853716161946696,
+    "spearman_p": 0.0
+  },
+  "nested_order_a_iv_first": {
+    "step1_R2_iv_only": 0.20954608655498763,
+    "step2_R2_iv_plus_compression": 0.21244473676606446,
+    "compression_incremental_R2": 0.0028986502110768253,
+    "compression_coef": -0.003978518733585661,
+    "compression_nw_t": -6.071894403327732
+  },
+  "nested_order_b_compression_first": {
+    "step1_R2_compression_only": 0.005386869348928003,
+    "step2_R2_compression_plus_iv": 0.21244473676606446,
+    "iv_incremental_R2": 0.20705786741713644,
+    "iv_coef": 0.5713151552911315,
+    "iv_nw_t": 23.58820105482257
+  },
+  "all_10_features_reference_from_src66": {
+    "incremental_R2": 0.003489,
+    "compression_nw_t": -9.3978
+  }
+}

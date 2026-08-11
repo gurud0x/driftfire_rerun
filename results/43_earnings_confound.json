@@ -1,0 +1,506 @@
+{
+  "phase": "Earnings-timing confound test for V1/V2 volume compression",
+  "generated": "2026-08-02 16:18:13",
+  "script": "src/43_earnings_confound.py",
+  "window": "DEV to 2021-12-31 - holdout already spent for V1 and V2",
+  "pre_commitment": {
+    "locked_before_any_outcome_observed": true,
+    "rule_1_not_an_artifact": {
+      "1a_max_decile_spread_pp": 3.0,
+      "1b_min_abs_nw_t_with_dummy": 3.0,
+      "requires": "BOTH 1a and 1b"
+    },
+    "rule_2_substantially_a_proxy": {
+      "condition": "|beta_compression(ii)| < 0.5 * |beta_compression(i)|"
+    },
+    "rule_3_inconclusive": "anything else, disclosed as such",
+    "conflict_resolution": "if RULE 1 and RULE 2 both fire the outcome is RULE 3; the more favorable is not selected",
+    "sign_flip_rule": "a sign flip in the compression coefficient between (i) and (ii) forces RULE 3 regardless of magnitudes",
+    "no_favorable_reading_permitted": true
+  },
+  "discrepancies": {
+    "horizon": {
+      "task_stated": "forward 30-day realized vol, [t+1, t+30] window",
+      "project_actual": "realized_vol_fwd_10d = 10 TRADING days from t+1, PRIMARY per the locked V1 pre-registration (commit 4474312); 5d and 20d secondary; no 30-day target exists in the project",
+      "consequence": "a 10-trading-day window covers ~16% of a ~63-day quarter, not \"roughly half\" - the confound is a priori weaker than the framing assumes",
+      "resolution": "PRIMARY test uses the actual locked target with a horizon-matched earnings window; the requested 30-calendar-day window is also computed and reported in full"
+    },
+    "rdq_availability": {
+      "task_stated": "join Compustat RDQ via the existing CCM link",
+      "project_actual": "RDQ is not in this repository. The Compustat pull is ccm_link_gics.csv (the link) and compustat_gics_names.csv (ANNUAL GICS/company file, ~8 rows per gvkey, whose datadate is a FISCAL PERIOD END, not a report date).",
+      "datadate_substitution_refused": "A fiscal period end precedes the announcement by a firm-specific, time-varying lag. A dummy built from it would be mismeasured in a way correlated with firm identity - exactly the error this test exists to detect - and a null would be uninterpretable.",
+      "files_inspected": [
+        {
+          "file": "data\\raw\\compustat\\ccm_link_gics.csv",
+          "columns": [
+            "gvkey",
+            "tic",
+            "LINKPRIM",
+            "LIID",
+            "LINKTYPE",
+            "LPERMNO",
+            "LPERMCO",
+            "LINKDT",
+            "LINKENDDT",
+            "GSECTOR",
+            "GGROUP",
+            "GIND",
+            "GSUBIND"
+          ]
+        },
+        {
+          "file": "data\\raw\\compustat\\compustat_gics_names.csv",
+          "columns": [
+            "costat",
+            "curcd",
+            "datafmt",
+            "indfmt",
+            "consol",
+            "tic",
+            "datadate",
+            "gvkey",
+            "ggroup",
+            "gind",
+            "gsector",
+            "gsubind"
+          ]
+        },
+        {
+          "file": "data\\raw\\compustat\\rdq_pull_fundq_2014_2026.parquet",
+          "columns": [
+            "costat",
+            "curcdq",
+            "datafmt",
+            "indfmt",
+            "consol",
+            "tic",
+            "datadate",
+            "gvkey",
+            "fqtr",
+            "fyearq",
+            "rdq"
+          ]
+        }
+      ],
+      "unblock_query": "SELECT gvkey, datadate, rdq, fyearq, fqtr FROM comp.fundq WHERE indfmt='INDL' AND datafmt='STD' AND popsrc='D' AND consol='C' AND datadate BETWEEN '2014-06-01' AND '2026-06-30'",
+      "unblock_instruction": "drop the pull in data/raw/compustat/ under any filename; discovery is by column (gvkey + rdq), not by name"
+    }
+  },
+  "method": {
+    "estimator": "Fama-MacBeth: daily cross-sectional OLS, Newey-West maxlags=10 on the daily coefficient series - V1/V2 locked methodology, extended to multivariate",
+    "min_cross_section": 30,
+    "primary_target": "realized_vol_fwd_10d",
+    "primary_horizon_trading_days": 10,
+    "secondary_targets": [
+      "realized_vol_fwd_5d",
+      "realized_vol_fwd_20d"
+    ],
+    "requested_calendar_window_days": 30,
+    "shift1_alignment": "compression inputs are already lagged to end at t-1 by src/10 and are REUSED here, not recomputed; forward targets span t+1..t+N; the earnings dummy is built from the forward window only. No term includes day t or crosses it."
+  },
+  "ccm_link": {
+    "file": "data/raw/compustat/ccm_link_gics.csv",
+    "rows_as_pulled": 32814,
+    "filter_trail": {
+      "linktype_LC_LU": 32814,
+      "linkprim_P_C": 32296,
+      "non_null_lpermno": 32296
+    },
+    "still_active_links_E": 6049,
+    "per_signal": {
+      "V1": {
+        "rows_before_join": 1780502,
+        "rows_after_join": 1771281,
+        "rows_dropped_by_link_date_window": 9221,
+        "rows_with_gvkey": 1757826,
+        "rows_with_gvkey_pct": 99.24038026716258,
+        "rows_without_gvkey": 13455,
+        "permno_days_needing_tiebreak": 0,
+        "permnos_total": 3091,
+        "permnos_matched": 3033,
+        "permnos_unmatched": 58
+      },
+      "V2": {
+        "rows_before_join": 1750436,
+        "rows_after_join": 1750436,
+        "rows_dropped_by_link_date_window": 0,
+        "rows_with_gvkey": 1750436,
+        "rows_with_gvkey_pct": 100.0,
+        "rows_without_gvkey": 0,
+        "permno_days_needing_tiebreak": 0,
+        "permnos_total": 3004,
+        "permnos_matched": 3004,
+        "permnos_unmatched": 0,
+        "gvkey_agrees_with_panel_pct": 100.0
+      }
+    }
+  },
+  "specification_i_baseline": {
+    "V1": {
+      "target": "realized_vol_fwd_10d",
+      "regressor": "compression_decile",
+      "sample": "PRE-CCM-join DEV panel - the same sample src/11 and src/18 gated on, so this reproduces the logged V1/V2 numbers like-for-like",
+      "n_dates": 1718,
+      "n_dates_dropped": 0,
+      "mean_xsec_n": 1006.860302677532,
+      "mean_coef": -0.004264972903084117,
+      "nw_t": -6.883168415929186,
+      "pct_days_negative": 72.75902211874272,
+      "secondary_targets": {
+        "realized_vol_fwd_5d": {
+          "mean_coef": -0.0032748592327634107,
+          "nw_t": -5.424982902851034,
+          "n_dates": 1718
+        },
+        "realized_vol_fwd_20d": {
+          "mean_coef": -0.004797033682032345,
+          "nw_t": -8.182423717897514,
+          "n_dates": 1718
+        }
+      }
+    },
+    "V2": {
+      "target": "realized_vol_fwd_10d",
+      "regressor": "sector_rel_decile",
+      "sample": "PRE-CCM-join DEV panel - the same sample src/11 and src/18 gated on, so this reproduces the logged V1/V2 numbers like-for-like",
+      "n_dates": 1718,
+      "n_dates_dropped": 0,
+      "mean_xsec_n": 967.5995343422585,
+      "mean_coef": -0.0038163548230299204,
+      "nw_t": -7.01613626373026,
+      "pct_days_negative": 73.86495925494762,
+      "secondary_targets": {
+        "realized_vol_fwd_5d": {
+          "mean_coef": -0.002896058425803285,
+          "nw_t": -5.3641416458837154,
+          "n_dates": 1718
+        },
+        "realized_vol_fwd_20d": {
+          "mean_coef": -0.004291875420465146,
+          "nw_t": -8.77602512124992,
+          "n_dates": 1718
+        }
+      }
+    }
+  },
+  "status": "COMPLETE",
+  "rdq": {
+    "file": "C:\\Users\\aarav\\OneDrive - Indiana University\\DriftFire_Rerun\\data\\raw\\compustat\\rdq_pull_fundq_2014_2026.parquet",
+    "rows_as_pulled": 585677,
+    "usable_pairs": 365383,
+    "gvkeys": 13602,
+    "null_rate_pct": 37.04943168333399,
+    "date_range": [
+      "2014-07-02",
+      "2026-07-31"
+    ],
+    "median_announcements_per_gvkey_year": 4.0
+  },
+  "earnings_rate_by_decile": {
+    "V1": {
+      "earnings_in_fwd_10d": {
+        "label": "horizon-matched, 10 trading days (PRIMARY)",
+        "by_decile_pct": {
+          "1": 19.917216386181412,
+          "2": 19.173208599190474,
+          "3": 17.935889876765188,
+          "4": 17.160483049614434,
+          "5": 16.289868885995908,
+          "6": 15.296379365587953,
+          "7": 14.581889548257848,
+          "8": 13.51426874847183,
+          "9": 11.870333506517767,
+          "10": 10.931038730225765
+        },
+        "counts": {
+          "1": 168874,
+          "2": 171458,
+          "3": 171299,
+          "4": 171825,
+          "5": 172064,
+          "6": 171655,
+          "7": 171713,
+          "8": 171774,
+          "9": 171301,
+          "10": 170487
+        },
+        "max_minus_min_pp": 8.986177655955647,
+        "overall_pct": 15.663406230838856
+      },
+      "earnings_in_cal_30d": {
+        "label": "30 calendar days (as requested)",
+        "by_decile_pct": {
+          "1": 40.59476295936616,
+          "2": 38.81825286659124,
+          "3": 36.317783524714095,
+          "4": 35.103739269605704,
+          "5": 33.490445415659295,
+          "6": 32.2466575398328,
+          "7": 30.64007966781781,
+          "8": 29.06085903570971,
+          "9": 26.45285199736137,
+          "10": 24.831805357593247
+        },
+        "counts": {
+          "1": 168874,
+          "2": 171458,
+          "3": 171299,
+          "4": 171825,
+          "5": 172064,
+          "6": 171655,
+          "7": 171713,
+          "8": 171774,
+          "9": 171301,
+          "10": 170487
+        },
+        "max_minus_min_pp": 15.76295760177291,
+        "overall_pct": 32.748343017314376
+      }
+    },
+    "V2": {
+      "earnings_in_fwd_10d": {
+        "label": "horizon-matched, 10 trading days (PRIMARY)",
+        "by_decile_pct": {
+          "1": 20.592794542526434,
+          "2": 19.380412099114874,
+          "3": 18.003963249864892,
+          "4": 17.046961342541202,
+          "5": 16.07352623882243,
+          "6": 15.313885984206541,
+          "7": 14.740382594071894,
+          "8": 13.147255014876668,
+          "9": 11.765376811420202,
+          "10": 10.65926448266383
+        },
+        "counts": {
+          "1": 165791,
+          "2": 166756,
+          "3": 166530,
+          "4": 166669,
+          "5": 166852,
+          "6": 166398,
+          "7": 166495,
+          "8": 166704,
+          "9": 166582,
+          "10": 167338
+        },
+        "max_minus_min_pp": 9.933530059862605,
+        "overall_pct": 15.668126149755569
+      },
+      "earnings_in_cal_30d": {
+        "label": "30 calendar days (as requested)",
+        "by_decile_pct": {
+          "1": 41.52034790790815,
+          "2": 38.971911055674155,
+          "3": 36.452891370924156,
+          "4": 34.970510412854225,
+          "5": 33.460791599741086,
+          "6": 32.08512121539923,
+          "7": 30.779302681762218,
+          "8": 28.69337268451867,
+          "9": 26.46864607220468,
+          "10": 24.1487289199106
+        },
+        "counts": {
+          "1": 165791,
+          "2": 166756,
+          "3": 166530,
+          "4": 166669,
+          "5": 166852,
+          "6": 166398,
+          "7": 166495,
+          "8": 166704,
+          "9": 166582,
+          "10": 167338
+        },
+        "max_minus_min_pp": 17.371618987997554,
+        "overall_pct": 32.74773950177509
+      }
+    }
+  },
+  "specifications": {
+    "V1": {
+      "i": {
+        "n_dates": 1718,
+        "n_dates_dropped": 0,
+        "coefs": {
+          "const": {
+            "mean_coef": 0.43176030010526134,
+            "nw_t": 32.972506671240964,
+            "std_daily": 0.17088139980248024,
+            "pct_days_negative": 0.0
+          },
+          "compression_decile": {
+            "mean_coef": -0.004297528904343157,
+            "nw_t": -6.837844840977837,
+            "std_daily": 0.008546942150100097,
+            "pct_days_negative": 72.46798603026775
+          }
+        }
+      },
+      "ii": {
+        "n_dates": 1718,
+        "n_dates_dropped": 0,
+        "coefs": {
+          "const": {
+            "mean_coef": 0.3965943716937643,
+            "nw_t": 30.762742747214567,
+            "std_daily": 0.16727881182890622,
+            "pct_days_negative": 0.0
+          },
+          "compression_decile": {
+            "mean_coef": -0.0021638737586981557,
+            "nw_t": -3.852863289065786,
+            "std_daily": 0.0076340497371935176,
+            "pct_days_negative": 62.805587892898714
+          },
+          "earnings_in_fwd_10d": {
+            "mean_coef": 0.15603578199890883,
+            "nw_t": 22.715386409137793,
+            "std_daily": 0.1019037435706436,
+            "pct_days_negative": 6.286379511059372
+          }
+        }
+      },
+      "iii": {
+        "n_dates": 1718,
+        "n_dates_dropped": 0,
+        "coefs": {
+          "const": {
+            "mean_coef": 0.3942992201454145,
+            "nw_t": 30.44255977429462,
+            "std_daily": 0.16801317849250783,
+            "pct_days_negative": 0.0
+          },
+          "compression_decile": {
+            "mean_coef": -0.0017448424176670168,
+            "nw_t": -3.158135625167202,
+            "std_daily": 0.007672455229071896,
+            "pct_days_negative": 59.89522700814901
+          },
+          "earnings_in_fwd_10d": {
+            "mean_coef": 0.17981288959870068,
+            "nw_t": 23.30756854347899,
+            "std_daily": 0.12907476807105187,
+            "pct_days_negative": 6.344586728754366
+          },
+          "_interact": {
+            "mean_coef": -0.004638675651741225,
+            "nw_t": -3.190649449188552,
+            "std_daily": 0.027822522414820187,
+            "pct_days_negative": 60.47729918509896
+          }
+        }
+      }
+    },
+    "V2": {
+      "i": {
+        "n_dates": 1718,
+        "n_dates_dropped": 0,
+        "coefs": {
+          "const": {
+            "mean_coef": 0.4321681241592501,
+            "nw_t": 33.14615080179532,
+            "std_daily": 0.1700962801126958,
+            "pct_days_negative": 0.0
+          },
+          "sector_rel_decile": {
+            "mean_coef": -0.0038163548230299204,
+            "nw_t": -7.01613626373026,
+            "std_daily": 0.007381111880921014,
+            "pct_days_negative": 73.86495925494762
+          }
+        }
+      },
+      "ii": {
+        "n_dates": 1718,
+        "n_dates_dropped": 0,
+        "coefs": {
+          "const": {
+            "mean_coef": 0.39610542767192636,
+            "nw_t": 30.84251915570948,
+            "std_daily": 0.16668318221448386,
+            "pct_days_negative": 0.0
+          },
+          "sector_rel_decile": {
+            "mean_coef": -0.001610784872567026,
+            "nw_t": -3.430804280378075,
+            "std_daily": 0.006387877930465114,
+            "pct_days_negative": 64.37718277066357
+          },
+          "earnings_in_fwd_10d": {
+            "mean_coef": 0.15869948076873336,
+            "nw_t": 22.45969625178161,
+            "std_daily": 0.10459402095150587,
+            "pct_days_negative": 6.461001164144353
+          }
+        }
+      },
+      "iii": {
+        "n_dates": 1718,
+        "n_dates_dropped": 0,
+        "coefs": {
+          "const": {
+            "mean_coef": 0.395157134267227,
+            "nw_t": 30.593878445939776,
+            "std_daily": 0.16762879714426132,
+            "pct_days_negative": 0.0
+          },
+          "sector_rel_decile": {
+            "mean_coef": -0.0014343733172583343,
+            "nw_t": -3.0816977269934145,
+            "std_daily": 0.00650700816095906,
+            "pct_days_negative": 62.04889406286379
+          },
+          "earnings_in_fwd_10d": {
+            "mean_coef": 0.17650874019077042,
+            "nw_t": 21.732447609308505,
+            "std_daily": 0.13525004118101405,
+            "pct_days_negative": 7.043073341094296
+          },
+          "_interact": {
+            "mean_coef": -0.0035928030806982878,
+            "nw_t": -2.5339618991478874,
+            "std_daily": 0.027528417446545543,
+            "pct_days_negative": 58.0325960419092
+          }
+        }
+      }
+    }
+  },
+  "rule_evaluation": {
+    "V1": {
+      "rule_triggered": 3,
+      "reason": "neither RULE 1 nor RULE 2 conditions met",
+      "rule1a_decile_spread_pp": 8.986177655955647,
+      "rule1a_met": false,
+      "rule1b_abs_t": 3.852863289065786,
+      "rule1b_met": true,
+      "rule1_met": false,
+      "rule2_met": false,
+      "coef_i": -0.004297528904343157,
+      "coef_ii": -0.0021638737586981557,
+      "magnitude_retention": 0.503515812659528,
+      "sign_flip": false,
+      "t_i": -6.837844840977837,
+      "t_ii": -3.852863289065786
+    },
+    "V2": {
+      "rule_triggered": 2,
+      "reason": "RULE 2 met: coefficient lost more than half its magnitude",
+      "rule1a_decile_spread_pp": 9.933530059862605,
+      "rule1a_met": false,
+      "rule1b_abs_t": 3.430804280378075,
+      "rule1b_met": true,
+      "rule1_met": false,
+      "rule2_met": true,
+      "coef_i": -0.0038163548230299204,
+      "coef_ii": -0.001610784872567026,
+      "magnitude_retention": 0.4220741904936855,
+      "sign_flip": false,
+      "t_i": -7.01613626373026,
+      "t_ii": -3.430804280378075
+    }
+  },
+  "gate_log_written": true
+}

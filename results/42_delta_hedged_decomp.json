@@ -1,0 +1,461 @@
+{
+  "phase": "K1 delta-hedged decomposition (DEV, per-trade)",
+  "generated": "2026-08-01 16:21:29",
+  "script": "src/42_delta_hedged_decomp.py",
+  "inputs": {
+    "trades": "data/processed/k1_trades_real_prices.parquet",
+    "k1_reference_summary": "data/processed/k1_trade_summary.json",
+    "underlying": "data/processed/crsp_combined.parquet (DlyClose)",
+    "risk_free_cross_check": "data/processed/factors_daily.parquet (RF)",
+    "note": "No re-scan of opprcd. No gate decision is made here."
+  },
+  "k1_reference_read_at_runtime": {
+    "source_phase": "K1 REAL PRICES (opprcd)",
+    "matched_trades": 5356,
+    "unhedged_mean_per_trade_pct": {
+      "mid_to_mid": 3.8502,
+      "bid_based_worst_fill": -41.2539,
+      "mid_liquidity_filtered": 2.2242
+    },
+    "entry_half_spread_pct_of_mid": {
+      "median": 18.75,
+      "mean": 29.805
+    }
+  },
+  "declared_assumptions": {
+    "A1_risk_free_rate": 0.01,
+    "A1_rationale": "Ken French RF is quantized to 0.0001/day over this window - a lumpy step function, not a rate path. A single constant equal to the sample mean is used instead of a per-trade RF.",
+    "A1_observed_rf_annualized_mean": 0.00824435437174291,
+    "A1_observed_rf_distinct_daily_values": [
+      0.0,
+      0.0001
+    ],
+    "A1_robustness_delta_r0_vs_r0252": {
+      "r_low": 0.0,
+      "r_high": 0.0252,
+      "abs_delta_shift": {
+        "median": 0.009496353039505911,
+        "p95": 0.025498491569701832,
+        "p99": 0.05955881301882377,
+        "mean": 0.012762424413768786,
+        "max": 0.6789802431345776
+      },
+      "d1_term_shift": {
+        "median": 0.012459783365743396,
+        "p95": 0.034385516231932166,
+        "p99": 0.0801063180265885,
+        "mean": 0.017073581503879137,
+        "max": 0.8994158813706634
+      },
+      "n_trades_delta_shift_above_0_05": 72,
+      "pct_trades_delta_shift_above_0_05": 1.351605030974282,
+      "restricted_to_iv_above_flag_low": {
+        "n": 5296,
+        "mean_abs_delta_shift": 0.011474519596022466,
+        "max_abs_delta_shift": 0.10903583442983167
+      },
+      "interpretation": "r enters the straddle delta only via r*sqrt(T)/sigma in d1, so it is near-inert across the mass of the distribution at this tenor and vol level. The term scales as 1/sigma and is NOT small for the near-zero-IV trades flagged by the IV sanity check; quantiles are reported rather than a mean alone so the tail is visible. Measured, not asserted."
+    },
+    "A2_hedge_cost_bps": [
+      0,
+      5,
+      15
+    ],
+    "A3_brentq_iv_bounds": [
+      0.0001,
+      5.0
+    ],
+    "A4_pattern_directional_share_cutoff": 0.5,
+    "A4_note": "reporting convention only; names the pattern, gates nothing",
+    "spread_fractions_swept": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ]
+  },
+  "mandatory_disclosure": {
+    "D1_sticky_vol_delta": "Delta uses the ENTRY implied volatility HELD CONSTANT for the life of the trade. Real IV moves during the trade. This makes the hedged return PATH-DEPENDENT: it is a REALISTIC decomposition, NOT a pure volatility isolation. A residual vega/vanna P&L remains inside the delta-hedged leg.",
+    "D2_discrete_hedging": "Hedging is close-to-close (discrete), once per trading day, not continuous. Intraday moves are unhedged and a gamma-driven hedging error remains.",
+    "D3_no_dividend_yield": "q = 0, matching src/30/32/37. Underlying path is the raw CRSP daily close; zero trades contain a CRSP price-adjustment-factor change inside their window (asserted at runtime).",
+    "D4_daily_series_not_truncated_at_dev_end": "10 sessions after 2021-12-31 are retained so the daily-series mean stays consistent with the per-trade mean on the same row; src/37 truncated these. No trade was added.",
+    "D5_nw_t_reported_both_ways": "nw_t is on the raw daily series (the quantity in the row); nw_t_excess_rf subtracts daily RF, the src/38 convention."
+  },
+  "method": {
+    "entry_iv": "brentq on BS_call(sigma)+BS_put(sigma) - entry_mid, S = entry-date CRSP close, K = held strike, T = (exdate_d - entry_date).days/365",
+    "delta": "long-straddle position delta = 2*N(d1_t) - 1, sticky-vol",
+    "rebalance": "full daily rebalance at each close, hedge established at entry and unwound at exit; the exit-close delta is never traded because the option is sold there",
+    "decomposition": {
+      "a_delta_hedged_pnl": "OptionPnL_mid - Directional",
+      "b_directional_pnl": "sum_t delta_{t-1} * (S_t - S_{t-1})",
+      "c_option_spread_cost": "-[(entry_ask - entry_mid) + (exit_mid - exit_bid)]",
+      "d_hedge_transaction_cost": "-bps/10000 * sum |delta_t - delta_{t-1}| * S_t",
+      "identity": "(a)+(b)+(c)+(d) = OptionPnL_mid - spread - hedge",
+      "identity_asserted_per_trade": true
+    },
+    "standard_errors": "per-trade return spread evenly across its 10 holding days as (1+r)^(1/10)-1, averaged across open trades per day, Newey-West maxlags=10 - the src/31/33/38 convention",
+    "construction_validation_src38_primary_rebuilt": {
+      "spec": "all 5356 trades, ret_mid, RF-excess, truncated at 2021-12-31 - identical to the src/38 PRIMARY",
+      "n_days": 1650,
+      "mean_daily_bps": -72.14428062761007,
+      "nw_t": -5.011422696464045,
+      "note": "compare against the K1 REAL PRICES PRIMARY block in results/gate_log.md; nothing transcribed"
+    }
+  },
+  "sample": {
+    "trades_in_locked_per_trade_file": 5356,
+    "trades_processed": 5327,
+    "trades_dropped": 29,
+    "drop_reasons": {
+      "missing_daily_underlying_close": 10,
+      "missing_underlying_day_cells": 20,
+      "iv_inversion_failed": 19,
+      "iv_inversion_failure_detail": {
+        "no_sign_change_price_outside_bounds": 19,
+        "solver_error": 0
+      }
+    },
+    "holding_sessions": 10,
+    "unique_permnos_processed": 922,
+    "entry_date_range": [
+      "2015-03-11",
+      "2021-12-31"
+    ],
+    "exit_date_range": [
+      "2015-03-25",
+      "2022-01-14"
+    ]
+  },
+  "entry_iv_distribution": {
+    "n": 5327,
+    "min": 0.008859426044799995,
+    "p1": 0.09948476312286338,
+    "q1": 0.37971987067737845,
+    "median": 0.5791074276239881,
+    "q3": 0.866388627346363,
+    "p99": 2.056027754555785,
+    "max": 4.214705250649195,
+    "mean": 0.6669097663199425,
+    "sanity_flags": {
+      "threshold_high": 2.0,
+      "n_above_high": 57,
+      "pct_above_high": 1.0700206495213065,
+      "threshold_low": 0.05,
+      "n_below_low": 31,
+      "pct_below_low": 0.5819410550028158
+    }
+  },
+  "component_means_pct_of_entry_mid": {
+    "unhedged_option_pnl_mid_to_mid": 3.8345293829862017,
+    "a_delta_hedged": 8.363620131437107,
+    "b_directional_removed": -4.529090748450907,
+    "c_option_spread_cost": -62.740794175320794,
+    "d_hedge_cost_by_bps": {
+      "0": 0.0,
+      "5": -0.933416662569175,
+      "15": -2.800249987707524
+    },
+    "hedge_turnover_x_entry_mid": {
+      "mean": 18.668333251383498,
+      "median": 13.558943153993953
+    },
+    "entry_delta_mean": 0.07383168472328946,
+    "entry_abs_delta_mean": 0.20008914374503853
+  },
+  "waterfall": [
+    {
+      "label": "REFERENCE: unhedged option P&L, mid-to-mid",
+      "hedge_cost_bps": null,
+      "spread_fraction_paid": null,
+      "mean_per_trade_return_pct": 3.8345293829862017,
+      "median_per_trade_return_pct": -9.016393442622949,
+      "nw_t": -4.96124771231286,
+      "nw_t_excess_rf": -4.984362573020041,
+      "mean_daily_return_bps": -71.81802376998343,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 0
+    },
+    {
+      "label": "REFERENCE: (b) directional P&L removed by the hedge",
+      "hedge_cost_bps": null,
+      "spread_fraction_paid": null,
+      "mean_per_trade_return_pct": -4.529090748450907,
+      "median_per_trade_return_pct": -8.047259861366282,
+      "nw_t": -5.331268421713771,
+      "nw_t_excess_rf": -5.343648101602212,
+      "mean_daily_return_bps": -154.65281812426113,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 78
+    },
+    {
+      "label": "1. delta-hedged gross (a)",
+      "hedge_cost_bps": null,
+      "spread_fraction_paid": null,
+      "mean_per_trade_return_pct": 8.363620131437107,
+      "median_per_trade_return_pct": 1.3957973713799248,
+      "nw_t": -0.40872923580537074,
+      "nw_t_excess_rf": -0.4383993994369466,
+      "mean_daily_return_bps": -4.533900264064163,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 0
+    },
+    {
+      "label": "2. net of hedge cost only (a+d) @ 0 bps",
+      "hedge_cost_bps": 0,
+      "spread_fraction_paid": 0.0,
+      "mean_per_trade_return_pct": 8.363620131437107,
+      "median_per_trade_return_pct": 1.3957973713799248,
+      "nw_t": -0.40872923580537074,
+      "nw_t_excess_rf": -0.4383993994369466,
+      "mean_daily_return_bps": -4.533900264064163,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 0
+    },
+    {
+      "label": "2. net of hedge cost only (a+d) @ 5 bps",
+      "hedge_cost_bps": 5,
+      "spread_fraction_paid": 0.0,
+      "mean_per_trade_return_pct": 7.430203468867933,
+      "median_per_trade_return_pct": 0.602113975822465,
+      "nw_t": -1.4664209439705334,
+      "nw_t_excess_rf": -1.4955016778636678,
+      "mean_daily_return_bps": -16.3781289582956,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 0
+    },
+    {
+      "label": "2. net of hedge cost only (a+d) @ 15 bps",
+      "hedge_cost_bps": 15,
+      "spread_fraction_paid": 0.0,
+      "mean_per_trade_return_pct": 5.563370143729583,
+      "median_per_trade_return_pct": -1.0984224721987637,
+      "nw_t": -3.646940161087001,
+      "nw_t_excess_rf": -3.6711877847010084,
+      "mean_daily_return_bps": -47.22715714598001,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 2
+    },
+    {
+      "label": "3. net of hedge +   0% of option spread @ 0 bps",
+      "hedge_cost_bps": 0,
+      "spread_fraction_paid": 0.0,
+      "mean_per_trade_return_pct": 8.363620131437107,
+      "median_per_trade_return_pct": 1.3957973713799248,
+      "nw_t": -0.40872923580537074,
+      "nw_t_excess_rf": -0.4383993994369466,
+      "mean_daily_return_bps": -4.533900264064163,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 0
+    },
+    {
+      "label": "3. net of hedge +  25% of option spread @ 0 bps",
+      "hedge_cost_bps": 0,
+      "spread_fraction_paid": 0.25,
+      "mean_per_trade_return_pct": -7.32157841239309,
+      "median_per_trade_return_pct": -10.787862966846046,
+      "nw_t": -10.690663705237556,
+      "nw_t_excess_rf": -10.70575424417672,
+      "mean_daily_return_bps": -204.98792425268124,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 10
+    },
+    {
+      "label": "3. net of hedge +  50% of option spread @ 0 bps",
+      "hedge_cost_bps": 0,
+      "spread_fraction_paid": 0.5,
+      "mean_per_trade_return_pct": -23.006776956223288,
+      "median_per_trade_return_pct": -21.638517778138763,
+      "nw_t": -14.713290064070097,
+      "nw_t_excess_rf": -14.721657547600412,
+      "mean_daily_return_bps": -586.9084749995199,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 109
+    },
+    {
+      "label": "3. net of hedge +  75% of option spread @ 0 bps",
+      "hedge_cost_bps": 0,
+      "spread_fraction_paid": 0.75,
+      "mean_per_trade_return_pct": -38.691975500053495,
+      "median_per_trade_return_pct": -31.67449302091884,
+      "nw_t": -16.299171359002425,
+      "nw_t_excess_rf": -16.30341975476184,
+      "mean_daily_return_bps": -1285.7803061829945,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 504
+    },
+    {
+      "label": "3. net of hedge + 100% of option spread @ 0 bps",
+      "hedge_cost_bps": 0,
+      "spread_fraction_paid": 1.0,
+      "mean_per_trade_return_pct": -54.37717404388369,
+      "median_per_trade_return_pct": -42.23206086289973,
+      "nw_t": -19.88644075260547,
+      "nw_t_excess_rf": -19.890351483211685,
+      "mean_daily_return_bps": -1877.3708023527336,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 930
+    },
+    {
+      "label": "3. net of hedge +   0% of option spread @ 5 bps",
+      "hedge_cost_bps": 5,
+      "spread_fraction_paid": 0.0,
+      "mean_per_trade_return_pct": 7.430203468867933,
+      "median_per_trade_return_pct": 0.602113975822465,
+      "nw_t": -1.4664209439705334,
+      "nw_t_excess_rf": -1.4955016778636678,
+      "mean_daily_return_bps": -16.3781289582956,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 0
+    },
+    {
+      "label": "3. net of hedge +  25% of option spread @ 5 bps",
+      "hedge_cost_bps": 5,
+      "spread_fraction_paid": 0.25,
+      "mean_per_trade_return_pct": -8.254995074962265,
+      "median_per_trade_return_pct": -11.610139041748742,
+      "nw_t": -11.308956060850194,
+      "nw_t_excess_rf": -11.323596955927131,
+      "mean_daily_return_bps": -220.66790836449124,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 10
+    },
+    {
+      "label": "3. net of hedge +  50% of option spread @ 5 bps",
+      "hedge_cost_bps": 5,
+      "spread_fraction_paid": 0.5,
+      "mean_per_trade_return_pct": -23.940193618792463,
+      "median_per_trade_return_pct": -22.44140404039189,
+      "nw_t": -14.231890811169118,
+      "nw_t_excess_rf": -14.23939518924622,
+      "mean_daily_return_bps": -626.6090438924783,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 121
+    },
+    {
+      "label": "3. net of hedge +  75% of option spread @ 5 bps",
+      "hedge_cost_bps": 5,
+      "spread_fraction_paid": 0.75,
+      "mean_per_trade_return_pct": -39.62539216262267,
+      "median_per_trade_return_pct": -32.429760325669804,
+      "nw_t": -16.54892316320009,
+      "nw_t_excess_rf": -16.55316049379058,
+      "mean_daily_return_bps": -1323.217067338253,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 516
+    },
+    {
+      "label": "3. net of hedge + 100% of option spread @ 5 bps",
+      "hedge_cost_bps": 5,
+      "spread_fraction_paid": 1.0,
+      "mean_per_trade_return_pct": -55.31059070645286,
+      "median_per_trade_return_pct": -42.98986234670335,
+      "nw_t": -20.14176949886479,
+      "nw_t_excess_rf": -20.14567666099362,
+      "mean_daily_return_bps": -1906.2771685210791,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 946
+    },
+    {
+      "label": "3. net of hedge +   0% of option spread @ 15 bps",
+      "hedge_cost_bps": 15,
+      "spread_fraction_paid": 0.0,
+      "mean_per_trade_return_pct": 5.563370143729583,
+      "median_per_trade_return_pct": -1.0984224721987637,
+      "nw_t": -3.646940161087001,
+      "nw_t_excess_rf": -3.6711877847010084,
+      "mean_daily_return_bps": -47.22715714598001,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 2
+    },
+    {
+      "label": "3. net of hedge +  25% of option spread @ 15 bps",
+      "hedge_cost_bps": 15,
+      "spread_fraction_paid": 0.25,
+      "mean_per_trade_return_pct": -10.121828400100616,
+      "median_per_trade_return_pct": -13.27752437119826,
+      "nw_t": -10.84077134926475,
+      "nw_t_excess_rf": -10.852103036822239,
+      "mean_daily_return_bps": -272.8330126365251,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 21
+    },
+    {
+      "label": "3. net of hedge +  50% of option spread @ 15 bps",
+      "hedge_cost_bps": 15,
+      "spread_fraction_paid": 0.5,
+      "mean_per_trade_return_pct": -25.80702694393081,
+      "median_per_trade_return_pct": -24.05766941155688,
+      "nw_t": -14.256550898222043,
+      "nw_t_excess_rf": -14.263507035898233,
+      "mean_daily_return_bps": -692.914554691464,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 136
+    },
+    {
+      "label": "3. net of hedge +  75% of option spread @ 15 bps",
+      "hedge_cost_bps": 15,
+      "spread_fraction_paid": 0.75,
+      "mean_per_trade_return_pct": -41.49222548776101,
+      "median_per_trade_return_pct": -33.95628024863924,
+      "nw_t": -17.16523076890785,
+      "nw_t_excess_rf": -17.169505340442154,
+      "mean_daily_return_bps": -1380.4691736329441,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 536
+    },
+    {
+      "label": "3. net of hedge + 100% of option spread @ 15 bps",
+      "hedge_cost_bps": 15,
+      "spread_fraction_paid": 1.0,
+      "mean_per_trade_return_pct": -57.17742403159121,
+      "median_per_trade_return_pct": -44.59191905893917,
+      "nw_t": -20.64832981392986,
+      "nw_t_excess_rf": -20.652139131654938,
+      "mean_daily_return_bps": -1971.4379687554826,
+      "n_days": 1660,
+      "n_trades": 5327,
+      "n_trades_clamped_at_minus_1": 975
+    }
+  ],
+  "pattern_flag": {
+    "pattern": "NEITHER",
+    "statement": "the numbers match neither pre-specified pattern. (b) is -4.5291%, opposite in sign to the unhedged gross +3.8345% and larger in magnitude than it, so (a) at +8.3636% is LARGER than the unhedged gross rather than close to it (Pattern A) or smaller than it (Pattern B). Removing the directional exposure raised the gross result instead of lowering it.",
+    "pattern_A_definition": "delta-hedged gross (a) close to the unhedged gross, (b) small -> the vol forecast was real, spread was the killer",
+    "pattern_B_definition": "delta-hedged gross (a) much smaller than unhedged gross with (b) accounting for most of it -> the straddle was mostly catching direction, not volatility",
+    "condition_A_met": false,
+    "condition_B_met": false,
+    "condition_A_rule": "|(a) - unhedged| <= cutoff*|unhedged| AND |(b)| <= cutoff*|unhedged|",
+    "condition_B_rule": "|(a)| < |unhedged| AND |(b)| >= cutoff*|unhedged|",
+    "neither_is_a_permitted_outcome": true,
+    "gap_a_minus_unhedged_pp": 4.529090748450906,
+    "unhedged_gross_pct_from_json_all_trades": 3.8502,
+    "unhedged_gross_pct_processed_subset": 3.8345293829862017,
+    "subset_minus_json_pp": -0.01567061701379835,
+    "a_delta_hedged_gross_pct": 8.363620131437107,
+    "b_directional_pct": -4.529090748450907,
+    "directional_share_of_unhedged": -1.1811334054568658,
+    "hedged_share_of_unhedged": 2.1811334054568654,
+    "cutoff_used": 0.5
+  }
+}

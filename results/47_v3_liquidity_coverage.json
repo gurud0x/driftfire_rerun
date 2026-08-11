@@ -1,0 +1,283 @@
+{
+  "generated": "2026-08-02 20:43:33",
+  "source": "opprcd.csv full targeted pull (secid, date, volume, open_interest), authorized 2026-08-02",
+  "denominator": "V1/V2 universe stock-days, decile 6/7/8, DEV, compression_ratio defined",
+  "n_universe_stock_days": 1733857,
+  "by_year_decile": [
+    {
+      "year": 2015,
+      "decile": 6,
+      "n_obs": 55096,
+      "n_oi": 53334,
+      "n_vol": 41223,
+      "n_iv": 53459,
+      "pct_any_nonzero_oi": 96.80194569478728,
+      "pct_any_nonzero_volume": 74.82031363438362,
+      "pct_fixed_tenor_iv": 97.02882241905039
+    },
+    {
+      "year": 2015,
+      "decile": 7,
+      "n_obs": 70756,
+      "n_oi": 66596,
+      "n_vol": 48083,
+      "n_iv": 66836,
+      "pct_any_nonzero_oi": 94.12063994572898,
+      "pct_any_nonzero_volume": 67.95607439651761,
+      "pct_fixed_tenor_iv": 94.45983379501385
+    },
+    {
+      "year": 2015,
+      "decile": 8,
+      "n_obs": 80234,
+      "n_oi": 68923,
+      "n_vol": 46106,
+      "n_iv": 69713,
+      "pct_any_nonzero_oi": 85.9024852307002,
+      "pct_any_nonzero_volume": 57.46441658149911,
+      "pct_fixed_tenor_iv": 86.88710521723958
+    },
+    {
+      "year": 2016,
+      "decile": 6,
+      "n_obs": 68335,
+      "n_oi": 66934,
+      "n_vol": 50415,
+      "n_iv": 67086,
+      "pct_any_nonzero_oi": 97.9498061022902,
+      "pct_any_nonzero_volume": 73.77624935977171,
+      "pct_fixed_tenor_iv": 98.1722397014707
+    },
+    {
+      "year": 2016,
+      "decile": 7,
+      "n_obs": 77397,
+      "n_oi": 73235,
+      "n_vol": 52995,
+      "n_iv": 73906,
+      "pct_any_nonzero_oi": 94.62253058904092,
+      "pct_any_nonzero_volume": 68.47164618783674,
+      "pct_fixed_tenor_iv": 95.48948925668952
+    },
+    {
+      "year": 2016,
+      "decile": 8,
+      "n_obs": 94241,
+      "n_oi": 87170,
+      "n_vol": 56905,
+      "n_iv": 88378,
+      "pct_any_nonzero_oi": 92.49689625534533,
+      "pct_any_nonzero_volume": 60.3824237858257,
+      "pct_fixed_tenor_iv": 93.77871626998865
+    },
+    {
+      "year": 2017,
+      "decile": 6,
+      "n_obs": 68868,
+      "n_oi": 66556,
+      "n_vol": 52789,
+      "n_iv": 66475,
+      "pct_any_nonzero_oi": 96.6428529941337,
+      "pct_any_nonzero_volume": 76.65243654527501,
+      "pct_fixed_tenor_iv": 96.52523668467212
+    },
+    {
+      "year": 2017,
+      "decile": 7,
+      "n_obs": 73347,
+      "n_oi": 69740,
+      "n_vol": 53038,
+      "n_iv": 69852,
+      "pct_any_nonzero_oi": 95.082280120523,
+      "pct_any_nonzero_volume": 72.31106930072123,
+      "pct_fixed_tenor_iv": 95.2349789357438
+    },
+    {
+      "year": 2017,
+      "decile": 8,
+      "n_obs": 92798,
+      "n_oi": 85075,
+      "n_vol": 59120,
+      "n_iv": 85493,
+      "pct_any_nonzero_oi": 91.67762236255092,
+      "pct_any_nonzero_volume": 63.70826957477532,
+      "pct_fixed_tenor_iv": 92.12806310480829
+    },
+    {
+      "year": 2018,
+      "decile": 6,
+      "n_obs": 73128,
+      "n_oi": 70097,
+      "n_vol": 59297,
+      "n_iv": 70144,
+      "pct_any_nonzero_oi": 95.85521277759544,
+      "pct_any_nonzero_volume": 81.08658790066733,
+      "pct_fixed_tenor_iv": 95.9194836451154
+    },
+    {
+      "year": 2018,
+      "decile": 7,
+      "n_obs": 73664,
+      "n_oi": 70024,
+      "n_vol": 55958,
+      "n_iv": 70126,
+      "pct_any_nonzero_oi": 95.05864465682016,
+      "pct_any_nonzero_volume": 75.9638357949609,
+      "pct_fixed_tenor_iv": 95.19711120764552
+    },
+    {
+      "year": 2018,
+      "decile": 8,
+      "n_obs": 95659,
+      "n_oi": 84977,
+      "n_vol": 64151,
+      "n_iv": 85496,
+      "pct_any_nonzero_oi": 88.83325144523778,
+      "pct_any_nonzero_volume": 67.06216874523045,
+      "pct_fixed_tenor_iv": 89.37580363583145
+    },
+    {
+      "year": 2019,
+      "decile": 6,
+      "n_obs": 74005,
+      "n_oi": 71937,
+      "n_vol": 60601,
+      "n_iv": 71941,
+      "pct_any_nonzero_oi": 97.20559421660698,
+      "pct_any_nonzero_volume": 81.88771028984529,
+      "pct_fixed_tenor_iv": 97.21099925680697
+    },
+    {
+      "year": 2019,
+      "decile": 7,
+      "n_obs": 78818,
+      "n_oi": 74491,
+      "n_vol": 59776,
+      "n_iv": 74543,
+      "pct_any_nonzero_oi": 94.51013727828669,
+      "pct_any_nonzero_volume": 75.84054403816387,
+      "pct_fixed_tenor_iv": 94.5761120556218
+    },
+    {
+      "year": 2019,
+      "decile": 8,
+      "n_obs": 90928,
+      "n_oi": 77696,
+      "n_vol": 59210,
+      "n_iv": 78022,
+      "pct_any_nonzero_oi": 85.44782685201479,
+      "pct_any_nonzero_volume": 65.1174555692416,
+      "pct_fixed_tenor_iv": 85.80635227872602
+    },
+    {
+      "year": 2020,
+      "decile": 6,
+      "n_obs": 72140,
+      "n_oi": 68958,
+      "n_vol": 61574,
+      "n_iv": 64606,
+      "pct_any_nonzero_oi": 95.58913224286111,
+      "pct_any_nonzero_volume": 85.35347934571666,
+      "pct_fixed_tenor_iv": 89.5564180759634
+    },
+    {
+      "year": 2020,
+      "decile": 7,
+      "n_obs": 87166,
+      "n_oi": 79353,
+      "n_vol": 67293,
+      "n_iv": 73847,
+      "pct_any_nonzero_oi": 91.03664272766905,
+      "pct_any_nonzero_volume": 77.20097285638896,
+      "pct_fixed_tenor_iv": 84.71995961728197
+    },
+    {
+      "year": 2020,
+      "decile": 8,
+      "n_obs": 96085,
+      "n_oi": 80706,
+      "n_vol": 66208,
+      "n_iv": 75242,
+      "pct_any_nonzero_oi": 83.99437997606286,
+      "pct_any_nonzero_volume": 68.90565645001821,
+      "pct_fixed_tenor_iv": 78.30774834781704
+    },
+    {
+      "year": 2021,
+      "decile": 6,
+      "n_obs": 85243,
+      "n_oi": 82002,
+      "n_vol": 73245,
+      "n_iv": 82059,
+      "pct_any_nonzero_oi": 96.19792827563553,
+      "pct_any_nonzero_volume": 85.9249439836702,
+      "pct_fixed_tenor_iv": 96.26479593632322
+    },
+    {
+      "year": 2021,
+      "decile": 7,
+      "n_obs": 100536,
+      "n_oi": 92422,
+      "n_vol": 80458,
+      "n_iv": 92432,
+      "pct_any_nonzero_oi": 91.92925917084428,
+      "pct_any_nonzero_volume": 80.02904432243176,
+      "pct_fixed_tenor_iv": 91.93920585660858
+    },
+    {
+      "year": 2021,
+      "decile": 8,
+      "n_obs": 125413,
+      "n_oi": 105801,
+      "n_vol": 91380,
+      "n_iv": 105909,
+      "pct_any_nonzero_oi": 84.36206772822594,
+      "pct_any_nonzero_volume": 72.86325978965498,
+      "pct_fixed_tenor_iv": 84.44818320269829
+    }
+  ],
+  "threshold_menu": {
+    "any nonzero open interest": {
+      "n": 1596027,
+      "pct": 92.0506708454042
+    },
+    "any nonzero volume": {
+      "n": 1259825,
+      "pct": 72.66025975613906
+    },
+    "nonzero OI AND 30d ATM IV available": {
+      "n": 1579543,
+      "pct": 91.0999580703599
+    },
+    "nonzero VOLUME AND 30d ATM IV available": {
+      "n": 1246230,
+      "pct": 71.87616971872536
+    },
+    "nonzero VOLUME AND IV AND dvol>=median": {
+      "n": 770205,
+      "pct": 44.42148343260142
+    },
+    "nonzero VOLUME AND IV AND dvol>=60th pct": {
+      "n": 633212,
+      "pct": 36.52042815526309
+    },
+    "nonzero VOLUME AND IV AND dvol>=75th pct": {
+      "n": 410035,
+      "pct": 23.648720742252678
+    }
+  },
+  "leading_candidate_by_year": {
+    "2015": 42.566210222916645,
+    "2016": 42.65313181066203,
+    "2017": 44.37243897146115,
+    "2018": 45.58694334112872,
+    "2019": 45.361454927364406,
+    "2020": 43.09940444259978,
+    "2021": 46.49155505282912
+  },
+  "leading_candidate_by_decile": {
+    "6": 68.91438463009369,
+    "7": 47.55734541129888,
+    "8": 23.795675774922337
+  }
+}

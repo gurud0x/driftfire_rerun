@@ -1,0 +1,450 @@
+{
+  "bands": {
+    "primary_18_22": {
+      "calls": {
+        "n_eligible_stock_dates": 245867,
+        "unique_underlyings": 2709,
+        "unique_contracts_optionid": 134558,
+        "by_year": {
+          "2015": 28311,
+          "2016": 33635,
+          "2017": 34179,
+          "2018": 35272,
+          "2019": 35581,
+          "2020": 36377,
+          "2021": 42512
+        },
+        "by_decile": {
+          "6": 78044,
+          "7": 82042,
+          "8": 85781
+        },
+        "by_earnings_bucket": {
+          "none_within_20td": 166533,
+          "11-20td": 30149,
+          "1-5td": 28002,
+          "6-10td": 19463,
+          "no_gvkey": 737
+        },
+        "dte_distribution": {
+          "n": 245867,
+          "min": 18.0,
+          "p1": 18.0,
+          "q1": 18.0,
+          "median": 21.0,
+          "q3": 22.0,
+          "p99": 22.0,
+          "max": 22.0,
+          "mean": 20.385464499099108
+        },
+        "dte_value_counts": {
+          "18": 77449,
+          "20": 1409,
+          "21": 84347,
+          "22": 82662
+        },
+        "mid_premium_distribution": {
+          "n": 245867,
+          "min": 0.009999999776482582,
+          "p1": 0.07500000298023224,
+          "q1": 0.5649999976158142,
+          "median": 1.0750000476837158,
+          "q3": 2.0,
+          "p99": 8.399999618530273,
+          "max": 297.8500061035156,
+          "mean": 1.6051750949965613
+        },
+        "rel_spread_distribution": {
+          "n": 245867,
+          "min": 0.004008016215904145,
+          "p1": 0.045516657814386394,
+          "q1": 0.19354839305103652,
+          "median": 0.3859649251959592,
+          "q3": 0.9090909090909091,
+          "p99": 2.0000000529819077,
+          "max": 2.000000107963136,
+          "mean": 0.6420345001625443
+        },
+        "open_interest_distribution": {
+          "n": 245867,
+          "min": 0.0,
+          "p1": 0.0,
+          "q1": 3.0,
+          "median": 43.0,
+          "q3": 247.0,
+          "p99": 6643.3399999999965,
+          "max": 116317.0,
+          "mean": 438.50627371709095
+        },
+        "recent_vol_5d_distribution": {
+          "n": 245867,
+          "min": 0.0,
+          "p1": 0.0,
+          "q1": 0.0,
+          "median": 10.0,
+          "q3": 93.0,
+          "p99": 4279.0,
+          "max": 94622.0,
+          "mean": 252.15160635628206
+        },
+        "zero_bid_rate": 0.08751072734445858,
+        "valid_two_sided_quote_n": 224351,
+        "valid_two_sided_quote_pct": 91.24892726555413,
+        "no_arbitrage_failure_rate_of_valid_quotes": 0.006962304603055035,
+        "iv_reached_inversion_step_n": 222789,
+        "iv_inversion_failure_rate_of_reached": 0.0004623208506703652,
+        "final_usable_iv_n": 222686,
+        "final_usable_iv_pct_of_eligible": 90.57173187129627,
+        "pct_complete_future_calendar_20cal": 99.71569995159985
+      },
+      "puts": {
+        "n_eligible_stock_dates": 245856,
+        "unique_underlyings": 2709,
+        "unique_contracts_optionid": 135773,
+        "by_year": {
+          "2015": 28314,
+          "2016": 33629,
+          "2017": 34178,
+          "2018": 35272,
+          "2019": 35572,
+          "2020": 36376,
+          "2021": 42515
+        },
+        "by_decile": {
+          "6": 78044,
+          "7": 82042,
+          "8": 85770
+        },
+        "by_earnings_bucket": {
+          "none_within_20td": 166527,
+          "11-20td": 30150,
+          "1-5td": 27997,
+          "6-10td": 19461,
+          "no_gvkey": 738
+        },
+        "dte_distribution": {
+          "n": 245856,
+          "min": 18.0,
+          "p1": 18.0,
+          "q1": 18.0,
+          "median": 21.0,
+          "q3": 22.0,
+          "p99": 22.0,
+          "max": 22.0,
+          "mean": 20.385473610568788
+        },
+        "dte_value_counts": {
+          "18": 77444,
+          "20": 1409,
+          "21": 84347,
+          "22": 82656
+        },
+        "mid_premium_distribution": {
+          "n": 245856,
+          "min": 0.02500000037252903,
+          "p1": 0.10000000149011612,
+          "q1": 0.6650000214576721,
+          "median": 1.25,
+          "q3": 2.3499999046325684,
+          "p99": 10.149999618530273,
+          "max": 101.25,
+          "mean": 1.860929975601393
+        },
+        "rel_spread_distribution": {
+          "n": 245856,
+          "min": 0.004987531361854657,
+          "p1": 0.04444444562182021,
+          "q1": 0.1818181778773789,
+          "median": 0.35294116657085517,
+          "q3": 0.8405796985269672,
+          "p99": 2.0000000529819077,
+          "max": 2.000000107963136,
+          "mean": 0.6037782338434551
+        },
+        "open_interest_distribution": {
+          "n": 245856,
+          "min": 0.0,
+          "p1": 0.0,
+          "q1": 0.0,
+          "median": 19.0,
+          "q3": 127.0,
+          "p99": 4167.70000000007,
+          "max": 51054.0,
+          "mean": 261.32135070935834
+        },
+        "recent_vol_5d_distribution": {
+          "n": 245856,
+          "min": 0.0,
+          "p1": 0.0,
+          "q1": 0.0,
+          "median": 2.0,
+          "q3": 33.0,
+          "p99": 1773.0,
+          "max": 68310.0,
+          "mean": 102.45198408824677
+        },
+        "zero_bid_rate": 0.07408401666015879,
+        "valid_two_sided_quote_n": 227642,
+        "valid_two_sided_quote_pct": 92.59159833398411,
+        "no_arbitrage_failure_rate_of_valid_quotes": 0.006497043603552947,
+        "iv_reached_inversion_step_n": 226163,
+        "iv_inversion_failure_rate_of_reached": 0.0005129044096514461,
+        "final_usable_iv_n": 226047,
+        "final_usable_iv_pct_of_eligible": 91.94284459195626,
+        "pct_complete_future_calendar_20cal": 99.71568723155018
+      }
+    },
+    "diagnostic_15_25": {
+      "calls": {
+        "n_eligible_stock_dates": 695010,
+        "unique_underlyings": 2710,
+        "unique_contracts_optionid": 197975,
+        "by_year": {
+          "2015": 83284,
+          "2016": 96720,
+          "2017": 96598,
+          "2018": 97826,
+          "2019": 96098,
+          "2020": 103181,
+          "2021": 121303
+        },
+        "by_decile": {
+          "6": 213861,
+          "7": 230538,
+          "8": 250611
+        },
+        "by_earnings_bucket": {
+          "none_within_20td": 473119,
+          "11-20td": 89295,
+          "1-5td": 73206,
+          "6-10td": 54295,
+          "no_gvkey": 2065
+        },
+        "dte_distribution": {
+          "n": 695010,
+          "min": 15.0,
+          "p1": 15.0,
+          "q1": 17.0,
+          "median": 21.0,
+          "q3": 23.0,
+          "p99": 25.0,
+          "max": 25.0,
+          "mean": 20.11350915814161
+        },
+        "dte_value_counts": {
+          "15": 70898,
+          "16": 69379,
+          "17": 85216,
+          "18": 77449,
+          "20": 1409,
+          "21": 84347,
+          "22": 82662,
+          "23": 87134,
+          "24": 72211,
+          "25": 64305
+        },
+        "mid_premium_distribution": {
+          "n": 695010,
+          "min": 0.009999999776482582,
+          "p1": 0.07500000298023224,
+          "q1": 0.550000011920929,
+          "median": 1.0750000476837158,
+          "q3": 2.0,
+          "p99": 8.600000381469727,
+          "max": 307.5249938964844,
+          "mean": 1.6148466427465598
+        },
+        "rel_spread_distribution": {
+          "n": 695010,
+          "min": 0.004008016215904145,
+          "p1": 0.0487804889395293,
+          "q1": 0.20000000000000007,
+          "median": 0.4000000000000001,
+          "q3": 0.9787234439737621,
+          "p99": 2.0000000529819077,
+          "max": 2.000000107963136,
+          "mean": 0.6673350058987844
+        },
+        "open_interest_distribution": {
+          "n": 695010,
+          "min": 0.0,
+          "p1": 0.0,
+          "q1": 4.0,
+          "median": 46.0,
+          "q3": 257.0,
+          "p99": 6640.910000000033,
+          "max": 116317.0,
+          "mean": 444.9724881656379
+        },
+        "recent_vol_5d_distribution": {
+          "n": 695010,
+          "min": 0.0,
+          "p1": 0.0,
+          "q1": 0.0,
+          "median": 10.0,
+          "q3": 90.0,
+          "p99": 4207.910000000033,
+          "max": 144997.0,
+          "mean": 248.23432468597574
+        },
+        "zero_bid_rate": 0.09578711097682048,
+        "valid_two_sided_quote_n": 628437,
+        "valid_two_sided_quote_pct": 90.42128890231795,
+        "no_arbitrage_failure_rate_of_valid_quotes": 0.007595033392368686,
+        "iv_reached_inversion_step_n": 623664,
+        "iv_inversion_failure_rate_of_reached": 0.0004858385284383899,
+        "final_usable_iv_n": 623361,
+        "final_usable_iv_pct_of_eligible": 89.69093969870937,
+        "pct_complete_future_calendar_20cal": 99.71525589559862
+      },
+      "puts": {
+        "n_eligible_stock_dates": 694958,
+        "unique_underlyings": 2710,
+        "unique_contracts_optionid": 200532,
+        "by_year": {
+          "2015": 83289,
+          "2016": 96699,
+          "2017": 96597,
+          "2018": 97824,
+          "2019": 96072,
+          "2020": 103172,
+          "2021": 121305
+        },
+        "by_decile": {
+          "6": 213849,
+          "7": 230523,
+          "8": 250586
+        },
+        "by_earnings_bucket": {
+          "none_within_20td": 473085,
+          "11-20td": 89295,
+          "1-5td": 73193,
+          "6-10td": 54289,
+          "no_gvkey": 2066
+        },
+        "dte_distribution": {
+          "n": 694958,
+          "min": 15.0,
+          "p1": 15.0,
+          "q1": 17.0,
+          "median": 21.0,
+          "q3": 23.0,
+          "p99": 25.0,
+          "max": 25.0,
+          "mean": 20.113403975492044
+        },
+        "dte_value_counts": {
+          "15": 70898,
+          "16": 69376,
+          "17": 85207,
+          "18": 77444,
+          "20": 1409,
+          "21": 84347,
+          "22": 82656,
+          "23": 87126,
+          "24": 72198,
+          "25": 64297
+        },
+        "mid_premium_distribution": {
+          "n": 694958,
+          "min": 0.014999999664723873,
+          "p1": 0.07500000298023224,
+          "q1": 0.6499999761581421,
+          "median": 1.2400000095367432,
+          "q3": 2.325000047683716,
+          "p99": 10.5,
+          "max": 179.0,
+          "mean": 1.8533346982699102
+        },
+        "rel_spread_distribution": {
+          "n": 694958,
+          "min": 0.0,
+          "p1": 0.049180326715524275,
+          "q1": 0.18867923849288515,
+          "median": 0.3783783735020307,
+          "q3": 0.8965516946545405,
+          "p99": 2.0000000529819077,
+          "max": 2.000000107963136,
+          "mean": 0.6325400851940952
+        },
+        "open_interest_distribution": {
+          "n": 694958,
+          "min": 0.0,
+          "p1": 0.0,
+          "q1": 0.0,
+          "median": 20.0,
+          "q3": 132.0,
+          "p99": 4161.0,
+          "max": 71049.0,
+          "mean": 263.5308493462914
+        },
+        "recent_vol_5d_distribution": {
+          "n": 694958,
+          "min": 0.0,
+          "p1": 0.0,
+          "q1": 0.0,
+          "median": 2.0,
+          "q3": 32.0,
+          "p99": 1782.4300000000512,
+          "max": 68877.0,
+          "mean": 101.1768409026157
+        },
+        "zero_bid_rate": 0.08273305724950285,
+        "valid_two_sided_quote_n": 637461,
+        "valid_two_sided_quote_pct": 91.7265503814619,
+        "no_arbitrage_failure_rate_of_valid_quotes": 0.007365156456630288,
+        "iv_reached_inversion_step_n": 632766,
+        "iv_inversion_failure_rate_of_reached": 0.0004978143579143,
+        "final_usable_iv_n": 632451,
+        "final_usable_iv_pct_of_eligible": 91.00564350651406,
+        "pct_complete_future_calendar_20cal": 99.71523458971622
+      }
+    }
+  },
+  "meta": {
+    "generated_by": "src/50_v3_short_data_feasibility.py",
+    "scope": "RETURN-BLIND coverage audit only. Does NOT authorize building V3-short. Does NOT change V4 (results/prereg_V4.md, DRAFT). DlyRet is never loaded in this script; no RV, option return, P&L, or regression coefficient is computed anywhere.",
+    "window": "2015-01-01 to 2021-12-31 (DEV only)",
+    "target_dte": 20,
+    "primary_band_dte": [
+      18,
+      22
+    ],
+    "diagnostic_band_dte": [
+      15,
+      25
+    ],
+    "extraction_band_dte": [
+      5,
+      35
+    ],
+    "shared_base_universe_stock_days": 1733857,
+    "declared_assumptions": {
+      "risk_free_rate": 0.01,
+      "q_dividend": 0.0,
+      "iv_bounds": [
+        0.0001,
+        5.0
+      ],
+      "iv_inversion_method": "vectorized Newton-Raphson, disclosed deviation from scalar brentq used elsewhere (src/42) - chosen for tractable runtime at this row count; convergence verified against price residual, not assumed from iteration count",
+      "delta_source": "BS delta computed from opprcd's own impl_volatility column - no vendor delta field exists in opprcd.csv (confirmed by header inspection; same finding recorded in results/prereg_V4.md Section 6.1/7.2)",
+      "recent_option_volume_window": "trailing 5 trading days, INCLUSIVE of the selection day",
+      "float_precision_note": "S, K, T, mid cast to float32 after narrowing to the diagnostic band, for memory headroom at full-file scale (15.8GB total RAM). Verified against the float64 dry run: selection counts match to within 0.01% (3 of 43,046 selected contracts differed, at the tie-break spread-comparison margin only) - immaterial to any reported rate.",
+      "tie_break_order": [
+        "abs(dte-20)",
+        "abs(|delta|-0.50) if computable",
+        "relative spread",
+        "open interest (desc)",
+        "recent 5-day volume (desc)",
+        "optionid (asc)"
+      ]
+    },
+    "primary_band_derivation": "primary [18,22] selection is the exact subset of the diagnostic [15,25] selection with dte in [18,22] - a proven identity, not a second independent tie-break pass (see Section 9 comment)",
+    "opprcd_scan": {
+      "rows_scanned": 886525545,
+      "rows_after_secid_whitelist": 886525545,
+      "rows_after_dev_date_range": 505892457,
+      "rows_after_dte_band": 141043539
+    }
+  }
+}

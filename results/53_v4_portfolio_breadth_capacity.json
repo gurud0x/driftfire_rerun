@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "generated_by": "src/53_v4_portfolio_breadth_capacity.py",
+    "scope": "RETURN-BLIND capacity audit (V4 audit item 3). No P&L, return, or Score-based ranking computed. Score requires the not-yet-audited expanding-window forecast (Section 4.2); candidate slot-filling uses a neutral, deterministic, Score-independent order (ascending PERMNO) instead.",
+    "window": "2015-01-01 to 2021-12-31 (DEV only)",
+    "instrument_definition": {
+      "dte_band": [
+        25,
+        38
+      ],
+      "delta_band": [
+        0.4,
+        0.6
+      ]
+    },
+    "portfolio_params": {
+      "NAV": 2000000.0,
+      "max_positions": 20,
+      "min_invested_day": 5,
+      "sizing": "equal_vega",
+      "target_vega_per_position_per_pt": 500.0,
+      "aggregate_vega_cap_per_pt": 10000.0,
+      "sector_cap_fraction": 0.2,
+      "aggregate_gamma_cap_dollar": 100000.0,
+      "premium_skip_multiple_of_nominal_slot": 2.0,
+      "whole_contract_rounding_tolerance": 0.2
+    },
+    "constraint_check_order": [
+      "premium",
+      "whole_contract_rounding (flagged, not skipped alone)",
+      "capacity_cap (OI then volume)",
+      "sector",
+      "aggregate_vega",
+      "aggregate_gamma"
+    ],
+    "opprcd_rows_scanned": 886525545
+  },
+  "results": {
+    "CALLS": {
+      "n_trading_days_with_candidate": 1370,
+      "pct_days_below_min_invested_eligible": 35.83941605839416,
+      "pct_days_invested": 64.16058394160584,
+      "median_eligible_per_day": 12.0,
+      "median_filled_per_day": 10.0,
+      "max_filled_per_day": 20,
+      "contracts_per_position": {
+        "median": 40.0,
+        "max": 1104,
+        "mean": 72.92204373650108
+      },
+      "total_candidates_considered": 33269,
+      "constraint_counts": {
+        "premium_constrained": 0,
+        "whole_contract_rounding_constrained": 0,
+        "volume_constrained": 13134,
+        "oi_constrained": 14785,
+        "sector_constrained": 3789,
+        "vega_constrained": 0,
+        "gamma_constrained": 0
+      },
+      "constraint_pct_of_candidates": {
+        "premium_constrained": 0.0,
+        "whole_contract_rounding_constrained": 0.0,
+        "volume_constrained": 39.47819291232078,
+        "oi_constrained": 44.440770687426735,
+        "sector_constrained": 11.388980732814332,
+        "vega_constrained": 0.0,
+        "gamma_constrained": 0.0
+      },
+      "capital_utilization_pct": {
+        "median": 3.994325,
+        "mean": 5.973613868613139,
+        "max": 25.82
+      }
+    },
+    "PUTS": {
+      "n_trading_days_with_candidate": 1242,
+      "pct_days_below_min_invested_eligible": 35.909822866344605,
+      "pct_days_invested": 64.09017713365539,
+      "median_eligible_per_day": 11.0,
+      "median_filled_per_day": 9.0,
+      "max_filled_per_day": 20,
+      "contracts_per_position": {
+        "median": 32.0,
+        "max": 1054,
+        "mean": 62.231265356265354
+      },
+      "total_candidates_considered": 22541,
+      "constraint_counts": {
+        "premium_constrained": 0,
+        "whole_contract_rounding_constrained": 0,
+        "volume_constrained": 13147,
+        "oi_constrained": 13382,
+        "sector_constrained": 2728,
+        "vega_constrained": 0,
+        "gamma_constrained": 0
+      },
+      "constraint_pct_of_candidates": {
+        "premium_constrained": 0.0,
+        "whole_contract_rounding_constrained": 0.0,
+        "volume_constrained": 58.32483030921433,
+        "oi_constrained": 59.367375005545455,
+        "sector_constrained": 12.102391198260946,
+        "vega_constrained": 0.0,
+        "gamma_constrained": 0.0
+      },
+      "capital_utilization_pct": {
+        "median": 4.5991,
+        "mean": 5.862028784219002,
+        "max": 32.75125
+      }
+    }
+  }
+}

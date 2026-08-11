@@ -751,20 +751,3 @@ DECOMPOSITION (compression_orthogonal, same leave-one-out method as src/67):
   IVSkew_var         coef=+9.158312e-02  pct_of_orth_compression_power=+1.07%
   RESIDUAL: -47.90%
 ```
-
-
----
-
-## V4 Gate 6a - FINAL CLOSING TEST - compression_orthogonal_full, standalone univariate forecast
-
-Run 2026-08-11 01:34:05 - script src/71_v4_gate6a_final_standalone_orthogonal.py - closes the question left open by results/70 (which could only orthogonalize compression against 9 of the 10 benchmark features, since re-inserting a variable orthogonalized against everything already in its own model is mechanically zero-incremental by Frisch-Waugh-Lovell). compression_orthogonal_full = resid(compression_decile ~ const + ALL 10 benchmark features including IV_ATM_var), pooled OLS. Tested as a STANDALONE univariate Fama-MacBeth forecaster of RV2_primary, NOT reinserted into the 10-feature model. DEV only, no holdout code path. Machine-readable copy: results/71_v4_gate6a_final_standalone_orthogonal.json.
-
-```
-compression_decile ~ all 10 benchmark features (pooled OLS): R2 = 0.091450
-
-STANDALONE FORECAST: RV2_primary ~ const + compression_orthogonal_full
-  n_dates: 1,701 (dropped 0)   mean_xsec_n: 927.6
-  R^2:          0.008278
-  coefficient:  -4.747852e-03
-  NW t-stat:    -3.2787
-```

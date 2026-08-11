@@ -1,0 +1,37 @@
+{
+  "phase": "V4 Gate 6a - continuation of correlation/ordering check (UNDER REVIEW, src/68)",
+  "generated": "2026-08-10 19:52:05",
+  "script": "src/69_v4_gate6a_partial_correlation_check.py",
+  "status": "UNDER REVIEW - continuation, not a new finding, still holding on Gate 6b/hedging/P&L",
+  "per_date_correlation": {
+    "n_dates_checked": 1701,
+    "n_dates_used": 1701,
+    "mean_daily_r": -0.024543110224631216,
+    "std_daily_r": 0.08633143687589094,
+    "pct_days_abs_r_gt_010": 26.161081716637273,
+    "daily_r_min": -0.28702097248330316,
+    "daily_r_p5": -0.15302882790854752,
+    "daily_r_median": -0.03147578417662562,
+    "daily_r_p95": 0.12233762003048228,
+    "daily_r_max": 0.2595816149964226
+  },
+  "partial_correlation": {
+    "control_set_other_9": [
+      "RV1",
+      "Persist20",
+      "RV20",
+      "RV60",
+      "DSV5",
+      "JumpVar",
+      "VoV20",
+      "IVTermStruct_var",
+      "IVSkew_var"
+    ],
+    "n_pooled": 1585103,
+    "r2_compression_on_other9": 0.07772003957966989,
+    "r2_iv_atm_on_other9": 0.3531666525054957,
+    "partial_r": -0.12201436539487928,
+    "partial_p": 0.0,
+    "reference_raw_pooled_pearson_r_src68": -0.017655
+  }
+}

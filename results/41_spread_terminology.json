@@ -1,0 +1,39 @@
+{
+  "generated_by": "src/41_spread_terminology.py",
+  "source_script": "src/37_k1_signal_construction_real_prices.py",
+  "source_lines": {
+    "entry_mid (lines 330-331)": "t['entry_mid'] = (t['bid_c_e'] + t['off_c_e']) / 2.0 + \\ (t['bid_p_e'] + t['off_p_e']) / 2.0",
+    "entry_ask (line 334)": "t['entry_ask'] = t['off_c_e'] + t['off_p_e']      # pay the offer",
+    "sp - the spread itself (line 375)": "sp = ((t['entry_ask'] - t['entry_mid']) / t['entry_mid'] * 100)",
+    "console label (line 376)": "print(f\"\\n  observed entry half-spread as % of mid: median \""
+  },
+  "formula": {
+    "entry_mid": "(bid_call + offer_call)/2 + (bid_put + offer_put)/2",
+    "entry_ask": "offer_call + offer_put",
+    "sp_as_coded": "(entry_ask - entry_mid) / entry_mid * 100",
+    "equivalent_form": "(entry_ask - entry_bid) / (2 * entry_mid) * 100",
+    "classification": "HALF bid-ask spread as a percent of mid, at the combined straddle (call+put) level",
+    "is_ask_minus_bid_over_mid": false,
+    "is_ask_minus_mid_over_mid": true
+  },
+  "recomputed_from_parquet": {
+    "file": "data/processed/k1_trades_real_prices.parquet",
+    "n_trades": 5356,
+    "median_pct": 18.75,
+    "mean_pct": 29.805
+  },
+  "cross_check_vs_summary_json": {
+    "file": "data/processed/k1_trade_summary.json",
+    "median_pct_logged": 18.75,
+    "mean_pct_logged": 29.805,
+    "n_matched_entry_and_exit_logged": 5356,
+    "match_status": "PASS - exact match"
+  },
+  "authoritative_values_pct_of_mid": {
+    "half_spread_median": 18.75,
+    "half_spread_mean": 29.8,
+    "full_spread_median_if_paper_means_full": 37.5,
+    "full_spread_mean_if_paper_means_full": 59.61
+  },
+  "paper_sentence": "At entry, the quoted offer price for the straddle exceeds its bid-ask midpoint by a median of 18.75% of that midpoint (mean 29.80%) -- that is, the half-spread, not the full bid-ask spread, expressed as a percentage of the option's mid price."
+}

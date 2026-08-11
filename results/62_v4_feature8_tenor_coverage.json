@@ -1,0 +1,24 @@
+{
+  "generated_by": "src/62_v4_feature8_tenor_coverage_check.py",
+  "scope": "inspection only - secid/date/days columns; no delta/IV/strike/premium read",
+  "rows_scanned": 2059498694,
+  "days_value_counts": {
+    "10": 187227154,
+    "30": 187227154,
+    "60": 187227154,
+    "91": 187227154,
+    "122": 187227154,
+    "152": 187227154,
+    "182": 187227154,
+    "273": 187227154,
+    "365": 187227154,
+    "547": 187227154,
+    "730": 187227154
+  },
+  "has_60_day_tenor": true,
+  "atm_both_sides_coverage_pct": {
+    "10": 92.05055549563777,
+    "30": 92.05055549563777,
+    "60": 92.05055549563777
+  }
+}

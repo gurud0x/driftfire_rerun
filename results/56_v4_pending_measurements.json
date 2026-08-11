@@ -1,0 +1,438 @@
+{
+  "meta": {
+    "generated_by": "src/56_v4_pending_measurements.py",
+    "scope": "RETURN-BLIND. No return, P&L, forward realized variance, outcome-based score, or test statistic computed. Forward-looking measurement is QUOTE EXISTENCE and calendar/DTE arithmetic only.",
+    "locked_design": {
+      "dte_band": [
+        40,
+        60
+      ],
+      "dte_anchor": 50,
+      "spread_ceiling": 0.1,
+      "nav_primary": 100000,
+      "max_positions": 20,
+      "exit": "fixed 30 calendar days"
+    },
+    "passA_rows_scanned": 886525545,
+    "passB_rows_scanned": 886525545,
+    "n_selected": 38627
+  },
+  "O1_combined_ceiling_and_cap": {
+    "calls|100000|FIXEDCAP": {
+      "median_filled": 11.0,
+      "median_eff_hhi": 10.111877980470034,
+      "n_invested_days": 1058,
+      "median_invested_day_utilization_pct": 17.5115,
+      "median_contracts_per_position": 8.0,
+      "constraints_pct": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 2.099097943653542,
+        "oi": 2.1931512120046173,
+        "sector": 15.262280364242658,
+        "vega": 3.0097045872344066,
+        "gamma": 0.0
+      }
+    },
+    "calls|100000|DYNCAP": {
+      "median_filled": 9.0,
+      "median_eff_hhi": 5.757481962960506,
+      "n_invested_days": 992,
+      "median_invested_day_utilization_pct": 7.619000000000001,
+      "median_contracts_per_position": 3.0,
+      "constraints_pct": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 61.91697661493737,
+        "oi": 44.41451840451456,
+        "sector": 9.790090205634645,
+        "vega": 0.0,
+        "gamma": 0.0
+      }
+    },
+    "calls|250000|FIXEDCAP": {
+      "median_filled": 11.0,
+      "median_eff_hhi": 9.636648566826311,
+      "n_invested_days": 1058,
+      "median_invested_day_utilization_pct": 15.829199999999998,
+      "median_contracts_per_position": 16.0,
+      "constraints_pct": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 9.153093069984182,
+        "oi": 11.863537257919713,
+        "sector": 12.949424992518491,
+        "vega": 0.17528109101791287,
+        "gamma": 0.0
+      }
+    },
+    "calls|250000|DYNCAP": {
+      "median_filled": 9.0,
+      "median_eff_hhi": 4.794975101631887,
+      "n_invested_days": 992,
+      "median_invested_day_utilization_pct": 4.1302,
+      "median_contracts_per_position": 3.0,
+      "constraints_pct": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 74.89632764738575,
+        "oi": 64.64024624855715,
+        "sector": 9.790090205634645,
+        "vega": 0.0,
+        "gamma": 0.0
+      }
+    },
+    "calls|500000|FIXEDCAP": {
+      "median_filled": 11.0,
+      "median_eff_hhi": 8.808802851267597,
+      "n_invested_days": 1058,
+      "median_invested_day_utilization_pct": 13.300500000000001,
+      "median_contracts_per_position": 25.0,
+      "constraints_pct": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 21.559574195203282,
+        "oi": 25.608139882860932,
+        "sector": 12.855371724167414,
+        "vega": 0.0,
+        "gamma": 0.0
+      }
+    },
+    "calls|500000|DYNCAP": {
+      "median_filled": 9.0,
+      "median_eff_hhi": 4.4271339422504346,
+      "n_invested_days": 992,
+      "median_invested_day_utilization_pct": 2.2544,
+      "median_contracts_per_position": 3.0,
+      "constraints_pct": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 79.10307383181565,
+        "oi": 73.8189902099098,
+        "sector": 9.790090205634645,
+        "vega": 0.0,
+        "gamma": 0.0
+      }
+    },
+    "calls|1000000|FIXEDCAP": {
+      "median_filled": 11.0,
+      "median_eff_hhi": 7.528434061058426,
+      "n_invested_days": 1058,
+      "median_invested_day_utilization_pct": 9.98325,
+      "median_contracts_per_position": 34.0,
+      "constraints_pct": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 37.92911803685178,
+        "oi": 42.47360095763328,
+        "sector": 12.855371724167414,
+        "vega": 0.0,
+        "gamma": 0.0
+      }
+    },
+    "calls|1000000|DYNCAP": {
+      "median_filled": 9.0,
+      "median_eff_hhi": 4.25776911836337,
+      "n_invested_days": 992,
+      "median_invested_day_utilization_pct": 1.14685,
+      "median_contracts_per_position": 3.0,
+      "constraints_pct": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 80.45829592578342,
+        "oi": 78.42760035911247,
+        "sector": 9.790090205634645,
+        "vega": 0.0,
+        "gamma": 0.0
+      }
+    },
+    "calls|2000000|FIXEDCAP": {
+      "median_filled": 11.0,
+      "median_eff_hhi": 6.190820915691235,
+      "n_invested_days": 1058,
+      "median_invested_day_utilization_pct": 6.7032750000000005,
+      "median_contracts_per_position": 40.0,
+      "constraints_pct": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 53.75571801120089,
+        "oi": 57.26133983155914,
+        "sector": 12.855371724167414,
+        "vega": 0.0,
+        "gamma": 0.0
+      }
+    },
+    "calls|2000000|DYNCAP": {
+      "median_filled": 9.0,
+      "median_eff_hhi": 4.24986955925473,
+      "n_invested_days": 992,
+      "median_invested_day_utilization_pct": 0.5745999999999999,
+      "median_contracts_per_position": 3.0,
+      "constraints_pct": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 80.78748236501218,
+        "oi": 80.37279295455517,
+        "sector": 9.790090205634645,
+        "vega": 0.0,
+        "gamma": 0.0
+      }
+    },
+    "puts|100000|FIXEDCAP": {
+      "median_filled": 9.0,
+      "median_eff_hhi": 7.6692488571910715,
+      "n_invested_days": 985,
+      "median_invested_day_utilization_pct": 18.746,
+      "median_contracts_per_position": 8.0,
+      "constraints_pct": {
+        "premium": 0.045943817274875294,
+        "rounding_up_forced": 0.0,
+        "volume": 8.637437647676556,
+        "oi": 3.7608296140719353,
+        "sector": 10.514570753478605,
+        "vega": 0.1378314518246259,
+        "gamma": 0.0
+      }
+    },
+    "puts|100000|DYNCAP": {
+      "median_filled": 6.0,
+      "median_eff_hhi": 3.5194159081136958,
+      "n_invested_days": 806,
+      "median_invested_day_utilization_pct": 6.1675,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 85.52769755841429,
+        "oi": 62.22761879758467,
+        "sector": 4.765030191651352,
+        "vega": 0.0,
+        "gamma": 0.0
+      }
+    },
+    "puts|250000|FIXEDCAP": {
+      "median_filled": 9.0,
+      "median_eff_hhi": 7.119462397243633,
+      "n_invested_days": 985,
+      "median_invested_day_utilization_pct": 15.736,
+      "median_contracts_per_position": 16.0,
+      "constraints_pct": {
+        "premium": 0.026253609871357313,
+        "rounding_up_forced": 0.0,
+        "volume": 26.7524284589131,
+        "oi": 20.21527960094513,
+        "sector": 10.396429509057494,
+        "vega": 0.0,
+        "gamma": 0.0
+      }
+    },
+    "puts|250000|DYNCAP": {
+      "median_filled": 6.0,
+      "median_eff_hhi": 3.0635613203517065,
+      "n_invested_days": 806,
+      "median_invested_day_utilization_pct": 3.2009999999999996,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 92.18298766080336,
+        "oi": 81.83906537148859,
+        "sector": 4.765030191651352,
+        "vega": 0.0,
+        "gamma": 0.0
+      }
+    },
+    "puts|500000|FIXEDCAP": {
+      "median_filled": 9.0,
+      "median_eff_hhi": 6.266455778907376,
+      "n_invested_days": 985,
+      "median_invested_day_utilization_pct": 12.196,
+      "median_contracts_per_position": 21.0,
+      "constraints_pct": {
+        "premium": 0.013126804935678657,
+        "rounding_up_forced": 0.0,
+        "volume": 46.60672092412707,
+        "oi": 40.19427671304804,
+        "sector": 10.396429509057494,
+        "vega": 0.0,
+        "gamma": 0.0
+      }
+    },
+    "puts|500000|DYNCAP": {
+      "median_filled": 6.0,
+      "median_eff_hhi": 2.952995287715134,
+      "n_invested_days": 806,
+      "median_invested_day_utilization_pct": 1.6926999999999999,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 94.1913888159622,
+        "oi": 88.87503281701234,
+        "sector": 4.765030191651352,
+        "vega": 0.0,
+        "gamma": 0.0
+      }
+    },
+    "puts|1000000|FIXEDCAP": {
+      "median_filled": 9.0,
+      "median_eff_hhi": 5.309143353772919,
+      "n_invested_days": 985,
+      "median_invested_day_utilization_pct": 8.475000000000001,
+      "median_contracts_per_position": 24.0,
+      "constraints_pct": {
+        "premium": 0.013126804935678657,
+        "rounding_up_forced": 0.0,
+        "volume": 65.88343397217116,
+        "oi": 59.65476503019165,
+        "sector": 10.396429509057494,
+        "vega": 0.0,
+        "gamma": 0.0
+      }
+    },
+    "puts|1000000|DYNCAP": {
+      "median_filled": 6.0,
+      "median_eff_hhi": 2.8883343641787613,
+      "n_invested_days": 806,
+      "median_invested_day_utilization_pct": 0.8463499999999999,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 94.87398267261749,
+        "oi": 93.18718823838277,
+        "sector": 4.765030191651352,
+        "vega": 0.0,
+        "gamma": 0.0
+      }
+    },
+    "puts|2000000|FIXEDCAP": {
+      "median_filled": 9.0,
+      "median_eff_hhi": 4.487916514636728,
+      "n_invested_days": 985,
+      "median_invested_day_utilization_pct": 5.3252,
+      "median_contracts_per_position": 25.0,
+      "constraints_pct": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 78.104489367288,
+        "oi": 74.76371751115778,
+        "sector": 10.396429509057494,
+        "vega": 0.0,
+        "gamma": 0.0
+      }
+    },
+    "puts|2000000|DYNCAP": {
+      "median_filled": 6.0,
+      "median_eff_hhi": 2.881101565181713,
+      "n_invested_days": 806,
+      "median_invested_day_utilization_pct": 0.42317499999999997,
+      "median_contracts_per_position": 2.0,
+      "constraints_pct": {
+        "premium": 0.0,
+        "rounding_up_forced": 0.0,
+        "volume": 95.06432134418482,
+        "oi": 94.6245733788396,
+        "sector": 4.765030191651352,
+        "vega": 0.0,
+        "gamma": 0.0
+      }
+    }
+  },
+  "O2_listing_recency_separation": {
+    "calls": {
+      "n_selected": 23391,
+      "pct_pass_rule_asis": 60.77551194904023,
+      "pct_fail_rule_asis": 39.22448805095977,
+      "n_fail": 9175,
+      "among_failures_pct_dominated_by_NOT_YET_LISTED": 98.25613079019074,
+      "among_failures_pct_dominated_by_LISTED_BUT_UNQUOTED": 1.7438692098092643,
+      "mean_lookback_sessions_before_first_listing": 4.407378906416998,
+      "mean_lookback_sessions_listed_but_unquoted": 0.05343935701765636,
+      "mean_lookback_sessions_norow_after_listing": 0.0012825445684237528,
+      "pct_pass_rule_ADJUSTED_from_listing_date": 98.9055619682784,
+      "n_rescued_by_listing_adjustment": 8919,
+      "pct_of_all_selected_rescued": 38.13005001923817,
+      "pre_valid_frac_asis": {
+        "n": 23391,
+        "min": 0.0,
+        "p5": 0.2,
+        "q1": 0.5,
+        "median": 1.0,
+        "q3": 1.0,
+        "p95": 1.0,
+        "max": 1.0,
+        "mean": 0.776894959599846
+      },
+      "pre_valid_frac_adjusted": {
+        "n": 23390,
+        "min": 0.15,
+        "p5": 1.0,
+        "q1": 1.0,
+        "median": 1.0,
+        "q3": 1.0,
+        "p95": 1.0,
+        "max": 1.0,
+        "mean": 0.9965492017715024
+      },
+      "n_prelist_sessions": {
+        "n": 23391,
+        "min": 0.0,
+        "p5": 0.0,
+        "q1": 0.0,
+        "median": 0.0,
+        "q3": 10.0,
+        "p95": 16.0,
+        "max": 20.0,
+        "mean": 4.407378906416998
+      }
+    },
+    "puts": {
+      "n_selected": 15236,
+      "pct_pass_rule_asis": 67.16986085586768,
+      "pct_fail_rule_asis": 32.83013914413232,
+      "n_fail": 5002,
+      "among_failures_pct_dominated_by_NOT_YET_LISTED": 99.14034386245501,
+      "among_failures_pct_dominated_by_LISTED_BUT_UNQUOTED": 0.8596561375449819,
+      "mean_lookback_sessions_before_first_listing": 3.5499474927802575,
+      "mean_lookback_sessions_listed_but_unquoted": 0.02395641900761355,
+      "mean_lookback_sessions_norow_after_listing": 0.0015752165922814387,
+      "pct_pass_rule_ADJUSTED_from_listing_date": 99.54056182725125,
+      "n_rescued_by_listing_adjustment": 4932,
+      "pct_of_all_selected_rescued": 32.37070097138356,
+      "pre_valid_frac_asis": {
+        "n": 15236,
+        "min": 0.0,
+        "p5": 0.25,
+        "q1": 0.6,
+        "median": 1.0,
+        "q3": 1.0,
+        "p95": 1.0,
+        "max": 1.0,
+        "mean": 0.8212260435809924
+      },
+      "pre_valid_frac_adjusted": {
+        "n": 15236,
+        "min": 0.0,
+        "p5": 1.0,
+        "q1": 1.0,
+        "median": 1.0,
+        "q3": 1.0,
+        "p95": 1.0,
+        "max": 1.0,
+        "mean": 0.9984493000977378
+      },
+      "n_prelist_sessions": {
+        "n": 15236,
+        "min": 0.0,
+        "p5": 0.0,
+        "q1": 0.0,
+        "median": 0.0,
+        "q3": 8.0,
+        "p95": 15.0,
+        "max": 19.0,
+        "mean": 3.5499474927802575
+      }
+    }
+  }
+}

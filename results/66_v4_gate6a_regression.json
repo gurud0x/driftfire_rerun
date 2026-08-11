@@ -1,0 +1,172 @@
+{
+  "phase": "V4 Gate 6a - signal-level benchmark diagnostic",
+  "generated": "2026-08-09 17:19:28",
+  "script": "src/66_v4_gate6a_regression.py",
+  "pre_registration": "results/61_v4_gate6_benchmark_model_spec.md (all 7 flags resolved 2026-08-04)",
+  "window": "DEV 2015-01-01 to 2021-12-31 - no holdout code path",
+  "estimator": "single joint Fama-MacBeth cross-sectional OLS, full DEV sample - NOT the expanding-window walk-forward scheme (methodology correction, see script header); NW maxlags=21, MIN_XSEC=30, matching V3 src/49 exactly",
+  "cross_reference": "distinct from and does not substitute for prereg_V4.md Sec.11 item 6 (Gate 6b, portfolio-level)",
+  "disclosed_exclusion": "MktRV5 (feature 10) excluded from the regressor list - a market-level (date-only) variable is perfectly collinear with the daily intercept in a cross-sectional Fama-MacBeth design (confirmed: all 1,568 DEV dates failed the rank check identically before this fix). Retained in v4_gate6a_features_full.parquet, excluded here only.",
+  "benchmark_regressors": [
+    "RV1",
+    "Persist20",
+    "RV20",
+    "RV60",
+    "DSV5",
+    "JumpVar",
+    "VoV20",
+    "IV_ATM_var",
+    "IVTermStruct_var",
+    "IVSkew_var"
+  ],
+  "augmented_regressors": [
+    "RV1",
+    "Persist20",
+    "RV20",
+    "RV60",
+    "DSV5",
+    "JumpVar",
+    "VoV20",
+    "IV_ATM_var",
+    "IVTermStruct_var",
+    "IVSkew_var",
+    "compression_decile"
+  ],
+  "benchmark_model": {
+    "n_dates": 1701,
+    "n_dates_dropped": 0,
+    "mean_xsec_n": 927.5937683715462,
+    "mean_daily_r2": 0.28218581796811865,
+    "coefs": {
+      "const": {
+        "mean_coef": 0.03145969827565079,
+        "nw_t": 2.424857953980397,
+        "n_dates_used": 1701
+      },
+      "RV1": {
+        "mean_coef": 0.01136866653273704,
+        "nw_t": 6.851129494798503,
+        "n_dates_used": 1701
+      },
+      "Persist20": {
+        "mean_coef": -0.052097372959050155,
+        "nw_t": -6.265764394542149,
+        "n_dates_used": 1701
+      },
+      "RV20": {
+        "mean_coef": 0.0736307730112671,
+        "nw_t": 3.860516694863338,
+        "n_dates_used": 1701
+      },
+      "RV60": {
+        "mean_coef": 0.09468316698103729,
+        "nw_t": 6.188502061780124,
+        "n_dates_used": 1701
+      },
+      "DSV5": {
+        "mean_coef": 0.01947960438413751,
+        "nw_t": 1.8859851190797685,
+        "n_dates_used": 1701
+      },
+      "JumpVar": {
+        "mean_coef": -0.24058912824796258,
+        "nw_t": -8.109092998164988,
+        "n_dates_used": 1701
+      },
+      "VoV20": {
+        "mean_coef": 2.0754500462520586,
+        "nw_t": 4.024144577079932,
+        "n_dates_used": 1701
+      },
+      "IV_ATM_var": {
+        "mean_coef": 0.5477941092471666,
+        "nw_t": 19.055513182865173,
+        "n_dates_used": 1701
+      },
+      "IVTermStruct_var": {
+        "mean_coef": -1.405203275522257,
+        "nw_t": -14.601509282839682,
+        "n_dates_used": 1701
+      },
+      "IVSkew_var": {
+        "mean_coef": 0.09176220503174148,
+        "nw_t": 5.2547347885622155,
+        "n_dates_used": 1701
+      }
+    }
+  },
+  "augmented_model": {
+    "n_dates": 1701,
+    "n_dates_dropped": 0,
+    "mean_xsec_n": 927.5937683715462,
+    "mean_daily_r2": 0.28567436368994376,
+    "coefs": {
+      "const": {
+        "mean_coef": 0.05704348810449671,
+        "nw_t": 4.206388815418059,
+        "n_dates_used": 1701
+      },
+      "RV1": {
+        "mean_coef": 0.011068004952338076,
+        "nw_t": 6.706014894100477,
+        "n_dates_used": 1701
+      },
+      "Persist20": {
+        "mean_coef": -0.050102694442829915,
+        "nw_t": -6.142556413019378,
+        "n_dates_used": 1701
+      },
+      "RV20": {
+        "mean_coef": 0.07300844281798073,
+        "nw_t": 3.8522652253630314,
+        "n_dates_used": 1701
+      },
+      "RV60": {
+        "mean_coef": 0.0776429144199024,
+        "nw_t": 5.500217841621909,
+        "n_dates_used": 1701
+      },
+      "DSV5": {
+        "mean_coef": 0.018241583560443753,
+        "nw_t": 1.779809533583648,
+        "n_dates_used": 1701
+      },
+      "JumpVar": {
+        "mean_coef": -0.2539314620243902,
+        "nw_t": -8.297720085464995,
+        "n_dates_used": 1701
+      },
+      "VoV20": {
+        "mean_coef": 3.042986534265635,
+        "nw_t": 5.5378957363792125,
+        "n_dates_used": 1701
+      },
+      "IV_ATM_var": {
+        "mean_coef": 0.5385945754266895,
+        "nw_t": 18.70455582520198,
+        "n_dates_used": 1701
+      },
+      "IVTermStruct_var": {
+        "mean_coef": -1.3698835613127298,
+        "nw_t": -14.464890194087532,
+        "n_dates_used": 1701
+      },
+      "IVSkew_var": {
+        "mean_coef": 0.09174645182234067,
+        "nw_t": 5.297289276946938,
+        "n_dates_used": 1701
+      },
+      "compression_decile": {
+        "mean_coef": -0.006312308214074312,
+        "nw_t": -9.397826424352012,
+        "n_dates_used": 1701
+      }
+    }
+  },
+  "incremental_R2": 0.0034885457218251092,
+  "compression_coefficient_augmented": {
+    "mean_coef": -0.006312308214074312,
+    "nw_t": -9.397826424352012,
+    "n_dates_used": 1701
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "phase": "V4 Gate 6a - sensitivity check and Hou-Loh-style decomposition",
+  "generated": "2026-08-09 17:27:45",
+  "script": "src/67_v4_gate6a_sensitivity_decomposition.py",
+  "cross_reference": "diagnostic follow-up to Gate 6a (results/66_v4_gate6a_regression.json), NOT a new gate",
+  "decomposition_methodology_disclosure": "Regression-based analogue of Hou & Loh (2016) / Branger, Hulsbusch & Middelhoff (2017) Table 16 - NOT the original portfolio-double-sort method (no such infrastructure exists in this project and building one was not requested). For each benchmark feature Zj, both the benchmark-only and augmented models are refit with Zj removed; the change in compression's incremental R^2 when Zj is absent is attributed to Zj.",
+  "baseline": {
+    "benchmark_only_R2": 0.28218581796811865,
+    "augmented_R2": 0.28567436368994376,
+    "incremental_R2": 0.0034885457218251092,
+    "compression_coef": -0.006312308214074312,
+    "compression_nw_t": -9.397826424352012
+  },
+  "leave_one_out": {
+    "RV1": {
+      "own_coef_in_full_augmented_model": 0.011068004952338076,
+      "own_nw_t_in_full_augmented_model": 6.706014894100477,
+      "compression_t_with_feature_removed": -9.337528006850578,
+      "compression_t_delta_vs_full": 0.06029841750143383,
+      "compression_coef_with_feature_removed": -0.006359838800932427,
+      "benchmark_only_R2_minus_feature": 0.2786461544619904,
+      "augmented_R2_minus_feature": 0.28217495309738333,
+      "incremental_R2_minus_feature": 0.0035287986353929046,
+      "attribution_to_feature": 4.025291356779537e-05,
+      "pct_of_compression_explanatory_power": 1.153859423884408
+    },
+    "Persist20": {
+      "own_coef_in_full_augmented_model": -0.050102694442829915,
+      "own_nw_t_in_full_augmented_model": -6.142556413019378,
+      "compression_t_with_feature_removed": -9.372287393525406,
+      "compression_t_delta_vs_full": 0.02553903082660547,
+      "compression_coef_with_feature_removed": -0.006369601098539854,
+      "benchmark_only_R2_minus_feature": 0.28040051763235024,
+      "augmented_R2_minus_feature": 0.2839846102182822,
+      "incremental_R2_minus_feature": 0.003584092585931953,
+      "attribution_to_feature": 9.554686410684354e-05,
+      "pct_of_compression_explanatory_power": 2.7388737808159243
+    },
+    "RV20": {
+      "own_coef_in_full_augmented_model": 0.07300844281798073,
+      "own_nw_t_in_full_augmented_model": 3.8522652253630314,
+      "compression_t_with_feature_removed": -9.593093133665334,
+      "compression_t_delta_vs_full": -0.1952667093133229,
+      "compression_coef_with_feature_removed": -0.006472528172085463,
+      "benchmark_only_R2_minus_feature": 0.2780100238238639,
+      "augmented_R2_minus_feature": 0.2815574075133388,
+      "incremental_R2_minus_feature": 0.003547383689474881,
+      "attribution_to_feature": 5.8837967649771894e-05,
+      "pct_of_compression_explanatory_power": 1.6866044576015913
+    },
+    "RV60": {
+      "own_coef_in_full_augmented_model": 0.0776429144199024,
+      "own_nw_t_in_full_augmented_model": 5.500217841621909,
+      "compression_t_with_feature_removed": -10.243567911319252,
+      "compression_t_delta_vs_full": -0.8457414869672402,
+      "compression_coef_with_feature_removed": -0.007160622418910548,
+      "benchmark_only_R2_minus_feature": 0.2689690923726316,
+      "augmented_R2_minus_feature": 0.2737311408013502,
+      "incremental_R2_minus_feature": 0.004762048428718579,
+      "attribution_to_feature": 0.0012735027068934701,
+      "pct_of_compression_explanatory_power": 36.50526059974381
+    },
+    "DSV5": {
+      "own_coef_in_full_augmented_model": 0.018241583560443753,
+      "own_nw_t_in_full_augmented_model": 1.779809533583648,
+      "compression_t_with_feature_removed": -9.292454004686126,
+      "compression_t_delta_vs_full": 0.10537241966588518,
+      "compression_coef_with_feature_removed": -0.006357847274481265,
+      "benchmark_only_R2_minus_feature": 0.279221759020725,
+      "augmented_R2_minus_feature": 0.2827344060533522,
+      "incremental_R2_minus_feature": 0.003512647032627214,
+      "attribution_to_feature": 2.410131080210487e-05,
+      "pct_of_compression_explanatory_power": 0.6908698559208145
+    },
+    "JumpVar": {
+      "own_coef_in_full_augmented_model": -0.2539314620243902,
+      "own_nw_t_in_full_augmented_model": -8.297720085464995,
+      "compression_t_with_feature_removed": -9.229571893283488,
+      "compression_t_delta_vs_full": 0.1682545310685235,
+      "compression_coef_with_feature_removed": -0.005711796503845682,
+      "benchmark_only_R2_minus_feature": 0.27356560877407976,
+      "augmented_R2_minus_feature": 0.27664028516524136,
+      "incremental_R2_minus_feature": 0.0030746763911616015,
+      "attribution_to_feature": -0.00041386933066350773,
+      "pct_of_compression_explanatory_power": -11.863663648558486
+    },
+    "VoV20": {
+      "own_coef_in_full_augmented_model": 3.042986534265635,
+      "own_nw_t_in_full_augmented_model": 5.5378957363792125,
+      "compression_t_with_feature_removed": -8.875749656794701,
+      "compression_t_delta_vs_full": 0.5220767675573104,
+      "compression_coef_with_feature_removed": -0.005164768420177304,
+      "benchmark_only_R2_minus_feature": 0.27919180975578256,
+      "augmented_R2_minus_feature": 0.28220500160923706,
+      "incremental_R2_minus_feature": 0.0030131918534545,
+      "attribution_to_feature": -0.00047535386837060933,
+      "pct_of_compression_explanatory_power": -13.626132671751757
+    },
+    "IV_ATM_var": {
+      "own_coef_in_full_augmented_model": 0.5385945754266895,
+      "own_nw_t_in_full_augmented_model": 18.70455582520198,
+      "compression_t_with_feature_removed": -13.43025539957109,
+      "compression_t_delta_vs_full": -4.032428975219078,
+      "compression_coef_with_feature_removed": -0.01149300869073216,
+      "benchmark_only_R2_minus_feature": 0.16519171352313142,
+      "augmented_R2_minus_feature": 0.17283545535605346,
+      "incremental_R2_minus_feature": 0.007643741832922046,
+      "attribution_to_feature": 0.004155196111096937,
+      "pct_of_compression_explanatory_power": 119.10969333442061
+    },
+    "IVTermStruct_var": {
+      "own_coef_in_full_augmented_model": -1.3698835613127298,
+      "own_nw_t_in_full_augmented_model": -14.464890194087532,
+      "compression_t_with_feature_removed": -10.099442836269896,
+      "compression_t_delta_vs_full": -0.7016164119178843,
+      "compression_coef_with_feature_removed": -0.006965878720324861,
+      "benchmark_only_R2_minus_feature": 0.2684887134252457,
+      "augmented_R2_minus_feature": 0.2724172488446638,
+      "incremental_R2_minus_feature": 0.003928535419418067,
+      "attribution_to_feature": 0.00043998969759295736,
+      "pct_of_compression_explanatory_power": 12.61241023273065
+    },
+    "IVSkew_var": {
+      "own_coef_in_full_augmented_model": 0.09174645182234067,
+      "own_nw_t_in_full_augmented_model": 5.297289276946938,
+      "compression_t_with_feature_removed": -9.445027538228084,
+      "compression_t_delta_vs_full": -0.0472011138760724,
+      "compression_coef_with_feature_removed": -0.006346828661751166,
+      "benchmark_only_R2_minus_feature": 0.2802381836423674,
+      "augmented_R2_minus_feature": 0.283763444729886,
+      "incremental_R2_minus_feature": 0.0035252610875186052,
+      "attribution_to_feature": 3.671536569349598e-05,
+      "pct_of_compression_explanatory_power": 1.0524547654283727
+    }
+  },
+  "residual_pct_of_compression_power": -50.06023013023594
+}

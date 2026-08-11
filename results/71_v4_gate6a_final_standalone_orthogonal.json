@@ -1,0 +1,31 @@
+{
+  "phase": "V4 Gate 6a - FINAL closing test - compression_orthogonal_full standalone forecast",
+  "generated": "2026-08-11 01:34:05",
+  "script": "src/71_v4_gate6a_final_standalone_orthogonal.py",
+  "cross_reference": "closes the question flagged as not-yet-run in results/61 consolidation (b) and results/70 - answers whether compression carries forecasting content independent of ALL 10 benchmark features including IV_ATM_var",
+  "orthogonalization_full": {
+    "method": "resid(compression_decile ~ const + ALL 10 benchmark features), pooled OLS",
+    "benchmark_cols": [
+      "RV1",
+      "Persist20",
+      "RV20",
+      "RV60",
+      "DSV5",
+      "JumpVar",
+      "VoV20",
+      "IV_ATM_var",
+      "IVTermStruct_var",
+      "IVSkew_var"
+    ],
+    "n_pooled": 1585103,
+    "r2_compression_on_all10": 0.09145048743635242
+  },
+  "standalone_univariate_forecast": {
+    "n_dates": 1701,
+    "n_dates_dropped": 0,
+    "mean_xsec_n": 927.5937683715462,
+    "R2": 0.008277708623626149,
+    "coefficient": -0.004747852346559399,
+    "nw_t": -3.278739134081735
+  }
+}

@@ -3,3 +3,14 @@
 
 # Large datasets and generated artifacts
 data/
+
+# Python bytecode/cache
+__pycache__/
+*.pyc
+
+# Temporary local run outputs
+tmp_*.txt
+*_run.txt
+
+# Verbose execution logs (curated outputs stay in results/ root)
+results/logs/
