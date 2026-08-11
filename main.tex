@@ -59,6 +59,28 @@ OptionMetrics uses the CUSIP value 99999999 as a placeholder for unidentified an
 The first specification ranks stocks by trailing five-day return within the size-6-to-8 universe and holds the bottom decile long for five trading days, implemented as five overlapping daily tranches so that one fifth of capital rotates each day. Entry is at the next day's open. Costs are 15 basis points per side, with realized annualized one-way turnover of 50.4 times. The pre-registration fixed all of these parameters, along with a pass criterion requiring a positive intercept with a $t$-statistic of at least 2.0, before any return data was examined.
 
 The gate result is a decisive rejection. Net of costs, the strategy's daily excess return is $-7.45$ basis points ($t = -5.04$), which annualizes to roughly $-18.8\%$. The regression coefficients explain why. The portfolio loads heavily on the published short-term reversal factor ($\beta = 0.562$, $t = 6.85$), on size ($\beta = 1.094$, $t = 20.84$), and on the market ($\beta = 0.969$, $t = 28.02$), producing an $R^2$ of 0.904. Whatever positive raw return this strategy generated came from exposures that are already available, already documented, and already priced. The strategy is a repackaging of ST\_Rev with a turnover cost attached.
+\begin{table}[htbp]
+\centering
+\caption{R1: Unconditional Reversal, Primary Gate (Development Window, Net of Costs)}
+\begin{tabular}{lrr}
+\toprule
+Factor & Coefficient & $t$-statistic \\
+\midrule
+Intercept (daily, bps) & $-$7.45 & $-$5.04 \\
+Mkt-RF & 0.969 & 28.02 \\
+SMB & 1.094 & 20.84 \\
+HML & $-$0.252 & $-$7.08 \\
+RMW & $-$0.568 & $-$11.15 \\
+CMA & 0.054 & 0.83 \\
+MOM & $-$0.157 & $-$4.87 \\
+ST\_Rev & 0.562 & 6.85 \\
+\midrule
+\multicolumn{3}{l}{$R^2 = 0.904$, $n = 1{,}738$ days, Newey-West SE (10 lags)} \\
+\bottomrule
+\end{tabular}
+\label{tab:r1-primary}
+\end{table}
+
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{results/figures/fig1_r1_r2_factor_loadings.pdf}
@@ -91,6 +113,28 @@ The compression score for each stock-day is the ratio of its trailing twenty-day
 The development result clears that bar by a wide margin. Across 1,718 daily cross-sectional regressions, the mean coefficient is $-0.004265$ with $t = -6.883$, and the coefficient is negative on 72.8\% of trading days. The holdout, evaluated once, is sign-consistent at $-0.003348$ ($t = -3.385$ for the record; the pre-registered criterion was sign consistency alone). The out-of-sample coefficient retains roughly 79\% of the development magnitude, which is the kind of moderate attenuation a real effect produces when it moves to unseen data, rather than the collapse toward zero that overfitting produces.
 
 The decile table complicates the interpretation in a way worth reporting rather than smoothing over. Forward volatility declines monotonically from decile 1 (0.466) through decile 8 (0.389), exactly as hypothesized, and decile 1 is the sample maximum. But decile 10, the most expanded names, is the second highest at 0.432. The relationship is U-shaped, not linear. This is economically sensible: compressed stocks are more likely to move because quiet precedes activity, and expanded stocks are more likely to move because volatility clusters and recent activity persists. Both tails carry information. The pre-registered linear specification passes because the compression side dominates, but the compression tail is the novel finding here, and the expansion tail is a restatement of volatility clustering that required no new signal to discover. The holdout reproduces the same shape, with decile 1 at 0.515 and decile 10 at 0.490, confirming the pattern is structural rather than sample-specific.
+\begin{table}[htbp]
+\centering
+\caption{R2: Volume-Conditioned Reversal, Net and Gross (Development Window)}
+\begin{tabular}{lrrrr}
+\toprule
+& \multicolumn{2}{c}{Net of Costs} & \multicolumn{2}{c}{Gross (Pre-Cost)} \\
+Factor & Coef. & $t$-stat & Coef. & $t$-stat \\
+\midrule
+Intercept (daily, bps) & $-$8.71 & $-$4.68 & $-$2.72 & $-$1.46 \\
+Mkt-RF & 0.810 & 13.82 & 0.810 & 13.84 \\
+SMB & 1.111 & 13.29 & 1.111 & 13.31 \\
+HML & $-$0.298 & $-$5.10 & $-$0.298 & $-$5.11 \\
+RMW & $-$0.382 & $-$5.79 & $-$0.382 & $-$5.81 \\
+CMA & $-$0.072 & $-$0.73 & $-$0.072 & $-$0.73 \\
+MOM & $-$0.129 & $-$5.20 & $-$0.129 & $-$5.20 \\
+ST\_Rev & 0.326 & 5.93 & 0.326 & 5.93 \\
+\midrule
+\multicolumn{5}{l}{$R^2 = 0.778$, $n = 1{,}738$ days, Newey-West SE (10 lags)} \\
+\bottomrule
+\end{tabular}
+\label{tab:r2-primary}
+\end{table}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{results/figures/fig3_v1_decay_curve.pdf}
@@ -110,6 +154,28 @@ The result passes both gates with a marginally stronger $t$-statistic than V1 (d
 \subsection{Horizon Behavior}
 
 A separate exploratory check, carrying no gate authority, extended the forecast target to five, twenty, and thirty trading days. The signal does not decay with horizon. The Newey-West statistic strengthens from $-5.43$ at five days to $-6.88$ at ten and $-8.18$ at both twenty and thirty. This is consistent with compression predicting a persistent shift in volatility regime rather than a transient burst, and it is also mechanically expected in part, since longer realized-volatility windows are less noisy targets and permit more precise coefficient estimation. The finding matters for Section 6, where instrument availability forces a thirty-day tenor and this exhibit establishes that the signal has not weakened at that horizon.
+\begin{table}[htbp]
+\centering
+\caption{R2: Volume-Conditioned Reversal, Net and Gross (Development Window)}
+\begin{tabular}{lrrrr}
+\toprule
+& \multicolumn{2}{c}{Net of Costs} & \multicolumn{2}{c}{Gross (Pre-Cost)} \\
+Factor & Coef. & $t$-stat & Coef. & $t$-stat \\
+\midrule
+Intercept (daily, bps) & $-$8.71 & $-$4.68 & $-$2.72 & $-$1.46 \\
+Mkt-RF & 0.810 & 13.82 & 0.810 & 13.84 \\
+SMB & 1.111 & 13.29 & 1.111 & 13.31 \\
+HML & $-$0.298 & $-$5.10 & $-$0.298 & $-$5.11 \\
+RMW & $-$0.382 & $-$5.79 & $-$0.382 & $-$5.81 \\
+CMA & $-$0.072 & $-$0.73 & $-$0.072 & $-$0.73 \\
+MOM & $-$0.129 & $-$5.20 & $-$0.129 & $-$5.20 \\
+ST\_Rev & 0.326 & 5.93 & 0.326 & 5.93 \\
+\midrule
+\multicolumn{5}{l}{$R^2 = 0.778$, $n = 1{,}738$ days, Newey-West SE (10 lags)} \\
+\bottomrule
+\end{tabular}
+\label{tab:r2-primary}
+\end{table}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{results/figures/fig3_v1_decay_curve.pdf}
@@ -124,6 +190,21 @@ A separate exploratory check, carrying no gate authority, extended the forecast 
 The compression signal establishes that quiet stocks subsequently move more than active ones on average. It does not, on its own, produce a point forecast of how much a specific stock will move, which is what any options-based expression requires. Selecting that forecaster is itself a specification decision capable of being optimized after the fact, so it was pre-registered as a separate phase with a fixed evaluation metric and a fixed decision rule before any candidate was run.
 
 Three forecasters competed on development-window data over a common sample of 1,557,783 stock-days, evaluated by mean absolute error against realized ten-day forward volatility. Trailing twenty-day realized volatility, a parameter-free estimate, achieved an MAE of 0.1751. A per-stock GARCH(1,1) achieved 0.1810. Using each compression decile's average forward volatility as a categorical forecast achieved 0.1980. The simplest candidate won outright, and the pre-registered tie-breaking rule favoring simplicity was not needed.
+\begin{table}[htbp]
+\centering
+\caption{V1 and V2: Compression Forecasting, Development and Holdout}
+\begin{tabular}{lrrr}
+\toprule
+Specification & Window & Mean Coefficient & Newey-West $t$ \\
+\midrule
+V1 (own-history) & Dev & $-$0.004265 & $-$6.883 \\
+V1 (own-history) & Holdout & $-$0.003348 & $-$3.385 \\
+V2 (sector-relative) & Dev & $-$0.003816 & $-$7.016 \\
+V2 (sector-relative) & Holdout & $-$0.002556 & $-$3.062 \\
+\bottomrule
+\end{tabular}
+\label{tab:v1v2-summary}
+\end{table}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{results/figures/fig4_k0_horse_race.pdf}
@@ -157,6 +238,21 @@ Valuing the exit at the fresh thirty-day price implicitly assumes the position l
 A second implementation corrected for this by scaling the exit implied volatility by $\sqrt{T_{\text{remaining}}/30}$. This overcorrected. Black-Scholes evaluated at fifteen days already applies the correct time scaling for a given volatility; discounting the volatility input as well double-counts the decay. That implementation produced $-11.74\%$ per trade and a gate failure at $t = -10.179$. It is also economically backwards in direction, since short-tenor implied volatility after a volatility event typically exceeds thirty-day implied volatility rather than falling 28\% below it.
 
 The two estimates bracket a value neither can measure. The 21.7 percentage point swing between them matches the square-root-of-time arithmetic almost exactly, which confirms the diagnosis but does not resolve the question. Both entries remain in the project's gate log rather than being deleted, since the sequence is the evidence that the final estimate was not selected from among alternatives after the fact.
+\begin{table}[htbp]
+\centering
+\caption{V1 and V2: Compression Forecasting, Development and Holdout}
+\begin{tabular}{lrrr}
+\toprule
+Specification & Window & Mean Coefficient & Newey-West $t$ \\
+\midrule
+V1 (own-history) & Dev & $-$0.004265 & $-$6.883 \\
+V1 (own-history) & Holdout & $-$0.003348 & $-$3.385 \\
+V2 (sector-relative) & Dev & $-$0.003816 & $-$7.016 \\
+V2 (sector-relative) & Holdout & $-$0.002556 & $-$3.062 \\
+\bottomrule
+\end{tabular}
+\label{tab:v1v2-summary}
+\end{table}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{results/figures/fig5_k1_three_valuations.pdf}
@@ -175,7 +271,20 @@ OptionMetrics' option price file reports actual quoted bid and ask for individua
 The mid-to-mid mean per-trade return is $+3.85\%$. It falls between the two reconstructions, closer to the optimistic one, consistent with the direction and approximate magnitude of the bias each introduced. This is the paper's best estimate of the strategy's gross-of-friction edge, and taken alone it looks encouraging.
 
 The same data shows why it is not tradeable. The median entry-side bid-ask spread on these contracts is 18.8\% of mid price, and the mean is 29.8\%. Roughly half of matched contract-days carry zero volume and zero open interest, and 23\% have no bid at all. A round-trip position crossing that spread on entry and exit must gain on the order of 40 to 60\% before it breaks even, against an edge of 3.85\%. The daily portfolio return, aggregating overlapping positions with spread cost applied to both legs, is $-72.14$ basis points ($t = -5.011$), and only 31.6\% of trading days are positive. 
-\begin{figure}[htbp]
+\begin{table}[htbp]
+\centering
+\caption{K0: Forecaster Horse Race, Mean Absolute Error}
+\begin{tabular}{lrr}
+\toprule
+Forecaster & MAE (10-day) & MAE (30-day) \\
+\midrule
+TRAIL20 (trailing 20d vol) & 0.1751 & 0.1644 \\
+GARCH(1,1) & 0.1810 & 0.1621 \\
+Compression decile mean & 0.1980 & --- \\
+\bottomrule
+\end{tabular}
+\label{tab:k0-horserace}
+\end{table}\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{results/figures/fig6_k1_spread_vs_edge.pdf}
     \caption{The measured gross edge (+3.85\%) against the measured 
